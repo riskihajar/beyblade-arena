@@ -1,0 +1,43 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "laravel-boost": {
+            "type": "local",
+            "enabled": true,
+            "command": [
+                "php",
+                "artisan",
+                "boost:mcp"
+            ]
+        },
+        "context7": {
+            "type": "local",
+            "command": [
+                "npx",
+                "-y",
+                "@upstash/context7-mcp",
+                "--api-key",
+                "ctx7sk-ae69282c-e8d3-4ed3-a1b9-ea9f109b260e"
+            ],
+            "enabled": true
+        },
+        "shadcn": {
+            "type": "local",
+            "command": [
+                "npx",
+                "shadcn@latest",
+                "mcp"
+            ]
+        }
+    },
+    "instructions": [
+        "AGENTS.md",
+        ".ai/rules/web-development.md",
+        ".ai/rules/language-agnostic-patterns.md",
+        ".ai/rules/minimax-m2-core.md",
+        ".ai/rules/minimax-m2-verification.md",
+        ".ai/rules/clarify-first-prompting.md",
+        ".ai/rules/minimax-mcp-tools.md",
+        ".ai/rules/devops-infrastructure.md"
+    ]
+}

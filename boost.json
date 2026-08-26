@@ -1,0 +1,32 @@
+{
+    "agents": [
+        "claude_code",
+        "codex",
+        "cursor",
+        "opencode",
+        "gemini"
+    ],
+    "cloud": false,
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch_mcp": false,
+    "sail": false,
+    "skills": [
+        "infer-conventions",
+        "fortify-development",
+        "laravel-best-practices",
+        "testing-best-practices",
+        "scout-development",
+        "wayfinder-development",
+        "ai-sdk-development",
+        "inertia-react-development",
+        "tailwindcss-development",
+        "echo-react-development",
+        "echo-development",
+        "build-assets",
+        "cleanup-branches",
+        "docs-update",
+        "github-issue",
+        "github-solve-issue"
+    ]
+}
