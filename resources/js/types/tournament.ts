@@ -102,7 +102,16 @@ export interface Registration {
     display_nickname: string;
     seed_number?: number | null;
     group_code?: string | null;
-    status: 'pending' | 'confirmed' | 'checked_in' | 'waitlisted' | 'disqualified' | 'withdrawn' | 'no_show' | 'cancelled' | 'rejected';
+    status:
+        | 'pending'
+        | 'confirmed'
+        | 'checked_in'
+        | 'waitlisted'
+        | 'disqualified'
+        | 'withdrawn'
+        | 'no_show'
+        | 'cancelled'
+        | 'rejected';
     deck_data?: BeyCombo[] | null;
     is_deck_locked: boolean;
     notes?: string | null;
@@ -121,7 +130,12 @@ export interface MatchBattle {
     match_id: string;
     battle_number: number;
     winner_id?: string | null;
-    finish_type: 'spin_finish' | 'over_finish' | 'burst_finish' | 'xtreme_finish' | 'penalty_foul';
+    finish_type:
+        | 'spin_finish'
+        | 'over_finish'
+        | 'burst_finish'
+        | 'xtreme_finish'
+        | 'penalty_foul';
     points_awarded: number;
     player1_points_after: number;
     player2_points_after: number;
@@ -147,7 +161,13 @@ export interface TournamentMatch {
     winner_id?: string | null;
     player1_score: number;
     player2_score: number;
-    status: 'scheduled' | 'called' | 'in_progress' | 'completed' | 'disputed' | 'walkover';
+    status:
+        | 'scheduled'
+        | 'called'
+        | 'in_progress'
+        | 'completed'
+        | 'disputed'
+        | 'walkover';
     is_disputed?: boolean;
     dispute_reason?: string | null;
     ruleset_snapshot?: Record<string, unknown> | null;

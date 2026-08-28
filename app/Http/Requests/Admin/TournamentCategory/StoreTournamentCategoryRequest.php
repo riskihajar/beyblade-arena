@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\TournamentCategory;
 
 use App\Enums\DeckLockPolicyEnum;
 use App\Enums\EventFormatEnum;
+use App\Models\TournamentCategory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -11,7 +12,7 @@ class StoreTournamentCategoryRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\TournamentCategory::class);
+        return $this->user()->can('create', TournamentCategory::class);
     }
 
     public function rules(): array

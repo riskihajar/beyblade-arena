@@ -5,11 +5,8 @@ use App\Actions\Tournament\HandleMatchDisputeAction;
 use App\Actions\Tournament\HandleWalkoverAction;
 use App\Actions\Tournament\RecordMatchBattleAction;
 use App\Enums\EventStatusEnum;
-use App\Enums\MatchFinishTypeEnum;
 use App\Enums\MatchStatusEnum;
-use App\Enums\RegistrationStatusEnum;
 use App\Enums\StadiumStatusEnum;
-use App\Enums\UserRoleEnum;
 use App\Models\Event;
 use App\Models\Registration;
 use App\Models\Stadium;
@@ -17,7 +14,6 @@ use App\Models\TournamentCategory;
 use App\Models\TournamentMatch;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
-use Illuminate\Validation\ValidationException;
 
 beforeEach(function () {
     $this->seed(RolePermissionSeeder::class);

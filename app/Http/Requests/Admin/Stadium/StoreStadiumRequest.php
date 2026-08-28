@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Stadium;
 
 use App\Enums\StadiumStatusEnum;
+use App\Models\Stadium;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -10,7 +11,7 @@ class StoreStadiumRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\Stadium::class);
+        return $this->user()->can('create', Stadium::class);
     }
 
     public function rules(): array

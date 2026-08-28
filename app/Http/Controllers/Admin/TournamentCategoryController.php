@@ -36,7 +36,7 @@ class TournamentCategoryController extends Controller
         $validated = $request->validated();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']) . '-' . Str::lower(Str::random(4));
+            $validated['slug'] = Str::slug($validated['name']).'-'.Str::lower(Str::random(4));
         }
 
         $category = TournamentCategory::create($validated);
@@ -73,7 +73,7 @@ class TournamentCategoryController extends Controller
         $validated = $request->validated();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']) . '-' . Str::lower(Str::random(4));
+            $validated['slug'] = Str::slug($validated['name']).'-'.Str::lower(Str::random(4));
         }
 
         $category->update($validated);

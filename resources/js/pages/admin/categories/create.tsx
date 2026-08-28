@@ -38,7 +38,11 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                 <Form action={store().url} method="post">
                     {({ processing, errors }) => (
                         <>
-                            <input type="hidden" name="event_id" value={event.id} />
+                            <input
+                                type="hidden"
+                                name="event_id"
+                                value={event.id}
+                            />
 
                             <Frame>
                                 <FrameHeader>
@@ -46,14 +50,27 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                         <Button
                                             variant="ghost"
                                             size="icon-sm"
-                                            render={<Link href={showEvent({ event: event.id }).url} />}
+                                            render={
+                                                <Link
+                                                    href={
+                                                        showEvent({
+                                                            event: event.id,
+                                                        }).url
+                                                    }
+                                                />
+                                            }
                                         >
                                             <ArrowLeft className="size-4" />
                                         </Button>
                                         <div>
-                                            <FrameTitle>Tambah Kategori Divisi</FrameTitle>
+                                            <FrameTitle>
+                                                Tambah Kategori Divisi
+                                            </FrameTitle>
                                             <FrameDescription>
-                                                Event: <span className="font-semibold text-foreground">{event.name}</span>
+                                                Event:{' '}
+                                                <span className="font-semibold text-foreground">
+                                                    {event.name}
+                                                </span>
                                             </FrameDescription>
                                         </div>
                                     </div>
@@ -63,8 +80,15 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                     <div className="space-y-6">
                                         <Fieldset className="space-y-4">
                                             {/* Nama Kategori */}
-                                            <Field name="name" data-invalid={!!errors.name || undefined}>
-                                                <FieldLabel htmlFor="name">Nama Kategori Divisi</FieldLabel>
+                                            <Field
+                                                name="name"
+                                                data-invalid={
+                                                    !!errors.name || undefined
+                                                }
+                                            >
+                                                <FieldLabel htmlFor="name">
+                                                    Nama Kategori Divisi
+                                                </FieldLabel>
                                                 <Input
                                                     id="name"
                                                     name="name"
@@ -72,48 +96,115 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                                     placeholder="Contoh: Open Master Division / Junior (U-12)"
                                                     required
                                                 />
-                                                <FieldError error={errors.name} />
+                                                <FieldError
+                                                    error={errors.name}
+                                                />
                                             </Field>
 
                                             {/* Ruleset Scoring */}
-                                            <Field name="ruleset_id" data-invalid={!!errors.ruleset_id || undefined}>
-                                                <FieldLabel htmlFor="ruleset_id">Template Ruleset Scoring</FieldLabel>
+                                            <Field
+                                                name="ruleset_id"
+                                                data-invalid={
+                                                    !!errors.ruleset_id ||
+                                                    undefined
+                                                }
+                                            >
+                                                <FieldLabel htmlFor="ruleset_id">
+                                                    Template Ruleset Scoring
+                                                </FieldLabel>
                                                 <select
                                                     id="ruleset_id"
                                                     name="ruleset_id"
-                                                    defaultValue={rulesets[0]?.id || ''}
-                                                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                                    defaultValue={
+                                                        rulesets[0]?.id || ''
+                                                    }
+                                                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     required
                                                 >
                                                     {rulesets.map((ruleset) => (
-                                                        <option key={ruleset.id} value={ruleset.id}>
-                                                            {ruleset.name} ({ruleset.points_to_win} Poin to Win) — Spin: {ruleset.spin_finish_points} | Over: {ruleset.over_finish_points} | Burst: {ruleset.burst_finish_points} | Xtreme: {ruleset.xtreme_finish_points}
+                                                        <option
+                                                            key={ruleset.id}
+                                                            value={ruleset.id}
+                                                        >
+                                                            {ruleset.name} (
+                                                            {
+                                                                ruleset.points_to_win
+                                                            }{' '}
+                                                            Poin to Win) — Spin:{' '}
+                                                            {
+                                                                ruleset.spin_finish_points
+                                                            }{' '}
+                                                            | Over:{' '}
+                                                            {
+                                                                ruleset.over_finish_points
+                                                            }{' '}
+                                                            | Burst:{' '}
+                                                            {
+                                                                ruleset.burst_finish_points
+                                                            }{' '}
+                                                            | Xtreme:{' '}
+                                                            {
+                                                                ruleset.xtreme_finish_points
+                                                            }
                                                         </option>
                                                     ))}
                                                 </select>
-                                                <FieldError error={errors.ruleset_id} />
+                                                <FieldError
+                                                    error={errors.ruleset_id}
+                                                />
                                             </Field>
 
                                             {/* Format & Target Poin */}
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                                <Field name="format" data-invalid={!!errors.format || undefined}>
-                                                    <FieldLabel htmlFor="format">Format Turnamen</FieldLabel>
+                                                <Field
+                                                    name="format"
+                                                    data-invalid={
+                                                        !!errors.format ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="format">
+                                                        Format Turnamen
+                                                    </FieldLabel>
                                                     <select
                                                         id="format"
                                                         name="format"
                                                         defaultValue="single_elimination"
-                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     >
-                                                        <option value="single_elimination">Single Elimination (Gugur Tunggal)</option>
-                                                        <option value="double_elimination">Double Elimination (Gugur Ganda)</option>
-                                                        <option value="round_robin">Round Robin (Setengah Kompetisi)</option>
-                                                        <option value="custom_group_playoff">Grup Round Robin + Playoff</option>
+                                                        <option value="single_elimination">
+                                                            Single Elimination
+                                                            (Gugur Tunggal)
+                                                        </option>
+                                                        <option value="double_elimination">
+                                                            Double Elimination
+                                                            (Gugur Ganda)
+                                                        </option>
+                                                        <option value="round_robin">
+                                                            Round Robin
+                                                            (Setengah Kompetisi)
+                                                        </option>
+                                                        <option value="custom_group_playoff">
+                                                            Grup Round Robin +
+                                                            Playoff
+                                                        </option>
                                                     </select>
-                                                    <FieldError error={errors.format} />
+                                                    <FieldError
+                                                        error={errors.format}
+                                                    />
                                                 </Field>
 
-                                                <Field name="target_points" data-invalid={!!errors.target_points || undefined}>
-                                                    <FieldLabel htmlFor="target_points">Target Poin Kemenangan (Match Point)</FieldLabel>
+                                                <Field
+                                                    name="target_points"
+                                                    data-invalid={
+                                                        !!errors.target_points ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="target_points">
+                                                        Target Poin Kemenangan
+                                                        (Match Point)
+                                                    </FieldLabel>
                                                     <Input
                                                         id="target_points"
                                                         name="target_points"
@@ -123,14 +214,26 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                                         defaultValue="4"
                                                         required
                                                     />
-                                                    <FieldError error={errors.target_points} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.target_points
+                                                        }
+                                                    />
                                                 </Field>
                                             </div>
 
                                             {/* Kuota & Batas Umur */}
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                                <Field name="max_participants" data-invalid={!!errors.max_participants || undefined}>
-                                                    <FieldLabel htmlFor="max_participants">Kuota Maksimal Peserta</FieldLabel>
+                                                <Field
+                                                    name="max_participants"
+                                                    data-invalid={
+                                                        !!errors.max_participants ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="max_participants">
+                                                        Kuota Maksimal Peserta
+                                                    </FieldLabel>
                                                     <Input
                                                         id="max_participants"
                                                         name="max_participants"
@@ -140,11 +243,24 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                                         defaultValue="32"
                                                         required
                                                     />
-                                                    <FieldError error={errors.max_participants} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.max_participants
+                                                        }
+                                                    />
                                                 </Field>
 
-                                                <Field name="min_age" data-invalid={!!errors.min_age || undefined}>
-                                                    <FieldLabel htmlFor="min_age">Batas Usia Min (Opsional)</FieldLabel>
+                                                <Field
+                                                    name="min_age"
+                                                    data-invalid={
+                                                        !!errors.min_age ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="min_age">
+                                                        Batas Usia Min
+                                                        (Opsional)
+                                                    </FieldLabel>
                                                     <Input
                                                         id="min_age"
                                                         name="min_age"
@@ -154,11 +270,22 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                                         defaultValue=""
                                                         placeholder="Contoh: 6"
                                                     />
-                                                    <FieldError error={errors.min_age} />
+                                                    <FieldError
+                                                        error={errors.min_age}
+                                                    />
                                                 </Field>
 
-                                                <Field name="max_age" data-invalid={!!errors.max_age || undefined}>
-                                                    <FieldLabel htmlFor="max_age">Batas Usia Maks (Opsional)</FieldLabel>
+                                                <Field
+                                                    name="max_age"
+                                                    data-invalid={
+                                                        !!errors.max_age ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="max_age">
+                                                        Batas Usia Maks
+                                                        (Opsional)
+                                                    </FieldLabel>
                                                     <Input
                                                         id="max_age"
                                                         name="max_age"
@@ -168,29 +295,65 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                                         defaultValue=""
                                                         placeholder="Contoh: 12"
                                                     />
-                                                    <FieldError error={errors.max_age} />
+                                                    <FieldError
+                                                        error={errors.max_age}
+                                                    />
                                                 </Field>
                                             </div>
 
                                             {/* Deck Lock Policy & Call Timeout */}
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                                <Field name="deck_lock_policy" data-invalid={!!errors.deck_lock_policy || undefined}>
-                                                    <FieldLabel htmlFor="deck_lock_policy">Kebijakan Penguncian Deck</FieldLabel>
+                                                <Field
+                                                    name="deck_lock_policy"
+                                                    data-invalid={
+                                                        !!errors.deck_lock_policy ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="deck_lock_policy">
+                                                        Kebijakan Penguncian
+                                                        Deck
+                                                    </FieldLabel>
                                                     <select
                                                         id="deck_lock_policy"
                                                         name="deck_lock_policy"
                                                         defaultValue="until_checkin"
-                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     >
-                                                        <option value="until_checkin">Terkunci sejak Check-in (Strict / Kompetitif)</option>
-                                                        <option value="until_top_cut">Terkunci saat Top Cut (Semi-Kompetitif)</option>
-                                                        <option value="free_between_matches">Bebas Ganti Antar-Match (Casual Gathering)</option>
+                                                        <option value="until_checkin">
+                                                            Terkunci sejak
+                                                            Check-in (Strict /
+                                                            Kompetitif)
+                                                        </option>
+                                                        <option value="until_top_cut">
+                                                            Terkunci saat Top
+                                                            Cut
+                                                            (Semi-Kompetitif)
+                                                        </option>
+                                                        <option value="free_between_matches">
+                                                            Bebas Ganti
+                                                            Antar-Match (Casual
+                                                            Gathering)
+                                                        </option>
                                                     </select>
-                                                    <FieldError error={errors.deck_lock_policy} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.deck_lock_policy
+                                                        }
+                                                    />
                                                 </Field>
 
-                                                <Field name="call_timeout_seconds" data-invalid={!!errors.call_timeout_seconds || undefined}>
-                                                    <FieldLabel htmlFor="call_timeout_seconds">Toleransi Panggilan (Detik)</FieldLabel>
+                                                <Field
+                                                    name="call_timeout_seconds"
+                                                    data-invalid={
+                                                        !!errors.call_timeout_seconds ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="call_timeout_seconds">
+                                                        Toleransi Panggilan
+                                                        (Detik)
+                                                    </FieldLabel>
                                                     <Input
                                                         id="call_timeout_seconds"
                                                         name="call_timeout_seconds"
@@ -200,10 +363,17 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                                         defaultValue="180"
                                                         required
                                                     />
-                                                    <p className="text-xs text-muted-foreground mt-1">
-                                                        180 detik = 3 menit (Standar Komunitas Samarinda: 3 tahapan panggilan)
+                                                    <p className="mt-1 text-xs text-muted-foreground">
+                                                        180 detik = 3 menit
+                                                        (Standar Komunitas
+                                                        Samarinda: 3 tahapan
+                                                        panggilan)
                                                     </p>
-                                                    <FieldError error={errors.call_timeout_seconds} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.call_timeout_seconds
+                                                        }
+                                                    />
                                                 </Field>
                                             </div>
                                         </Fieldset>
@@ -218,7 +388,14 @@ export default function AdminCategoriesCreate({ event, rulesets }: Props) {
                                 </Button>
                                 <Button
                                     variant="outline"
-                                    render={<Link href={showEvent({ event: event.id }).url} />}
+                                    render={
+                                        <Link
+                                            href={
+                                                showEvent({ event: event.id })
+                                                    .url
+                                            }
+                                        />
+                                    }
                                 >
                                     Batal
                                 </Button>

@@ -1,6 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty';
+import {
+    Empty,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyTitle,
+} from '@/components/ui/empty';
 import { Frame } from '@/components/ui/frame';
 import { Pagination } from '@/components/pagination';
 import {
@@ -59,9 +64,12 @@ export default function AdminSeasonsIndex({ seasons }: Props) {
                     {/* Header & Actions */}
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex flex-col gap-1">
-                            <h1 className="text-2xl font-semibold tracking-tight">Musim Kompetisi & Liga</h1>
+                            <h1 className="text-2xl font-semibold tracking-tight">
+                                Musim Kompetisi & Liga
+                            </h1>
                             <p className="text-sm text-muted-foreground">
-                                Kelola musim tahunan komunitas, formula perolehan poin leaderboard, dan event terhubung.
+                                Kelola musim tahunan komunitas, formula
+                                perolehan poin leaderboard, dan event terhubung.
                             </p>
                         </div>
 
@@ -77,9 +85,13 @@ export default function AdminSeasonsIndex({ seasons }: Props) {
                             <Empty className="py-12">
                                 <EmptyHeader>
                                     <Calendar className="size-10 text-muted-foreground" />
-                                    <EmptyTitle>Belum ada musim kompetisi</EmptyTitle>
+                                    <EmptyTitle>
+                                        Belum ada musim kompetisi
+                                    </EmptyTitle>
                                     <EmptyDescription>
-                                        Buat musim baru seperti 'Musim 2026' untuk mulai mencatat akumulasi poin ranking.
+                                        Buat musim baru seperti 'Musim 2026'
+                                        untuk mulai mencatat akumulasi poin
+                                        ranking.
                                     </EmptyDescription>
                                 </EmptyHeader>
                             </Empty>
@@ -92,7 +104,9 @@ export default function AdminSeasonsIndex({ seasons }: Props) {
                                         <TableHead>Event Terhubung</TableHead>
                                         <TableHead>Blader Terdaftar</TableHead>
                                         <TableHead>Status</TableHead>
-                                        <TableHead className="text-right">Aksi</TableHead>
+                                        <TableHead className="text-right">
+                                            Aksi
+                                        </TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -100,34 +114,55 @@ export default function AdminSeasonsIndex({ seasons }: Props) {
                                         <TableRow key={season.id}>
                                             <TableCell className="font-semibold text-foreground">
                                                 {season.name}
-                                                <p className="text-xs text-muted-foreground font-normal">Slug: {season.slug}</p>
+                                                <p className="text-xs font-normal text-muted-foreground">
+                                                    Slug: {season.slug}
+                                                </p>
                                             </TableCell>
                                             <TableCell className="text-sm">
                                                 {formatDate(season.start_date)}
-                                                {season.end_date && ` — ${formatDate(season.end_date)}`}
+                                                {season.end_date &&
+                                                    ` — ${formatDate(season.end_date)}`}
                                             </TableCell>
                                             <TableCell className="text-sm">
                                                 <span className="flex items-center gap-1 font-medium">
                                                     <Trophy className="size-3.5 text-muted-foreground" />
-                                                    {season.events_count ?? 0} Event
+                                                    {season.events_count ?? 0}{' '}
+                                                    Event
                                                 </span>
                                             </TableCell>
                                             <TableCell className="text-sm">
                                                 <span className="flex items-center gap-1 font-medium">
                                                     <Users className="size-3.5 text-muted-foreground" />
-                                                    {season.rankings_count ?? 0} Blader
+                                                    {season.rankings_count ?? 0}{' '}
+                                                    Blader
                                                 </span>
                                             </TableCell>
                                             <TableCell>
-                                                <Badge variant={season.is_active ? 'default' : 'outline'}>
-                                                    {season.is_active ? 'Musim Aktif' : 'Nonaktif / Selesai'}
+                                                <Badge
+                                                    variant={
+                                                        season.is_active
+                                                            ? 'default'
+                                                            : 'outline'
+                                                    }
+                                                >
+                                                    {season.is_active
+                                                        ? 'Musim Aktif'
+                                                        : 'Nonaktif / Selesai'}
                                                 </Badge>
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    render={<Link href={edit({ season: season.id }).url} />}
+                                                    render={
+                                                        <Link
+                                                            href={
+                                                                edit({
+                                                                    season: season.id,
+                                                                }).url
+                                                            }
+                                                        />
+                                                    }
                                                 >
                                                     Edit
                                                 </Button>

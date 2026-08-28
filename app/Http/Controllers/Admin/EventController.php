@@ -53,7 +53,7 @@ class EventController extends Controller
         $validated = $request->validated();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']) . '-' . Str::lower(Str::random(6));
+            $validated['slug'] = Str::slug($validated['name']).'-'.Str::lower(Str::random(6));
         }
 
         $validated['organizer_id'] = $request->user()->id;
@@ -98,7 +98,7 @@ class EventController extends Controller
         $validated = $request->validated();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']) . '-' . Str::lower(Str::random(6));
+            $validated['slug'] = Str::slug($validated['name']).'-'.Str::lower(Str::random(6));
         }
 
         $event->update($validated);

@@ -1,6 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty';
+import {
+    Empty,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyTitle,
+} from '@/components/ui/empty';
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
 import { Pagination } from '@/components/pagination';
@@ -48,7 +53,11 @@ interface PaginatedRegistrations {
 
 interface Props {
     registrations: PaginatedRegistrations;
-    events: Array<{ id: string; name: string; categories: Array<{ id: string; name: string }> }>;
+    events: Array<{
+        id: string;
+        name: string;
+        categories: Array<{ id: string; name: string }>;
+    }>;
     filters: {
         event_id?: string;
         category_id?: string;
@@ -62,14 +71,18 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Fast Check-in Venue', href: '#' },
 ];
 
-export default function AdminCheckinIndex({ registrations, events, filters }: Props) {
+export default function AdminCheckinIndex({
+    registrations,
+    events,
+    filters,
+}: Props) {
     const [search, setSearch] = useState(filters.search || '');
 
     const handleFilterChange = (key: string, value: string) => {
         router.get(
             '/admin/checkin',
             { ...filters, [key]: value || undefined },
-            { preserveState: true, replace: true }
+            { preserveState: true, replace: true },
         );
     };
 
@@ -79,31 +92,52 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
     };
 
     const handleCheckin = (registrationId: string) => {
-        router.post(checkinRoute({ registration: registrationId }).url, {}, { preserveScroll: true });
+        router.post(
+            checkinRoute({ registration: registrationId }).url,
+            {},
+            { preserveScroll: true },
+        );
     };
 
     const handleNoShow = (registrationId: string) => {
-        if (!confirm('Tandai peserta sebagai No-Show? Slot akan otomatis dialihkan ke antrean Waitlist.')) return;
-        router.post(noShowRoute({ registration: registrationId }).url, {}, { preserveScroll: true });
+        if (
+            !confirm(
+                'Tandai peserta sebagai No-Show? Slot akan otomatis dialihkan ke antrean Waitlist.',
+            )
+        )
+            return;
+        router.post(
+            noShowRoute({ registration: registrationId }).url,
+            {},
+            { preserveScroll: true },
+        );
     };
 
     const handlePromote = (registrationId: string) => {
-        router.post(promoteRoute({ registration: registrationId }).url, {}, { preserveScroll: true });
+        router.post(
+            promoteRoute({ registration: registrationId }).url,
+            {},
+            { preserveScroll: true },
+        );
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Fast Check-in Meja Registrasi Venue" />
 
-            <div className="container mx-auto px-4 py-8 space-y-6">
+            <div className="container mx-auto space-y-6 px-4 py-8">
                 {/* Header */}
                 <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-2">
                         <UserCheck className="size-6 text-primary" />
-                        <h1 className="text-2xl font-bold tracking-tight">Fast Check-in Meja Registrasi Venue</h1>
+                        <h1 className="text-2xl font-bold tracking-tight">
+                            Fast Check-in Meja Registrasi Venue
+                        </h1>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        Pindai atau cari peserta di meja registrasi, verifikasi kelayakan combo deck, dan kunci deck sebelum babak dimulai.
+                        Pindai atau cari peserta di meja registrasi, verifikasi
+                        kelayakan combo deck, dan kunci deck sebelum babak
+                        dimulai.
                     </p>
                 </div>
 
@@ -111,8 +145,10 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                 <div className="flex flex-wrap items-center gap-3">
                     <select
                         value={filters.event_id || ''}
-                        onChange={(e) => handleFilterChange('event_id', e.target.value)}
-                        className="h-10 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-medium"
+                        onChange={(e) =>
+                            handleFilterChange('event_id', e.target.value)
+                        }
+                        className="h-10 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                     >
                         {events.map((ev) => (
                             <option key={ev.id} value={ev.id}>
@@ -121,9 +157,12 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                         ))}
                     </select>
 
-                    <form onSubmit={handleSearch} className="flex flex-1 items-center gap-2 max-w-md">
+                    <form
+                        onSubmit={handleSearch}
+                        className="flex max-w-md flex-1 items-center gap-2"
+                    >
                         <div className="relative w-full">
-                            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                            <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                             <Input
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
@@ -132,7 +171,11 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                 autoFocus
                             />
                         </div>
-                        <Button type="submit" variant="secondary" className="h-10">
+                        <Button
+                            type="submit"
+                            variant="secondary"
+                            className="h-10"
+                        >
                             Cari
                         </Button>
                     </form>
@@ -144,9 +187,12 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                         <Empty className="py-12">
                             <EmptyHeader>
                                 <UserCheck className="size-10 text-muted-foreground" />
-                                <EmptyTitle>Tidak ada peserta yang cocok</EmptyTitle>
+                                <EmptyTitle>
+                                    Tidak ada peserta yang cocok
+                                </EmptyTitle>
                                 <EmptyDescription>
-                                    Gunakan kotak pencarian di atas untuk mencari nama blader.
+                                    Gunakan kotak pencarian di atas untuk
+                                    mencari nama blader.
                                 </EmptyDescription>
                             </EmptyHeader>
                         </Empty>
@@ -156,10 +202,14 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                 <TableRow>
                                     <TableHead>Seed / Blader</TableHead>
                                     <TableHead>Divisi Kategori</TableHead>
-                                    <TableHead>Combo Deck (Takara Tomy)</TableHead>
+                                    <TableHead>
+                                        Combo Deck (Takara Tomy)
+                                    </TableHead>
                                     <TableHead>Status Saat Ini</TableHead>
                                     <TableHead>Deck Lock</TableHead>
-                                    <TableHead className="text-right">Aksi Check-in</TableHead>
+                                    <TableHead className="text-right">
+                                        Aksi Check-in
+                                    </TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -170,8 +220,8 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                             reg.status === 'checked_in'
                                                 ? 'bg-emerald-500/5'
                                                 : reg.status === 'waitlisted'
-                                                ? 'bg-amber-500/5'
-                                                : undefined
+                                                  ? 'bg-amber-500/5'
+                                                  : undefined
                                         }
                                     >
                                         <TableCell className="font-medium">
@@ -181,13 +231,17 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                                         #{reg.seed_number}
                                                     </span>
                                                 ) : (
-                                                    <span className="text-xs text-muted-foreground">-</span>
+                                                    <span className="text-xs text-muted-foreground">
+                                                        -
+                                                    </span>
                                                 )}
                                                 <div>
-                                                    <span className="font-bold text-foreground text-sm">
+                                                    <span className="text-sm font-bold text-foreground">
                                                         {reg.display_nickname}
                                                     </span>
-                                                    <p className="text-xs text-muted-foreground">{reg.user?.name}</p>
+                                                    <p className="text-xs text-muted-foreground">
+                                                        {reg.user?.name}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -197,36 +251,61 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                         </TableCell>
 
                                         <TableCell className="text-xs">
-                                            {reg.deck_data && reg.deck_data.length > 0 ? (
+                                            {reg.deck_data &&
+                                            reg.deck_data.length > 0 ? (
                                                 <div className="space-y-0.5">
-                                                    {reg.deck_data.map((c, i) => (
-                                                        <p key={i} className="text-muted-foreground">
-                                                            #{i + 1} <span className="font-semibold text-foreground">{c.blade}</span> ({c.ratchet} {c.bit})
-                                                        </p>
-                                                    ))}
+                                                    {reg.deck_data.map(
+                                                        (c, i) => (
+                                                            <p
+                                                                key={i}
+                                                                className="text-muted-foreground"
+                                                            >
+                                                                #{i + 1}{' '}
+                                                                <span className="font-semibold text-foreground">
+                                                                    {c.blade}
+                                                                </span>{' '}
+                                                                ({c.ratchet}{' '}
+                                                                {c.bit})
+                                                            </p>
+                                                        ),
+                                                    )}
                                                 </div>
                                             ) : (
-                                                <span className="text-muted-foreground italic">Belum submit combo</span>
+                                                <span className="text-muted-foreground italic">
+                                                    Belum submit combo
+                                                </span>
                                             )}
                                         </TableCell>
 
                                         <TableCell>
                                             {reg.status === 'checked_in' ? (
-                                                <Badge variant="default" className="bg-emerald-600 gap-1 text-xs">
+                                                <Badge
+                                                    variant="default"
+                                                    className="gap-1 bg-emerald-600 text-xs"
+                                                >
                                                     <CheckCircle2 className="size-3" />
                                                     Checked-in
                                                 </Badge>
                                             ) : reg.status === 'confirmed' ? (
-                                                <Badge variant="secondary" className="gap-1 text-xs">
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="gap-1 text-xs"
+                                                >
                                                     <Clock className="size-3" />
                                                     Confirmed (Menunggu)
                                                 </Badge>
                                             ) : reg.status === 'waitlisted' ? (
-                                                <Badge variant="outline" className="text-amber-600 border-amber-600 gap-1 text-xs">
+                                                <Badge
+                                                    variant="outline"
+                                                    className="gap-1 border-amber-600 text-xs text-amber-600"
+                                                >
                                                     Waitlist
                                                 </Badge>
                                             ) : (
-                                                <Badge variant="destructive" className="text-xs">
+                                                <Badge
+                                                    variant="destructive"
+                                                    className="text-xs"
+                                                >
                                                     {reg.status}
                                                 </Badge>
                                             )}
@@ -234,12 +313,18 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
 
                                         <TableCell>
                                             {reg.is_deck_locked ? (
-                                                <Badge variant="default" className="gap-1 text-[10px]">
+                                                <Badge
+                                                    variant="default"
+                                                    className="gap-1 text-[10px]"
+                                                >
                                                     <Lock className="size-3" />
                                                     Terkunci
                                                 </Badge>
                                             ) : (
-                                                <Badge variant="outline" className="gap-1 text-[10px]">
+                                                <Badge
+                                                    variant="outline"
+                                                    className="gap-1 text-[10px]"
+                                                >
                                                     <Unlock className="size-3" />
                                                     Terbuka
                                                 </Badge>
@@ -251,17 +336,23 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                                 <div className="flex items-center justify-end gap-1.5">
                                                     <Button
                                                         size="sm"
-                                                        className="bg-emerald-600 hover:bg-emerald-700 font-semibold"
-                                                        onClick={() => handleCheckin(reg.id)}
+                                                        className="bg-emerald-600 font-semibold hover:bg-emerald-700"
+                                                        onClick={() =>
+                                                            handleCheckin(
+                                                                reg.id,
+                                                            )
+                                                        }
                                                     >
-                                                        <CheckCircle2 className="size-4 mr-1" />
+                                                        <CheckCircle2 className="mr-1 size-4" />
                                                         <span>Check-in</span>
                                                     </Button>
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
                                                         className="text-destructive hover:text-destructive"
-                                                        onClick={() => handleNoShow(reg.id)}
+                                                        onClick={() =>
+                                                            handleNoShow(reg.id)
+                                                        }
                                                     >
                                                         No-Show
                                                     </Button>
@@ -269,7 +360,7 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                             )}
 
                                             {reg.status === 'checked_in' && (
-                                                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">
+                                                <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                                                     <ShieldCheck className="size-4" />
                                                     Siap Tanding
                                                 </span>
@@ -280,7 +371,9 @@ export default function AdminCheckinIndex({ registrations, events, filters }: Pr
                                                     variant="outline"
                                                     size="sm"
                                                     className="border-amber-600 text-amber-600 hover:bg-amber-50"
-                                                    onClick={() => handlePromote(reg.id)}
+                                                    onClick={() =>
+                                                        handlePromote(reg.id)
+                                                    }
                                                 >
                                                     Promosikan
                                                 </Button>

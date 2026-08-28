@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests\Admin\TournamentRuleset;
 
+use App\Models\TournamentRuleset;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTournamentRulesetRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\TournamentRuleset::class);
+        return $this->user()->can('create', TournamentRuleset::class);
     }
 
     public function rules(): array

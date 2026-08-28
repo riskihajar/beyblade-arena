@@ -32,7 +32,10 @@ export default function AdminRulesetsEdit({ ruleset }: Props) {
             <Head title={`Edit Ruleset: ${ruleset.name}`} />
 
             <div className="max-w-2xl px-4 py-8">
-                <Form action={update({ ruleset: ruleset.id }).url} method="patch">
+                <Form
+                    action={update({ ruleset: ruleset.id }).url}
+                    method="patch"
+                >
                     {({ processing, errors }) => (
                         <>
                             <Frame>
@@ -41,14 +44,21 @@ export default function AdminRulesetsEdit({ ruleset }: Props) {
                                         <Button
                                             variant="ghost"
                                             size="icon-sm"
-                                            render={<Link href={rulesetsIndex().url} />}
+                                            render={
+                                                <Link
+                                                    href={rulesetsIndex().url}
+                                                />
+                                            }
                                         >
                                             <ArrowLeft className="size-4" />
                                         </Button>
                                         <div>
-                                            <FrameTitle>Edit Template Ruleset</FrameTitle>
+                                            <FrameTitle>
+                                                Edit Template Ruleset
+                                            </FrameTitle>
                                             <FrameDescription>
-                                                Perbarui konfigurasi perolehan poin battle finish type.
+                                                Perbarui konfigurasi perolehan
+                                                poin battle finish type.
                                             </FrameDescription>
                                         </div>
                                     </div>
@@ -58,119 +68,229 @@ export default function AdminRulesetsEdit({ ruleset }: Props) {
                                     <div className="space-y-6">
                                         <Fieldset className="space-y-4">
                                             {/* Nama Ruleset */}
-                                            <Field name="name" data-invalid={!!errors.name || undefined}>
-                                                <FieldLabel htmlFor="name">Nama Ruleset</FieldLabel>
+                                            <Field
+                                                name="name"
+                                                data-invalid={
+                                                    !!errors.name || undefined
+                                                }
+                                            >
+                                                <FieldLabel htmlFor="name">
+                                                    Nama Ruleset
+                                                </FieldLabel>
                                                 <Input
                                                     id="name"
                                                     name="name"
                                                     defaultValue={ruleset.name}
                                                     required
                                                 />
-                                                <FieldError error={errors.name} />
+                                                <FieldError
+                                                    error={errors.name}
+                                                />
                                             </Field>
 
                                             {/* Generasi & Poin Menang */}
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                                <Field name="generation" data-invalid={!!errors.generation || undefined}>
-                                                    <FieldLabel htmlFor="generation">Generasi Beyblade</FieldLabel>
+                                                <Field
+                                                    name="generation"
+                                                    data-invalid={
+                                                        !!errors.generation ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="generation">
+                                                        Generasi Beyblade
+                                                    </FieldLabel>
                                                     <Input
                                                         id="generation"
                                                         name="generation"
-                                                        defaultValue={ruleset.generation}
+                                                        defaultValue={
+                                                            ruleset.generation
+                                                        }
                                                         required
                                                     />
-                                                    <FieldError error={errors.generation} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.generation
+                                                        }
+                                                    />
                                                 </Field>
 
-                                                <Field name="points_to_win" data-invalid={!!errors.points_to_win || undefined}>
-                                                    <FieldLabel htmlFor="points_to_win">Poin Kemenangan Match</FieldLabel>
+                                                <Field
+                                                    name="points_to_win"
+                                                    data-invalid={
+                                                        !!errors.points_to_win ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="points_to_win">
+                                                        Poin Kemenangan Match
+                                                    </FieldLabel>
                                                     <Input
                                                         id="points_to_win"
                                                         name="points_to_win"
                                                         type="number"
                                                         min="1"
                                                         max="20"
-                                                        defaultValue={ruleset.points_to_win}
+                                                        defaultValue={
+                                                            ruleset.points_to_win
+                                                        }
                                                         required
                                                     />
-                                                    <FieldError error={errors.points_to_win} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.points_to_win
+                                                        }
+                                                    />
                                                 </Field>
                                             </div>
 
                                             {/* Finish Scoring Points */}
-                                            <div className="rounded-lg border bg-muted/30 p-4 space-y-4">
-                                                <h3 className="text-sm font-semibold">Skor Perolehan Finish Type</h3>
+                                            <div className="space-y-4 rounded-lg border bg-muted/30 p-4">
+                                                <h3 className="text-sm font-semibold">
+                                                    Skor Perolehan Finish Type
+                                                </h3>
 
                                                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                                                    <Field name="spin_finish_points" data-invalid={!!errors.spin_finish_points || undefined}>
-                                                        <FieldLabel htmlFor="spin_finish_points">Spin Finish</FieldLabel>
+                                                    <Field
+                                                        name="spin_finish_points"
+                                                        data-invalid={
+                                                            !!errors.spin_finish_points ||
+                                                            undefined
+                                                        }
+                                                    >
+                                                        <FieldLabel htmlFor="spin_finish_points">
+                                                            Spin Finish
+                                                        </FieldLabel>
                                                         <Input
                                                             id="spin_finish_points"
                                                             name="spin_finish_points"
                                                             type="number"
                                                             min="0"
                                                             max="10"
-                                                            defaultValue={ruleset.spin_finish_points}
+                                                            defaultValue={
+                                                                ruleset.spin_finish_points
+                                                            }
                                                             required
                                                         />
-                                                        <FieldError error={errors.spin_finish_points} />
+                                                        <FieldError
+                                                            error={
+                                                                errors.spin_finish_points
+                                                            }
+                                                        />
                                                     </Field>
 
-                                                    <Field name="over_finish_points" data-invalid={!!errors.over_finish_points || undefined}>
-                                                        <FieldLabel htmlFor="over_finish_points">Over Finish</FieldLabel>
+                                                    <Field
+                                                        name="over_finish_points"
+                                                        data-invalid={
+                                                            !!errors.over_finish_points ||
+                                                            undefined
+                                                        }
+                                                    >
+                                                        <FieldLabel htmlFor="over_finish_points">
+                                                            Over Finish
+                                                        </FieldLabel>
                                                         <Input
                                                             id="over_finish_points"
                                                             name="over_finish_points"
                                                             type="number"
                                                             min="0"
                                                             max="10"
-                                                            defaultValue={ruleset.over_finish_points}
+                                                            defaultValue={
+                                                                ruleset.over_finish_points
+                                                            }
                                                             required
                                                         />
-                                                        <FieldError error={errors.over_finish_points} />
+                                                        <FieldError
+                                                            error={
+                                                                errors.over_finish_points
+                                                            }
+                                                        />
                                                     </Field>
 
-                                                    <Field name="burst_finish_points" data-invalid={!!errors.burst_finish_points || undefined}>
-                                                        <FieldLabel htmlFor="burst_finish_points">Burst Finish</FieldLabel>
+                                                    <Field
+                                                        name="burst_finish_points"
+                                                        data-invalid={
+                                                            !!errors.burst_finish_points ||
+                                                            undefined
+                                                        }
+                                                    >
+                                                        <FieldLabel htmlFor="burst_finish_points">
+                                                            Burst Finish
+                                                        </FieldLabel>
                                                         <Input
                                                             id="burst_finish_points"
                                                             name="burst_finish_points"
                                                             type="number"
                                                             min="0"
                                                             max="10"
-                                                            defaultValue={ruleset.burst_finish_points}
+                                                            defaultValue={
+                                                                ruleset.burst_finish_points
+                                                            }
                                                             required
                                                         />
-                                                        <FieldError error={errors.burst_finish_points} />
+                                                        <FieldError
+                                                            error={
+                                                                errors.burst_finish_points
+                                                            }
+                                                        />
                                                     </Field>
 
-                                                    <Field name="xtreme_finish_points" data-invalid={!!errors.xtreme_finish_points || undefined}>
-                                                        <FieldLabel htmlFor="xtreme_finish_points">Xtreme Finish</FieldLabel>
+                                                    <Field
+                                                        name="xtreme_finish_points"
+                                                        data-invalid={
+                                                            !!errors.xtreme_finish_points ||
+                                                            undefined
+                                                        }
+                                                    >
+                                                        <FieldLabel htmlFor="xtreme_finish_points">
+                                                            Xtreme Finish
+                                                        </FieldLabel>
                                                         <Input
                                                             id="xtreme_finish_points"
                                                             name="xtreme_finish_points"
                                                             type="number"
                                                             min="0"
                                                             max="10"
-                                                            defaultValue={ruleset.xtreme_finish_points}
+                                                            defaultValue={
+                                                                ruleset.xtreme_finish_points
+                                                            }
                                                             required
                                                         />
-                                                        <FieldError error={errors.xtreme_finish_points} />
+                                                        <FieldError
+                                                            error={
+                                                                errors.xtreme_finish_points
+                                                            }
+                                                        />
                                                     </Field>
                                                 </div>
 
-                                                <Field name="penalty_points" data-invalid={!!errors.penalty_points || undefined}>
-                                                    <FieldLabel htmlFor="penalty_points">Poin Penalti / Pelanggaran (Foul)</FieldLabel>
+                                                <Field
+                                                    name="penalty_points"
+                                                    data-invalid={
+                                                        !!errors.penalty_points ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="penalty_points">
+                                                        Poin Penalti /
+                                                        Pelanggaran (Foul)
+                                                    </FieldLabel>
                                                     <Input
                                                         id="penalty_points"
                                                         name="penalty_points"
                                                         type="number"
                                                         min="0"
                                                         max="10"
-                                                        defaultValue={ruleset.penalty_points}
+                                                        defaultValue={
+                                                            ruleset.penalty_points
+                                                        }
                                                         required
                                                     />
-                                                    <FieldError error={errors.penalty_points} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.penalty_points
+                                                        }
+                                                    />
                                                 </Field>
                                             </div>
                                         </Fieldset>

@@ -15,11 +15,11 @@ class SeasonFactory extends Factory
 
     public function definition(): array
     {
-        $name = 'Season ' . fake()->year();
+        $name = 'Season '.fake()->year();
 
         return [
             'name' => $name,
-            'slug' => Str::slug($name) . '-' . fake()->unique()->numerify('###'),
+            'slug' => Str::slug($name).'-'.fake()->unique()->numerify('###'),
             'start_date' => now()->startOfYear(),
             'end_date' => now()->endOfYear(),
             'formula_config' => [

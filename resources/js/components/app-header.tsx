@@ -369,8 +369,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             <AvatarImage
                                                 src={
                                                     auth.user.avatar as
-                                                        | string
-                                                        | undefined
+                                                        string | undefined
                                                 }
                                                 alt={auth.user.name}
                                             />

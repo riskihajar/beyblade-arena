@@ -9,7 +9,12 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty';
+import {
+    Empty,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyTitle,
+} from '@/components/ui/empty';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
@@ -30,7 +35,11 @@ import {
     updateStatus as updateStatusRoute,
 } from '@/routes/admin/registrations';
 import { type BreadcrumbItem } from '@/types';
-import { type BeyCombo, type Event, type Registration } from '@/types/tournament';
+import {
+    type BeyCombo,
+    type Event,
+    type Registration,
+} from '@/types/tournament';
 import { Head, router } from '@inertiajs/react';
 import {
     CheckCircle2,
@@ -58,7 +67,11 @@ interface PaginatedRegistrations {
 
 interface Props {
     registrations: PaginatedRegistrations;
-    events: Array<{ id: string; name: string; categories: Array<{ id: string; name: string }> }>;
+    events: Array<{
+        id: string;
+        name: string;
+        categories: Array<{ id: string; name: string }>;
+    }>;
     filters: {
         event_id?: string;
         category_id?: string;
@@ -73,7 +86,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Daftar Peserta & Waitlist', href: '#' },
 ];
 
-function getStatusBadgeVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {
+function getStatusBadgeVariant(
+    status: string,
+): 'default' | 'secondary' | 'outline' | 'destructive' {
     switch (status) {
         case 'confirmed':
         case 'checked_in':
@@ -89,9 +104,14 @@ function getStatusBadgeVariant(status: string): 'default' | 'secondary' | 'outli
     }
 }
 
-export default function AdminRegistrationsIndex({ registrations, events, filters }: Props) {
+export default function AdminRegistrationsIndex({
+    registrations,
+    events,
+    filters,
+}: Props) {
     const [search, setSearch] = useState(filters.search || '');
-    const [overrideModalReg, setOverrideModalReg] = useState<Registration | null>(null);
+    const [overrideModalReg, setOverrideModalReg] =
+        useState<Registration | null>(null);
     const [overrideReason, setOverrideReason] = useState('');
     const [overrideDeck, setOverrideDeck] = useState<BeyCombo[]>([]);
 
@@ -99,7 +119,7 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
         router.get(
             '/admin/registrations',
             { ...filters, [key]: value || undefined },
-            { preserveState: true, replace: true }
+            { preserveState: true, replace: true },
         );
     };
 
@@ -110,12 +130,23 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
 
     const handleUpdateStatus = (registrationId: string, newStatus: string) => {
         if (!confirm(`Ubah status peserta menjadi ${newStatus}?`)) return;
-        router.patch(updateStatusRoute({ registration: registrationId }).url, { status: newStatus }, { preserveScroll: true });
+        router.patch(
+            updateStatusRoute({ registration: registrationId }).url,
+            { status: newStatus },
+            { preserveScroll: true },
+        );
     };
 
     const handleDelete = (registrationId: string) => {
-        if (!confirm('Apakah Anda yakin ingin membatalkan/menghapus pendaftaran peserta ini?')) return;
-        router.delete(destroyReg({ registration: registrationId }).url, { preserveScroll: true });
+        if (
+            !confirm(
+                'Apakah Anda yakin ingin membatalkan/menghapus pendaftaran peserta ini?',
+            )
+        )
+            return;
+        router.delete(destroyReg({ registration: registrationId }).url, {
+            preserveScroll: true,
+        });
     };
 
     const openOverrideModal = (reg: Registration) => {
@@ -126,9 +157,13 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                 ? JSON.parse(JSON.stringify(reg.deck_data))
                 : [
                       { blade: 'Dran Sword', ratchet: '3-60', bit: 'Flat (F)' },
-                      { blade: 'Hells Scythe', ratchet: '4-60', bit: 'Ball (B)' },
+                      {
+                          blade: 'Hells Scythe',
+                          ratchet: '4-60',
+                          bit: 'Ball (B)',
+                      },
                       { blade: 'Wizard Rod', ratchet: '5-70', bit: 'Hexa (H)' },
-                  ]
+                  ],
         );
     };
 
@@ -148,7 +183,7 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
             {
                 preserveScroll: true,
                 onSuccess: () => setOverrideModalReg(null),
-            }
+            },
         );
     };
 
@@ -156,12 +191,15 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manajemen Peserta & Waitlist Turnamen" />
 
-            <div className="container mx-auto px-4 py-8 space-y-6">
+            <div className="container mx-auto space-y-6 px-4 py-8">
                 {/* Header */}
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-2xl font-semibold tracking-tight">Manajemen Peserta & Waitlist</h1>
+                    <h1 className="text-2xl font-semibold tracking-tight">
+                        Manajemen Peserta & Waitlist
+                    </h1>
                     <p className="text-sm text-muted-foreground">
-                        Kelola antrean pendaftar, kuota divisi, promosi waitlist otomatis, dan override deck part.
+                        Kelola antrean pendaftar, kuota divisi, promosi waitlist
+                        otomatis, dan override deck part.
                     </p>
                 </div>
 
@@ -169,8 +207,10 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                 <div className="flex flex-wrap items-center gap-3">
                     <select
                         value={filters.event_id || ''}
-                        onChange={(e) => handleFilterChange('event_id', e.target.value)}
-                        className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        onChange={(e) =>
+                            handleFilterChange('event_id', e.target.value)
+                        }
+                        className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                     >
                         <option value="">Semua Event</option>
                         {events.map((ev) => (
@@ -182,18 +222,25 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
 
                     <select
                         value={filters.status || ''}
-                        onChange={(e) => handleFilterChange('status', e.target.value)}
-                        className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        onChange={(e) =>
+                            handleFilterChange('status', e.target.value)
+                        }
+                        className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                     >
                         <option value="">Semua Status</option>
-                        <option value="confirmed">Confirmed (Terkonfirmasi)</option>
+                        <option value="confirmed">
+                            Confirmed (Terkonfirmasi)
+                        </option>
                         <option value="checked_in">Checked In (Hadir)</option>
                         <option value="waitlisted">Waitlisted (Antrean)</option>
                         <option value="no_show">No Show</option>
                         <option value="cancelled">Cancelled</option>
                     </select>
 
-                    <form onSubmit={handleSearch} className="flex items-center gap-2">
+                    <form
+                        onSubmit={handleSearch}
+                        className="flex items-center gap-2"
+                    >
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -214,7 +261,8 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                                 <Users className="size-10 text-muted-foreground" />
                                 <EmptyTitle>Belum ada pendaftar</EmptyTitle>
                                 <EmptyDescription>
-                                    Belum ada blader yang terdaftar sesuai kriteria pencarian atau filter yang dipilih.
+                                    Belum ada blader yang terdaftar sesuai
+                                    kriteria pencarian atau filter yang dipilih.
                                 </EmptyDescription>
                             </EmptyHeader>
                         </Empty>
@@ -227,7 +275,9 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                                     <TableHead>Deck Combo</TableHead>
                                     <TableHead>Status</TableHead>
                                     <TableHead>Deck Lock</TableHead>
-                                    <TableHead className="text-right">Aksi</TableHead>
+                                    <TableHead className="text-right">
+                                        Aksi
+                                    </TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -240,44 +290,77 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                                                         #{reg.seed_number}
                                                     </span>
                                                 ) : (
-                                                    <span className="text-xs text-muted-foreground">-</span>
+                                                    <span className="text-xs text-muted-foreground">
+                                                        -
+                                                    </span>
                                                 )}
                                                 <div>
-                                                    <span className="font-semibold text-foreground">{reg.display_nickname}</span>
-                                                    <p className="text-xs text-muted-foreground">{reg.user?.name}</p>
+                                                    <span className="font-semibold text-foreground">
+                                                        {reg.display_nickname}
+                                                    </span>
+                                                    <p className="text-xs text-muted-foreground">
+                                                        {reg.user?.name}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell className="text-sm">
-                                            <p className="font-medium text-foreground">{reg.category?.name}</p>
-                                            <p className="text-xs text-muted-foreground">{reg.event?.name}</p>
+                                            <p className="font-medium text-foreground">
+                                                {reg.category?.name}
+                                            </p>
+                                            <p className="text-xs text-muted-foreground">
+                                                {reg.event?.name}
+                                            </p>
                                         </TableCell>
                                         <TableCell className="text-xs">
-                                            {reg.deck_data && reg.deck_data.length > 0 ? (
+                                            {reg.deck_data &&
+                                            reg.deck_data.length > 0 ? (
                                                 <div className="space-y-0.5">
-                                                    {reg.deck_data.map((c, i) => (
-                                                        <p key={i} className="text-muted-foreground">
-                                                            #{i + 1} <span className="font-medium text-foreground">{c.blade}</span> ({c.ratchet} {c.bit})
-                                                        </p>
-                                                    ))}
+                                                    {reg.deck_data.map(
+                                                        (c, i) => (
+                                                            <p
+                                                                key={i}
+                                                                className="text-muted-foreground"
+                                                            >
+                                                                #{i + 1}{' '}
+                                                                <span className="font-medium text-foreground">
+                                                                    {c.blade}
+                                                                </span>{' '}
+                                                                ({c.ratchet}{' '}
+                                                                {c.bit})
+                                                            </p>
+                                                        ),
+                                                    )}
                                                 </div>
                                             ) : (
-                                                <span className="text-muted-foreground italic">Belum submit</span>
+                                                <span className="text-muted-foreground italic">
+                                                    Belum submit
+                                                </span>
                                             )}
                                         </TableCell>
                                         <TableCell>
-                                            <Badge variant={getStatusBadgeVariant(reg.status)}>
+                                            <Badge
+                                                variant={getStatusBadgeVariant(
+                                                    reg.status,
+                                                )}
+                                            >
                                                 {reg.status}
                                             </Badge>
                                         </TableCell>
                                         <TableCell>
                                             {reg.is_deck_locked ? (
-                                                <Badge variant="default" className="gap-1 text-[10px]">
+                                                <Badge
+                                                    variant="default"
+                                                    className="gap-1 text-[10px]"
+                                                >
                                                     <Lock className="size-3" />
                                                     Locked
                                                 </Badge>
                                             ) : (
-                                                <Badge variant="outline" className="gap-1 text-[10px]">
+                                                <Badge
+                                                    variant="outline"
+                                                    className="gap-1 text-[10px]"
+                                                >
                                                     <Unlock className="size-3" />
                                                     Open
                                                 </Badge>
@@ -289,7 +372,9 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                                                     variant="outline"
                                                     size="icon-sm"
                                                     title="Override Part Deck"
-                                                    onClick={() => openOverrideModal(reg)}
+                                                    onClick={() =>
+                                                        openOverrideModal(reg)
+                                                    }
                                                 >
                                                     <Swords className="size-3.5 text-primary" />
                                                 </Button>
@@ -298,7 +383,12 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                                                     <Button
                                                         variant="secondary"
                                                         size="sm"
-                                                        onClick={() => handleUpdateStatus(reg.id, 'confirmed')}
+                                                        onClick={() =>
+                                                            handleUpdateStatus(
+                                                                reg.id,
+                                                                'confirmed',
+                                                            )
+                                                        }
                                                     >
                                                         Promosikan
                                                     </Button>
@@ -307,7 +397,9 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                                                         variant="ghost"
                                                         size="icon-sm"
                                                         title="Hapus / Batalkan"
-                                                        onClick={() => handleDelete(reg.id)}
+                                                        onClick={() =>
+                                                            handleDelete(reg.id)
+                                                        }
                                                     >
                                                         <Trash2 className="size-3.5 text-destructive" />
                                                     </Button>
@@ -326,22 +418,34 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
             </div>
 
             {/* Deck Override Dialog */}
-            <Dialog open={!!overrideModalReg} onOpenChange={(open) => !open && setOverrideModalReg(null)}>
+            <Dialog
+                open={!!overrideModalReg}
+                onOpenChange={(open) => !open && setOverrideModalReg(null)}
+            >
                 <DialogContent className="max-w-md">
                     <DialogHeader>
                         <DialogTitle>Override Part Deck Blader</DialogTitle>
                         <DialogDescription>
-                            Ganti part deck blader <span className="font-semibold text-foreground">{overrideModalReg?.display_nickname}</span> setelah terkunci. Perubahan ini akan dicatat ke audit log.
+                            Ganti part deck blader{' '}
+                            <span className="font-semibold text-foreground">
+                                {overrideModalReg?.display_nickname}
+                            </span>{' '}
+                            setelah terkunci. Perubahan ini akan dicatat ke
+                            audit log.
                         </DialogDescription>
                     </DialogHeader>
 
                     <div className="space-y-4 py-2">
                         <Field name="override_reason">
-                            <FieldLabel htmlFor="override_reason">Alasan Resmi Pergantian Part (Juri/Wasit)</FieldLabel>
+                            <FieldLabel htmlFor="override_reason">
+                                Alasan Resmi Pergantian Part (Juri/Wasit)
+                            </FieldLabel>
                             <Textarea
                                 id="override_reason"
                                 value={overrideReason}
-                                onChange={(e) => setOverrideReason(e.target.value)}
+                                onChange={(e) =>
+                                    setOverrideReason(e.target.value)
+                                }
                                 placeholder="Contoh: Part Bit pecah/rusak saat pertarungan ronde 1 sesuai keputusan Head Judge."
                                 rows={2}
                                 required
@@ -349,9 +453,14 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                         </Field>
 
                         <div className="space-y-2">
-                            <p className="text-xs font-semibold text-foreground">Combo Deck Baru:</p>
+                            <p className="text-xs font-semibold text-foreground">
+                                Combo Deck Baru:
+                            </p>
                             {overrideDeck.map((combo, idx) => (
-                                <div key={idx} className="grid grid-cols-3 gap-2 rounded-md border p-2 text-xs">
+                                <div
+                                    key={idx}
+                                    className="grid grid-cols-3 gap-2 rounded-md border p-2 text-xs"
+                                >
                                     <input
                                         type="text"
                                         value={combo.blade}
@@ -391,7 +500,10 @@ export default function AdminRegistrationsIndex({ registrations, events, filters
                     </div>
 
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setOverrideModalReg(null)}>
+                        <Button
+                            variant="outline"
+                            onClick={() => setOverrideModalReg(null)}
+                        >
                             Batal
                         </Button>
                         <Button onClick={submitOverrideDeck}>

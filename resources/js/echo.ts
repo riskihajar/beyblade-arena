@@ -19,4 +19,3 @@ export const echo = configureEcho(
               broadcaster: 'null',
           },
 );
-

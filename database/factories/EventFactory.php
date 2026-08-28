@@ -18,13 +18,13 @@ class EventFactory extends Factory
 
     public function definition(): array
     {
-        $name = fake()->city() . ' Blader Championship ' . fake()->year();
+        $name = fake()->city().' Blader Championship '.fake()->year();
 
         return [
             'season_id' => Season::factory(),
             'organizer_id' => User::factory(),
             'name' => $name,
-            'slug' => Str::slug($name) . '-' . fake()->unique()->numerify('###'),
+            'slug' => Str::slug($name).'-'.fake()->unique()->numerify('###'),
             'description' => fake()->paragraph(),
             'venue_name' => 'Atrium Mall Samarinda Central Plaza',
             'venue_address' => 'Jl. Mulawarman No. 1, Samarinda',

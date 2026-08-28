@@ -20,8 +20,9 @@ class RegenerateBracketAction
     /**
      * Safely regenerate bracket for a tournament category.
      *
-     * @throws ValidationException
      * @return Collection<int, TournamentMatch>
+     *
+     * @throws ValidationException
      */
     public function execute(
         TournamentCategory $category,

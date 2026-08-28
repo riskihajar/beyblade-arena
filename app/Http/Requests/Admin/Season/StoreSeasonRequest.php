@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Admin\Season;
 
+use App\Models\Season;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreSeasonRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\Season::class);
+        return $this->user()->can('create', Season::class);
     }
 
     public function rules(): array

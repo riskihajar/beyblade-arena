@@ -241,9 +241,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         isActive={isActive('/admin/events')}
-                                        tooltip={{ children: 'Turnamen & Event' }}
+                                        tooltip={{
+                                            children: 'Turnamen & Event',
+                                        }}
                                         render={
-                                            <Link href={eventsIndex().url} prefetch>
+                                            <Link
+                                                href={eventsIndex().url}
+                                                prefetch
+                                            >
                                                 <Trophy className="size-4" />
                                                 <span>Turnamen & Event</span>
                                             </Link>
@@ -253,9 +258,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         isActive={isActive('/admin/checkin')}
-                                        tooltip={{ children: 'Fast Check-in Venue' }}
+                                        tooltip={{
+                                            children: 'Fast Check-in Venue',
+                                        }}
                                         render={
-                                            <Link href="/admin/checkin" prefetch>
+                                            <Link
+                                                href="/admin/checkin"
+                                                prefetch
+                                            >
                                                 <UserCheck className="size-4" />
                                                 <span>Fast Check-in</span>
                                             </Link>
@@ -264,10 +274,15 @@ export function AppSidebar() {
                                 </SidebarMenuItem>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
-                                        isActive={isActive('/admin/registrations')}
+                                        isActive={isActive(
+                                            '/admin/registrations',
+                                        )}
                                         tooltip={{ children: 'Daftar Peserta' }}
                                         render={
-                                            <Link href="/admin/registrations" prefetch>
+                                            <Link
+                                                href="/admin/registrations"
+                                                prefetch
+                                            >
                                                 <Users className="size-4" />
                                                 <span>Daftar Peserta</span>
                                             </Link>
@@ -277,9 +292,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         isActive={isActive('/admin/stadiums')}
-                                        tooltip={{ children: 'Arena & Panggilan' }}
+                                        tooltip={{
+                                            children: 'Arena & Panggilan',
+                                        }}
                                         render={
-                                            <Link href="/admin/stadiums" prefetch>
+                                            <Link
+                                                href="/admin/stadiums"
+                                                prefetch
+                                            >
                                                 <Megaphone className="size-4" />
                                                 <span>Arena & Panggilan</span>
                                             </Link>
@@ -289,9 +309,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         isActive={isActive('/judge/console')}
-                                        tooltip={{ children: 'Konsol Wasit & Juri' }}
+                                        tooltip={{
+                                            children: 'Konsol Wasit & Juri',
+                                        }}
                                         render={
-                                            <Link href="/judge/console" prefetch>
+                                            <Link
+                                                href="/judge/console"
+                                                prefetch
+                                            >
                                                 <Shield className="size-4" />
                                                 <span>Konsol Wasit & Juri</span>
                                             </Link>
@@ -301,9 +326,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         isActive={isActive('/admin/rulesets')}
-                                        tooltip={{ children: 'Ruleset Scoring' }}
+                                        tooltip={{
+                                            children: 'Ruleset Scoring',
+                                        }}
                                         render={
-                                            <Link href={rulesetsIndex().url} prefetch>
+                                            <Link
+                                                href={rulesetsIndex().url}
+                                                prefetch
+                                            >
                                                 <Layers className="size-4" />
                                                 <span>Ruleset Scoring</span>
                                             </Link>
@@ -313,9 +343,14 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         isActive={isActive('/admin/seasons')}
-                                        tooltip={{ children: 'Musim Kompetisi' }}
+                                        tooltip={{
+                                            children: 'Musim Kompetisi',
+                                        }}
                                         render={
-                                            <Link href={seasonsIndex().url} prefetch>
+                                            <Link
+                                                href={seasonsIndex().url}
+                                                prefetch
+                                            >
                                                 <Calendar className="size-4" />
                                                 <span>Musim Kompetisi</span>
                                             </Link>

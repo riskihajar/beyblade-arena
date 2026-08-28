@@ -228,8 +228,7 @@ function TwoFactorVerificationStep({
                                         ?.code ??
                                     (
                                         errors as
-                                            | Record<string, string>
-                                            | undefined
+                                            Record<string, string> | undefined
                                     )?.code
                                 }
                             />

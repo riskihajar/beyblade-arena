@@ -20,7 +20,7 @@ class StadiumFactory extends Factory
         return [
             'event_id' => Event::factory(),
             'assigned_judge_id' => User::factory(),
-            'name' => 'Stadium ' . fake()->unique()->randomLetter(),
+            'name' => 'Stadium '.fake()->unique()->randomLetter(),
             'model_type' => 'Extreme Stadium BX-07/10',
             'status' => StadiumStatusEnum::AVAILABLE,
             'notes' => null,

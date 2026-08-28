@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\TournamentPermissionEnum;
 use App\Enums\UserRoleEnum;
 use App\Http\Resources\PublicRegistrationResource;
 use App\Models\Event;

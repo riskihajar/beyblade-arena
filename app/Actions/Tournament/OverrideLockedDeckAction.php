@@ -23,7 +23,7 @@ class OverrideLockedDeckAction
 
         $oldDeckData = $registration->deck_data;
 
-        $notes = $registration->notes ? $registration->notes . "\n" : '';
+        $notes = $registration->notes ? $registration->notes."\n" : '';
         $notes .= sprintf(
             '[%s] Deck di-override oleh %s (%s). Alasan: %s',
             now()->format('Y-m-d H:i:s'),

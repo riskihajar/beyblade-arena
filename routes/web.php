@@ -4,11 +4,9 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\NotificationController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\Public\PublicEventController;
 use App\Http\Controllers\Public\RegistrationPublicController;
-use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicEventController::class, 'welcome'])->name('home');
 Route::get('community', [PublicEventController::class, 'community'])->name('community');

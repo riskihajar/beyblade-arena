@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Registration;
 
 use App\Enums\RegistrationStatusEnum;
+use App\Models\Registration;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -10,7 +11,7 @@ class StoreAdminRegistrationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\Registration::class);
+        return $this->user()->can('create', Registration::class);
     }
 
     public function rules(): array

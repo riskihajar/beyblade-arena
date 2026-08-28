@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Tournament\PerformCheckinAction;
 use App\Actions\Tournament\ProcessRegistrationQuotaAction;
-use App\Enums\RegistrationStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Registration;
-use App\Models\TournamentCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

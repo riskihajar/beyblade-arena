@@ -25,7 +25,7 @@ class TournamentCategoryFactory extends Factory
             'event_id' => Event::factory(),
             'ruleset_id' => TournamentRuleset::factory(),
             'name' => $name,
-            'slug' => Str::slug($name) . '-' . fake()->unique()->numerify('###'),
+            'slug' => Str::slug($name).'-'.fake()->unique()->numerify('###'),
             'min_age' => null,
             'max_age' => null,
             'max_participants' => 32,

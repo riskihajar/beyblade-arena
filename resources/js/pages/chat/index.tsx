@@ -1101,7 +1101,10 @@ export default function ChatIndex({
                                                                 more
                                                             </TooltipPopup>
                                                         </Tooltip>
-                                                        <MenuPopup align="start" className="min-w-48">
+                                                        <MenuPopup
+                                                            align="start"
+                                                            className="min-w-48"
+                                                        >
                                                             <MenuItem
                                                                 onClick={() =>
                                                                     fileInputRef.current?.click()
@@ -1120,16 +1123,15 @@ export default function ChatIndex({
                                                                 </span>
                                                                 {!currentModelSupportsAttachments && (
                                                                     <span className="ml-auto text-[10px] text-muted-foreground">
-                                                                        (Not supported)
+                                                                        (Not
+                                                                        supported)
                                                                     </span>
                                                                 )}
                                                             </MenuItem>
                                                             <MenuItem
                                                                 onClick={() =>
                                                                     setWebSearchEnabled(
-                                                                        (
-                                                                            val,
-                                                                        ) =>
+                                                                        (val) =>
                                                                             !val,
                                                                     )
                                                                 }
@@ -1145,7 +1147,8 @@ export default function ChatIndex({
                                                                 </span>
                                                                 {!currentModelSupportsWebSearch && (
                                                                     <span className="ml-auto text-[10px] text-muted-foreground">
-                                                                        (Not supported)
+                                                                        (Not
+                                                                        supported)
                                                                     </span>
                                                                 )}
                                                             </MenuItem>
@@ -1211,13 +1214,25 @@ export default function ChatIndex({
                                                             />
                                                         </SelectTrigger>
                                                         <SelectContent className="min-w-64">
-                                                            {model_groups.length === 0 ? (
+                                                            {model_groups.length ===
+                                                            0 ? (
                                                                 <div className="flex flex-col gap-1 p-3 text-center">
                                                                     <p className="text-xs font-semibold text-foreground">
-                                                                        No Provider Configured
+                                                                        No
+                                                                        Provider
+                                                                        Configured
                                                                     </p>
                                                                     <p className="text-xs leading-relaxed text-muted-foreground">
-                                                                        Using default model ({modelLabels[selectedModel] || selectedModel || default_model}) and provider.
+                                                                        Using
+                                                                        default
+                                                                        model (
+                                                                        {modelLabels[
+                                                                            selectedModel
+                                                                        ] ||
+                                                                            selectedModel ||
+                                                                            default_model}
+                                                                        ) and
+                                                                        provider.
                                                                     </p>
                                                                 </div>
                                                             ) : (

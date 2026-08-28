@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BracketController;
 use App\Http\Controllers\Admin\CheckinController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\RegistrationManagementController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\StadiumController;
@@ -26,9 +27,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('seasons/{season}/adjust-points', [SeasonController::class, 'adjustPoints'])->name('seasons.adjust-points');
 
     // Data Exports (Excel / CSV)
-    Route::get('events/{event}/export-registrations', [\App\Http\Controllers\Admin\ExportController::class, 'exportRegistrations'])->name('events.export-registrations');
-    Route::get('events/{event}/export-results', [\App\Http\Controllers\Admin\ExportController::class, 'exportResults'])->name('events.export-results');
-    Route::get('seasons/{season}/export-leaderboard', [\App\Http\Controllers\Admin\ExportController::class, 'exportLeaderboard'])->name('seasons.export-leaderboard');
+    Route::get('events/{event}/export-registrations', [ExportController::class, 'exportRegistrations'])->name('events.export-registrations');
+    Route::get('events/{event}/export-results', [ExportController::class, 'exportResults'])->name('events.export-results');
+    Route::get('seasons/{season}/export-leaderboard', [ExportController::class, 'exportLeaderboard'])->name('seasons.export-leaderboard');
 
     // Stadiums & Match Calling
     Route::resource('stadiums', StadiumController::class);

@@ -4,6 +4,7 @@ namespace App\Actions\Tournament;
 
 use App\Enums\MatchStatusEnum;
 use App\Enums\RegistrationStatusEnum;
+use App\Events\Tournament\BracketUpdatedEvent;
 use App\Models\Registration;
 use App\Models\TournamentCategory;
 use App\Models\TournamentMatch;
@@ -15,8 +16,9 @@ class GenerateSingleEliminationBracketAction
     /**
      * Generate a Single Elimination tournament bracket for a category.
      *
-     * @throws ValidationException
      * @return Collection<int, TournamentMatch>
+     *
+     * @throws ValidationException
      */
     public function execute(TournamentCategory $category, bool $useOnlyCheckedIn = true): Collection
     {
@@ -177,7 +179,7 @@ class GenerateSingleEliminationBracketAction
             }
         }
 
-        \App\Events\Tournament\BracketUpdatedEvent::dispatch($category);
+        BracketUpdatedEvent::dispatch($category);
 
         return TournamentMatch::where('category_id', $category->id)->orderBy('round_number')->orderBy('match_order')->get();
     }

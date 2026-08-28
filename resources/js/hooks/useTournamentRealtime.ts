@@ -26,21 +26,24 @@ export function useTournamentRealtime({
         const win = window as any;
         if (win.Echo) {
             try {
-                echoChannelCalls = win.Echo.channel(`tournament.${eventId}.calls`)
-                    .listen('.match.called', () => {
-                        router.reload();
-                    });
+                echoChannelCalls = win.Echo.channel(
+                    `tournament.${eventId}.calls`,
+                ).listen('.match.called', () => {
+                    router.reload();
+                });
 
-                echoChannelScores = win.Echo.channel(`tournament.${eventId}.scores`)
-                    .listen('.battle.recorded', () => {
-                        router.reload();
-                    });
+                echoChannelScores = win.Echo.channel(
+                    `tournament.${eventId}.scores`,
+                ).listen('.battle.recorded', () => {
+                    router.reload();
+                });
 
                 if (categoryId) {
-                    echoChannelBracket = win.Echo.channel(`category.${categoryId}.bracket`)
-                        .listen('.bracket.updated', () => {
-                            router.reload();
-                        });
+                    echoChannelBracket = win.Echo.channel(
+                        `category.${categoryId}.bracket`,
+                    ).listen('.bracket.updated', () => {
+                        router.reload();
+                    });
                 }
             } catch (e) {
                 console.warn('Echo setup fallback to polling:', e);
@@ -57,9 +60,12 @@ export function useTournamentRealtime({
                 clearInterval(timerRef.current);
             }
             if (win.Echo) {
-                if (echoChannelCalls) win.Echo.leave(`tournament.${eventId}.calls`);
-                if (echoChannelScores) win.Echo.leave(`tournament.${eventId}.scores`);
-                if (echoChannelBracket && categoryId) win.Echo.leave(`category.${categoryId}.bracket`);
+                if (echoChannelCalls)
+                    win.Echo.leave(`tournament.${eventId}.calls`);
+                if (echoChannelScores)
+                    win.Echo.leave(`tournament.${eventId}.scores`);
+                if (echoChannelBracket && categoryId)
+                    win.Echo.leave(`category.${categoryId}.bracket`);
             }
         };
     }, [eventId, categoryId, enabled, pollingIntervalMs]);

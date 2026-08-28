@@ -1,6 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty';
+import {
+    Empty,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyTitle,
+} from '@/components/ui/empty';
 import { Frame } from '@/components/ui/frame';
 import { Pagination } from '@/components/pagination';
 import {
@@ -47,9 +52,13 @@ export default function AdminRulesetsIndex({ rulesets }: Props) {
                     {/* Header & Actions */}
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex flex-col gap-1">
-                            <h1 className="text-2xl font-semibold tracking-tight">Ruleset & Scoring Engine</h1>
+                            <h1 className="text-2xl font-semibold tracking-tight">
+                                Ruleset & Scoring Engine
+                            </h1>
                             <p className="text-sm text-muted-foreground">
-                                Kelola template aturan penilaian finish (Spin, Over, Burst, Xtreme) untuk Beyblade X dan turnamen komunitas.
+                                Kelola template aturan penilaian finish (Spin,
+                                Over, Burst, Xtreme) untuk Beyblade X dan
+                                turnamen komunitas.
                             </p>
                         </div>
 
@@ -67,7 +76,8 @@ export default function AdminRulesetsIndex({ rulesets }: Props) {
                                     <BookOpen className="size-10 text-muted-foreground" />
                                     <EmptyTitle>Belum ada ruleset</EmptyTitle>
                                     <EmptyDescription>
-                                        Buat template ruleset untuk menentukan poin finish battle.
+                                        Buat template ruleset untuk menentukan
+                                        poin finish battle.
                                     </EmptyDescription>
                                 </EmptyHeader>
                             </Empty>
@@ -75,13 +85,17 @@ export default function AdminRulesetsIndex({ rulesets }: Props) {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Nama Ruleset & Generasi</TableHead>
+                                        <TableHead>
+                                            Nama Ruleset & Generasi
+                                        </TableHead>
                                         <TableHead>Target Win</TableHead>
                                         <TableHead>Spin / Over</TableHead>
                                         <TableHead>Burst / Xtreme</TableHead>
                                         <TableHead>Penalti</TableHead>
                                         <TableHead>Kategori Dipakai</TableHead>
-                                        <TableHead className="text-right">Aksi</TableHead>
+                                        <TableHead className="text-right">
+                                            Aksi
+                                        </TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -89,36 +103,77 @@ export default function AdminRulesetsIndex({ rulesets }: Props) {
                                         <TableRow key={ruleset.id}>
                                             <TableCell className="font-medium">
                                                 <div className="flex items-center gap-2">
-                                                    <span className="font-semibold text-foreground">{ruleset.name}</span>
+                                                    <span className="font-semibold text-foreground">
+                                                        {ruleset.name}
+                                                    </span>
                                                     {ruleset.is_official && (
-                                                        <Badge variant="default" className="gap-1 text-[10px]">
+                                                        <Badge
+                                                            variant="default"
+                                                            className="gap-1 text-[10px]"
+                                                        >
                                                             <ShieldCheck className="size-3" />
                                                             Official
                                                         </Badge>
                                                     )}
                                                 </div>
-                                                <p className="text-xs text-muted-foreground">Generasi: {ruleset.generation}</p>
+                                                <p className="text-xs text-muted-foreground">
+                                                    Generasi:{' '}
+                                                    {ruleset.generation}
+                                                </p>
                                             </TableCell>
                                             <TableCell>
-                                                <Badge variant="outline">{ruleset.points_to_win} Poin</Badge>
+                                                <Badge variant="outline">
+                                                    {ruleset.points_to_win} Poin
+                                                </Badge>
                                             </TableCell>
                                             <TableCell className="text-sm">
-                                                Spin: <span className="font-semibold">{ruleset.spin_finish_points}</span> | Over: <span className="font-semibold">{ruleset.over_finish_points}</span>
+                                                Spin:{' '}
+                                                <span className="font-semibold">
+                                                    {ruleset.spin_finish_points}
+                                                </span>{' '}
+                                                | Over:{' '}
+                                                <span className="font-semibold">
+                                                    {ruleset.over_finish_points}
+                                                </span>
                                             </TableCell>
                                             <TableCell className="text-sm">
-                                                Burst: <span className="font-semibold">{ruleset.burst_finish_points}</span> | Xtreme: <span className="font-semibold text-primary">{ruleset.xtreme_finish_points}</span>
+                                                Burst:{' '}
+                                                <span className="font-semibold">
+                                                    {
+                                                        ruleset.burst_finish_points
+                                                    }
+                                                </span>{' '}
+                                                | Xtreme:{' '}
+                                                <span className="font-semibold text-primary">
+                                                    {
+                                                        ruleset.xtreme_finish_points
+                                                    }
+                                                </span>
                                             </TableCell>
                                             <TableCell className="text-sm">
-                                                <span className="text-destructive font-medium">{ruleset.penalty_points} Poin</span>
+                                                <span className="font-medium text-destructive">
+                                                    {ruleset.penalty_points}{' '}
+                                                    Poin
+                                                </span>
                                             </TableCell>
                                             <TableCell className="text-sm text-muted-foreground">
-                                                {ruleset.categories_count ?? 0} Kategori
+                                                {ruleset.categories_count ?? 0}{' '}
+                                                Kategori
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    render={<Link href={edit({ ruleset: ruleset.id }).url} />}
+                                                    render={
+                                                        <Link
+                                                            href={
+                                                                edit({
+                                                                    ruleset:
+                                                                        ruleset.id,
+                                                                }).url
+                                                            }
+                                                        />
+                                                    }
                                                 >
                                                     Edit
                                                 </Button>

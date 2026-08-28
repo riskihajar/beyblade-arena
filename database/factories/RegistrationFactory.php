@@ -46,7 +46,7 @@ class RegistrationFactory extends Factory
             'is_deck_locked' => false,
             'guardian_details' => [
                 'guardian_name' => fake()->name(),
-                'guardian_phone' => '0812' . fake()->numerify('########'),
+                'guardian_phone' => '0812'.fake()->numerify('########'),
                 'relationship' => 'Orang Tua',
             ],
             'checked_in_at' => null,

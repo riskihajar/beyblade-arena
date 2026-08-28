@@ -4,6 +4,7 @@ namespace App\Actions\Tournament;
 
 use App\Enums\MatchStatusEnum;
 use App\Enums\StadiumStatusEnum;
+use App\Events\Tournament\MatchCalledEvent;
 use App\Models\Stadium;
 use App\Models\TournamentMatch;
 use App\Models\User;
@@ -60,7 +61,7 @@ class CallMatchToStadiumAction
             'status' => StadiumStatusEnum::IN_USE,
         ]);
 
-        \App\Events\Tournament\MatchCalledEvent::dispatch($match);
+        MatchCalledEvent::dispatch($match);
 
         return $match;
     }

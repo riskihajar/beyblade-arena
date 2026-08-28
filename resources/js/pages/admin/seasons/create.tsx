@@ -47,14 +47,22 @@ export default function AdminSeasonsCreate() {
                                         <Button
                                             variant="ghost"
                                             size="icon-sm"
-                                            render={<Link href={seasonsIndex().url} />}
+                                            render={
+                                                <Link
+                                                    href={seasonsIndex().url}
+                                                />
+                                            }
                                         >
                                             <ArrowLeft className="size-4" />
                                         </Button>
                                         <div>
-                                            <FrameTitle>Buat Musim Kompetisi</FrameTitle>
+                                            <FrameTitle>
+                                                Buat Musim Kompetisi
+                                            </FrameTitle>
                                             <FrameDescription>
-                                                Musim kompetisi menampung akumulasi klasemen liga blader Samarinda.
+                                                Musim kompetisi menampung
+                                                akumulasi klasemen liga blader
+                                                Samarinda.
                                             </FrameDescription>
                                         </div>
                                     </div>
@@ -64,8 +72,15 @@ export default function AdminSeasonsCreate() {
                                     <div className="space-y-6">
                                         <Fieldset className="space-y-4">
                                             {/* Nama Musim */}
-                                            <Field name="name" data-invalid={!!errors.name || undefined}>
-                                                <FieldLabel htmlFor="name">Nama Musim Kompetisi</FieldLabel>
+                                            <Field
+                                                name="name"
+                                                data-invalid={
+                                                    !!errors.name || undefined
+                                                }
+                                            >
+                                                <FieldLabel htmlFor="name">
+                                                    Nama Musim Kompetisi
+                                                </FieldLabel>
                                                 <Input
                                                     id="name"
                                                     name="name"
@@ -73,32 +88,60 @@ export default function AdminSeasonsCreate() {
                                                     placeholder="Contoh: Komunitas Beyblade Samarinda — Musim 2026"
                                                     required
                                                 />
-                                                <FieldError error={errors.name} />
+                                                <FieldError
+                                                    error={errors.name}
+                                                />
                                             </Field>
 
                                             {/* Tanggal Mulai & Selesai */}
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                                <Field name="start_date" data-invalid={!!errors.start_date || undefined}>
-                                                    <FieldLabel htmlFor="start_date">Tanggal Mulai Musim</FieldLabel>
+                                                <Field
+                                                    name="start_date"
+                                                    data-invalid={
+                                                        !!errors.start_date ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="start_date">
+                                                        Tanggal Mulai Musim
+                                                    </FieldLabel>
                                                     <Input
                                                         id="start_date"
                                                         name="start_date"
                                                         type="date"
-                                                        defaultValue={new Date().toISOString().split('T')[0]}
+                                                        defaultValue={
+                                                            new Date()
+                                                                .toISOString()
+                                                                .split('T')[0]
+                                                        }
                                                         required
                                                     />
-                                                    <FieldError error={errors.start_date} />
+                                                    <FieldError
+                                                        error={
+                                                            errors.start_date
+                                                        }
+                                                    />
                                                 </Field>
 
-                                                <Field name="end_date" data-invalid={!!errors.end_date || undefined}>
-                                                    <FieldLabel htmlFor="end_date">Tanggal Selesai Musim</FieldLabel>
+                                                <Field
+                                                    name="end_date"
+                                                    data-invalid={
+                                                        !!errors.end_date ||
+                                                        undefined
+                                                    }
+                                                >
+                                                    <FieldLabel htmlFor="end_date">
+                                                        Tanggal Selesai Musim
+                                                    </FieldLabel>
                                                     <Input
                                                         id="end_date"
                                                         name="end_date"
                                                         type="date"
                                                         defaultValue=""
                                                     />
-                                                    <FieldError error={errors.end_date} />
+                                                    <FieldError
+                                                        error={errors.end_date}
+                                                    />
                                                 </Field>
                                             </div>
 
@@ -107,13 +150,16 @@ export default function AdminSeasonsCreate() {
                                                 <Checkbox
                                                     id="is_active"
                                                     checked={isActive}
-                                                    onCheckedChange={(val) => setIsActive(!!val)}
+                                                    onCheckedChange={(val) =>
+                                                        setIsActive(!!val)
+                                                    }
                                                 />
                                                 <label
                                                     htmlFor="is_active"
-                                                    className="text-sm font-medium leading-none cursor-pointer"
+                                                    className="cursor-pointer text-sm leading-none font-medium"
                                                 >
-                                                    Jadikan sebagai Musim Aktif saat ini
+                                                    Jadikan sebagai Musim Aktif
+                                                    saat ini
                                                 </label>
                                             </div>
                                         </Fieldset>

@@ -4,6 +4,7 @@ namespace App\Actions\Tournament;
 
 use App\Enums\MatchStatusEnum;
 use App\Enums\RegistrationStatusEnum;
+use App\Events\Tournament\BracketUpdatedEvent;
 use App\Models\Registration;
 use App\Models\TournamentCategory;
 use App\Models\TournamentMatch;
@@ -15,8 +16,9 @@ class GenerateRoundRobinScheduleAction
     /**
      * Generate fair Round Robin schedule using Berger / Circle algorithm.
      *
-     * @throws ValidationException
      * @return Collection<int, TournamentMatch>
+     *
+     * @throws ValidationException
      */
     public function execute(TournamentCategory $category, ?string $groupCode = null, bool $useOnlyCheckedIn = true): Collection
     {
@@ -109,7 +111,7 @@ class GenerateRoundRobinScheduleAction
             $participants = array_merge([$first], $rest);
         }
 
-        \App\Events\Tournament\BracketUpdatedEvent::dispatch($category);
+        BracketUpdatedEvent::dispatch($category);
 
         return $createdMatches;
     }

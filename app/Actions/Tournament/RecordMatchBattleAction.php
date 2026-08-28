@@ -5,6 +5,7 @@ namespace App\Actions\Tournament;
 use App\Enums\MatchFinishTypeEnum;
 use App\Enums\MatchStatusEnum;
 use App\Enums\StadiumStatusEnum;
+use App\Events\Tournament\BattleRecordedEvent;
 use App\Models\MatchBattle;
 use App\Models\Stadium;
 use App\Models\TournamentMatch;
@@ -126,7 +127,7 @@ class RecordMatchBattleAction
             $this->progressWinnerAction->execute($match);
         }
 
-        \App\Events\Tournament\BattleRecordedEvent::dispatch($match, $battle);
+        BattleRecordedEvent::dispatch($match, $battle);
 
         return $battle;
     }

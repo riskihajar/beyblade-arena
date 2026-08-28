@@ -1,12 +1,7 @@
 <?php
 
-use App\Enums\DeckLockPolicyEnum;
-use App\Enums\EventFormatEnum;
-use App\Enums\EventStatusEnum;
 use App\Enums\MatchFinishTypeEnum;
 use App\Enums\MatchStatusEnum;
-use App\Enums\RegistrationStatusEnum;
-use App\Enums\StadiumStatusEnum;
 use App\Models\Event;
 use App\Models\MatchBattle;
 use App\Models\Registration;

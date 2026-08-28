@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Event;
 
 use App\Enums\EventStatusEnum;
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -10,7 +11,7 @@ class StoreEventRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\Event::class);
+        return $this->user()->can('create', Event::class);
     }
 
     public function rules(): array

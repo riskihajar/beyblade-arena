@@ -1,6 +1,12 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import {
     Dialog,
     DialogClose,
@@ -10,7 +16,12 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty';
+import {
+    Empty,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyTitle,
+} from '@/components/ui/empty';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
@@ -64,12 +75,15 @@ export default function AdminStadiumsIndex({
     judges,
     selectedEventId,
 }: Props) {
-    const [callModalMatch, setCallModalMatch] = useState<TournamentMatch | null>(null);
+    const [callModalMatch, setCallModalMatch] =
+        useState<TournamentMatch | null>(null);
     const [selectedStadiumId, setSelectedStadiumId] = useState<string>('');
     const [selectedJudgeId, setSelectedJudgeId] = useState<string>('');
     const [addStadiumModalOpen, setAddStadiumModalOpen] = useState(false);
     const [newStadiumName, setNewStadiumName] = useState('');
-    const [newStadiumModel, setNewStadiumModel] = useState('Standard Xtreme Beystadium (UX-04)');
+    const [newStadiumModel, setNewStadiumModel] = useState(
+        'Standard Xtreme Beystadium (UX-04)',
+    );
 
     const availableStadiums = stadiums.filter((s) => s.status === 'available');
 
@@ -91,7 +105,7 @@ export default function AdminStadiumsIndex({
             {
                 preserveScroll: true,
                 onSuccess: () => setCallModalMatch(null),
-            }
+            },
         );
     };
 
@@ -113,7 +127,7 @@ export default function AdminStadiumsIndex({
                     setAddStadiumModalOpen(false);
                     setNewStadiumName('');
                 },
-            }
+            },
         );
     };
 
@@ -121,24 +135,31 @@ export default function AdminStadiumsIndex({
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manajemen Stadium & Papan Panggilan Pertandingan" />
 
-            <div className="container mx-auto px-4 py-8 space-y-8">
+            <div className="container mx-auto space-y-8 px-4 py-8">
                 {/* Header */}
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-2">
                             <Megaphone className="size-6 text-primary" />
-                            <h1 className="text-2xl font-bold tracking-tight">Manajemen Arena Stadium & Panggilan</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                Manajemen Arena Stadium & Panggilan
+                            </h1>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                            Pantau status stadium venue secara real-time dan panggil pertandingan yang siap tanding.
+                            Pantau status stadium venue secara real-time dan
+                            panggil pertandingan yang siap tanding.
                         </p>
                     </div>
 
                     <div className="flex items-center gap-2">
                         <select
                             value={selectedEventId || ''}
-                            onChange={(e) => router.get('/admin/stadiums', { event_id: e.target.value })}
-                            className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs font-medium"
+                            onChange={(e) =>
+                                router.get('/admin/stadiums', {
+                                    event_id: e.target.value,
+                                })
+                            }
+                            className="h-9 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-xs"
                         >
                             {events.map((ev) => (
                                 <option key={ev.id} value={ev.id}>
@@ -147,7 +168,10 @@ export default function AdminStadiumsIndex({
                             ))}
                         </select>
 
-                        <Button onClick={() => setAddStadiumModalOpen(true)} className="gap-1.5 font-semibold">
+                        <Button
+                            onClick={() => setAddStadiumModalOpen(true)}
+                            className="gap-1.5 font-semibold"
+                        >
                             <Plus className="size-4" />
                             <span>Tambah Arena</span>
                         </Button>
@@ -156,25 +180,29 @@ export default function AdminStadiumsIndex({
 
                 {/* Stadium Grid */}
                 <div className="space-y-3">
-                    <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+                    <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
                         <Swords className="size-4 text-primary" />
                         Arena Stadium di Venue ({stadiums.length} Stadium)
                     </h2>
 
                     {stadiums.length === 0 ? (
-                        <Empty className="py-8 border rounded-xl bg-card">
+                        <Empty className="rounded-xl border bg-card py-8">
                             <EmptyHeader>
                                 <Swords className="size-8 text-muted-foreground" />
-                                <EmptyTitle>Belum ada arena stadium terdaftar</EmptyTitle>
+                                <EmptyTitle>
+                                    Belum ada arena stadium terdaftar
+                                </EmptyTitle>
                                 <EmptyDescription>
-                                    Tambahkan arena stadium (misal: Stadium A, Stadium B) untuk event ini.
+                                    Tambahkan arena stadium (misal: Stadium A,
+                                    Stadium B) untuk event ini.
                                 </EmptyDescription>
                             </EmptyHeader>
                         </Empty>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                             {stadiums.map((stadium) => {
-                                const isAvailable = stadium.status === 'available';
+                                const isAvailable =
+                                    stadium.status === 'available';
                                 const isBusy = stadium.status === 'in_use';
 
                                 return (
@@ -182,38 +210,62 @@ export default function AdminStadiumsIndex({
                                         key={stadium.id}
                                         className={`border transition-all ${
                                             isBusy
-                                                ? 'border-primary ring-1 ring-primary bg-primary/5'
+                                                ? 'border-primary bg-primary/5 ring-1 ring-primary'
                                                 : isAvailable
-                                                ? 'border-emerald-500/30 bg-emerald-500/5'
-                                                : 'border-border bg-muted/20'
+                                                  ? 'border-emerald-500/30 bg-emerald-500/5'
+                                                  : 'border-border bg-muted/20'
                                         }`}
                                     >
                                         <CardHeader className="p-4 pb-2">
                                             <div className="flex items-center justify-between">
                                                 <Badge
-                                                    variant={isAvailable ? 'default' : isBusy ? 'secondary' : 'outline'}
-                                                    className={isAvailable ? 'bg-emerald-600' : undefined}
+                                                    variant={
+                                                        isAvailable
+                                                            ? 'default'
+                                                            : isBusy
+                                                              ? 'secondary'
+                                                              : 'outline'
+                                                    }
+                                                    className={
+                                                        isAvailable
+                                                            ? 'bg-emerald-600'
+                                                            : undefined
+                                                    }
                                                 >
-                                                    {isAvailable ? 'Tersedia (Ready)' : isBusy ? 'Sedang Tanding' : 'Maintenance'}
+                                                    {isAvailable
+                                                        ? 'Tersedia (Ready)'
+                                                        : isBusy
+                                                          ? 'Sedang Tanding'
+                                                          : 'Maintenance'}
                                                 </Badge>
-                                                <span className="text-[11px] text-muted-foreground">{stadium.model_type}</span>
+                                                <span className="text-[11px] text-muted-foreground">
+                                                    {stadium.model_type}
+                                                </span>
                                             </div>
-                                            <CardTitle className="text-lg font-bold mt-1 text-foreground">
+                                            <CardTitle className="mt-1 text-lg font-bold text-foreground">
                                                 {stadium.name}
                                             </CardTitle>
                                             <CardDescription className="text-xs">
-                                                Juri: {stadium.assigned_judge?.name || 'Belum Ditetapkan'}
+                                                Juri:{' '}
+                                                {stadium.assigned_judge?.name ||
+                                                    'Belum Ditetapkan'}
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent className="p-4 pt-2 text-xs">
                                             {isBusy ? (
-                                                <div className="rounded-md bg-primary/10 border border-primary/20 p-2.5 space-y-1">
-                                                    <span className="font-semibold text-primary block">Pertandingan Berlangsung</span>
-                                                    <p className="text-muted-foreground">Menunggu input juri selesai...</p>
+                                                <div className="space-y-1 rounded-md border border-primary/20 bg-primary/10 p-2.5">
+                                                    <span className="block font-semibold text-primary">
+                                                        Pertandingan Berlangsung
+                                                    </span>
+                                                    <p className="text-muted-foreground">
+                                                        Menunggu input juri
+                                                        selesai...
+                                                    </p>
                                                 </div>
                                             ) : (
-                                                <p className="text-emerald-700 dark:text-emerald-300 font-medium">
-                                                    Siap menerima panggilan pertandingan berikutnya.
+                                                <p className="font-medium text-emerald-700 dark:text-emerald-300">
+                                                    Siap menerima panggilan
+                                                    pertandingan berikutnya.
                                                 </p>
                                             )}
                                         </CardContent>
@@ -227,9 +279,10 @@ export default function AdminStadiumsIndex({
                 {/* Match Calling Queue */}
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+                        <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
                             <Clock className="size-4 text-primary" />
-                            Antrean Pertandingan Siap Panggil ({readyMatches.length} Match)
+                            Antrean Pertandingan Siap Panggil (
+                            {readyMatches.length} Match)
                         </h2>
                     </div>
 
@@ -238,9 +291,13 @@ export default function AdminStadiumsIndex({
                             <Empty className="py-8">
                                 <EmptyHeader>
                                     <Clock className="size-8 text-muted-foreground" />
-                                    <EmptyTitle>Tidak ada match yang siap dipanggil</EmptyTitle>
+                                    <EmptyTitle>
+                                        Tidak ada match yang siap dipanggil
+                                    </EmptyTitle>
                                     <EmptyDescription>
-                                        Semua match yang siap sudah dipanggil atau masih menunggu pemenang babak sebelumnya.
+                                        Semua match yang siap sudah dipanggil
+                                        atau masih menunggu pemenang babak
+                                        sebelumnya.
                                     </EmptyDescription>
                                 </EmptyHeader>
                             </Empty>
@@ -250,15 +307,19 @@ export default function AdminStadiumsIndex({
                                     <TableRow>
                                         <TableHead>Match #</TableHead>
                                         <TableHead>Divisi Kategori</TableHead>
-                                        <TableHead>Pertarungan Blader</TableHead>
+                                        <TableHead>
+                                            Pertarungan Blader
+                                        </TableHead>
                                         <TableHead>Babak</TableHead>
-                                        <TableHead className="text-right">Aksi Panggilan</TableHead>
+                                        <TableHead className="text-right">
+                                            Aksi Panggilan
+                                        </TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {readyMatches.map((match) => (
                                         <TableRow key={match.id}>
-                                            <TableCell className="font-mono font-bold text-xs">
+                                            <TableCell className="font-mono text-xs font-bold">
                                                 Match #{match.match_order}
                                             </TableCell>
                                             <TableCell className="text-sm font-medium">
@@ -266,11 +327,19 @@ export default function AdminStadiumsIndex({
                                             </TableCell>
                                             <TableCell className="text-xs">
                                                 <span className="font-bold text-foreground">
-                                                    {match.player1?.display_nickname || match.player1?.user?.name}
+                                                    {match.player1
+                                                        ?.display_nickname ||
+                                                        match.player1?.user
+                                                            ?.name}
                                                 </span>
-                                                <span className="text-muted-foreground mx-1.5">vs</span>
+                                                <span className="mx-1.5 text-muted-foreground">
+                                                    vs
+                                                </span>
                                                 <span className="font-bold text-foreground">
-                                                    {match.player2?.display_nickname || match.player2?.user?.name}
+                                                    {match.player2
+                                                        ?.display_nickname ||
+                                                        match.player2?.user
+                                                            ?.name}
                                                 </span>
                                             </TableCell>
                                             <TableCell className="text-xs text-muted-foreground">
@@ -280,10 +349,14 @@ export default function AdminStadiumsIndex({
                                                 <Button
                                                     size="sm"
                                                     className="gap-1.5 font-semibold"
-                                                    onClick={() => openCallModal(match)}
+                                                    onClick={() =>
+                                                        openCallModal(match)
+                                                    }
                                                 >
                                                     <Megaphone className="size-3.5" />
-                                                    <span>Panggil ke Stadium</span>
+                                                    <span>
+                                                        Panggil ke Stadium
+                                                    </span>
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
@@ -296,15 +369,23 @@ export default function AdminStadiumsIndex({
             </div>
 
             {/* Call Match Dialog */}
-            <Dialog open={!!callModalMatch} onOpenChange={(open) => !open && setCallModalMatch(null)}>
+            <Dialog
+                open={!!callModalMatch}
+                onOpenChange={(open) => !open && setCallModalMatch(null)}
+            >
                 <DialogContent className="max-w-md">
                     <DialogHeader>
                         <div className="flex items-center gap-2 text-primary">
                             <Megaphone className="size-5" />
-                            <DialogTitle>Panggil Pertandingan ke Stadium</DialogTitle>
+                            <DialogTitle>
+                                Panggil Pertandingan ke Stadium
+                            </DialogTitle>
                         </div>
                         <DialogDescription>
-                            Tugaskan Match #{callModalMatch?.match_order} ({callModalMatch?.player1?.display_nickname} vs {callModalMatch?.player2?.display_nickname}) ke arena yang tersedia.
+                            Tugaskan Match #{callModalMatch?.match_order} (
+                            {callModalMatch?.player1?.display_nickname} vs{' '}
+                            {callModalMatch?.player2?.display_nickname}) ke
+                            arena yang tersedia.
                         </DialogDescription>
                     </DialogHeader>
 
@@ -313,7 +394,9 @@ export default function AdminStadiumsIndex({
                             <FieldLabel>Pilih Stadium Arena</FieldLabel>
                             <select
                                 value={selectedStadiumId}
-                                onChange={(e) => setSelectedStadiumId(e.target.value)}
+                                onChange={(e) =>
+                                    setSelectedStadiumId(e.target.value)
+                                }
                                 className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs"
                             >
                                 {stadiums.map((s) => (
@@ -325,13 +408,19 @@ export default function AdminStadiumsIndex({
                         </Field>
 
                         <Field name="judge_select">
-                            <FieldLabel>Pilih Juri yang Bertugas (Opsional)</FieldLabel>
+                            <FieldLabel>
+                                Pilih Juri yang Bertugas (Opsional)
+                            </FieldLabel>
                             <select
                                 value={selectedJudgeId}
-                                onChange={(e) => setSelectedJudgeId(e.target.value)}
+                                onChange={(e) =>
+                                    setSelectedJudgeId(e.target.value)
+                                }
                                 className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs"
                             >
-                                <option value="">Gunakan Juri Bawaan Stadium</option>
+                                <option value="">
+                                    Gunakan Juri Bawaan Stadium
+                                </option>
                                 {judges.map((j) => (
                                     <option key={j.id} value={j.id}>
                                         {j.name} ({j.email})
@@ -342,10 +431,16 @@ export default function AdminStadiumsIndex({
                     </div>
 
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setCallModalMatch(null)}>
+                        <Button
+                            variant="outline"
+                            onClick={() => setCallModalMatch(null)}
+                        >
                             Batal
                         </Button>
-                        <Button onClick={submitCallMatch} disabled={!selectedStadiumId}>
+                        <Button
+                            onClick={submitCallMatch}
+                            disabled={!selectedStadiumId}
+                        >
                             Panggil Sekarang
                         </Button>
                     </DialogFooter>
@@ -353,13 +448,17 @@ export default function AdminStadiumsIndex({
             </Dialog>
 
             {/* Add Stadium Dialog */}
-            <Dialog open={addStadiumModalOpen} onOpenChange={setAddStadiumModalOpen}>
+            <Dialog
+                open={addStadiumModalOpen}
+                onOpenChange={setAddStadiumModalOpen}
+            >
                 <DialogContent className="max-w-md">
                     <form onSubmit={submitAddStadium}>
                         <DialogHeader>
                             <DialogTitle>Tambah Arena Stadium Baru</DialogTitle>
                             <DialogDescription>
-                                Daftarkan arena pertandingan fisik di venue event ini.
+                                Daftarkan arena pertandingan fisik di venue
+                                event ini.
                             </DialogDescription>
                         </DialogHeader>
 
@@ -368,7 +467,9 @@ export default function AdminStadiumsIndex({
                                 <FieldLabel>Nama Stadium Arena</FieldLabel>
                                 <Input
                                     value={newStadiumName}
-                                    onChange={(e) => setNewStadiumName(e.target.value)}
+                                    onChange={(e) =>
+                                        setNewStadiumName(e.target.value)
+                                    }
                                     placeholder="Contoh: Stadium A (Atrium Depan)"
                                     required
                                 />
@@ -378,7 +479,9 @@ export default function AdminStadiumsIndex({
                                 <FieldLabel>Tipe / Model Stadium</FieldLabel>
                                 <Input
                                     value={newStadiumModel}
-                                    onChange={(e) => setNewStadiumModel(e.target.value)}
+                                    onChange={(e) =>
+                                        setNewStadiumModel(e.target.value)
+                                    }
                                     placeholder="Standard Xtreme Beystadium (UX-04)"
                                     required
                                 />
@@ -386,7 +489,11 @@ export default function AdminStadiumsIndex({
                         </div>
 
                         <DialogFooter>
-                            <Button type="button" variant="outline" onClick={() => setAddStadiumModalOpen(false)}>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => setAddStadiumModalOpen(false)}
+                            >
                                 Batal
                             </Button>
                             <Button type="submit">Simpan Arena</Button>

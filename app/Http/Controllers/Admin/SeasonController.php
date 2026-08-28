@@ -43,7 +43,7 @@ class SeasonController extends Controller
         $validated = $request->validated();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']) . '-' . Str::lower(Str::random(4));
+            $validated['slug'] = Str::slug($validated['name']).'-'.Str::lower(Str::random(4));
         }
 
         if (! empty($validated['is_active'])) {
@@ -78,7 +78,7 @@ class SeasonController extends Controller
         $validated = $request->validated();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']) . '-' . Str::lower(Str::random(4));
+            $validated['slug'] = Str::slug($validated['name']).'-'.Str::lower(Str::random(4));
         }
 
         if (! empty($validated['is_active'])) {

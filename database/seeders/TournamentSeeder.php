@@ -227,8 +227,8 @@ class TournamentSeeder extends Seeder
                     ],
                     'is_deck_locked' => true,
                     'guardian_details' => [
-                        'guardian_name' => 'Wali ' . $blader['name'],
-                        'guardian_phone' => '0812' . rand(10000000, 99999999),
+                        'guardian_name' => 'Wali '.$blader['name'],
+                        'guardian_phone' => '0812'.rand(10000000, 99999999),
                         'relationship' => 'Orang Tua',
                     ],
                 ]
