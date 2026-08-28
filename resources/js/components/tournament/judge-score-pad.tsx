@@ -8,9 +8,11 @@ import {
     DialogDescription,
     DialogFooter,
     DialogHeader,
+    DialogPanel,
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Field, FieldLabel } from '@/components/ui/field';
+import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
 import {
     battle as battleRoute,
@@ -427,17 +429,16 @@ export function JudgeScorePad({ match }: Props) {
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="space-y-4 py-2 text-xs">
+                    <DialogPanel className="space-y-4 py-2 text-xs">
                         <Field name="walkover_player">
                             <FieldLabel>
                                 Pemenang WO (Peserta yang Hadir)
                             </FieldLabel>
-                            <select
+                            <NativeSelect
                                 value={walkoverPresentId}
                                 onChange={(e) =>
                                     setWalkoverPresentId(e.target.value)
                                 }
-                                className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs"
                             >
                                 <option value={match.player1_id || ''}>
                                     {player1Name}
@@ -445,7 +446,7 @@ export function JudgeScorePad({ match }: Props) {
                                 <option value={match.player2_id || ''}>
                                     {player2Name}
                                 </option>
-                            </select>
+                            </NativeSelect>
                         </Field>
 
                         <Field name="walkover_reason">
@@ -460,7 +461,7 @@ export function JudgeScorePad({ match }: Props) {
                                 required
                             />
                         </Field>
-                    </div>
+                    </DialogPanel>
 
                     <DialogFooter>
                         <Button
@@ -492,7 +493,7 @@ export function JudgeScorePad({ match }: Props) {
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="space-y-4 py-2 text-xs">
+                    <DialogPanel className="space-y-4 py-2 text-xs">
                         <Field name="dispute_reason">
                             <FieldLabel>Catatan Kronologi Sengketa</FieldLabel>
                             <Textarea
@@ -505,7 +506,7 @@ export function JudgeScorePad({ match }: Props) {
                                 required
                             />
                         </Field>
-                    </div>
+                    </DialogPanel>
 
                     <DialogFooter>
                         <Button

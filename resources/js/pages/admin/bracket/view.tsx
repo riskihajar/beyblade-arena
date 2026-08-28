@@ -7,6 +7,7 @@ import {
     DialogDescription,
     DialogFooter,
     DialogHeader,
+    DialogPanel,
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Field, FieldLabel } from '@/components/ui/field';
@@ -106,12 +107,18 @@ export default function AdminBracketView({
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-2">
-                            <Link
-                                href={`/admin/events/${category.event_id}`}
-                                className="inline-flex size-8 items-center justify-center rounded-md border hover:bg-muted"
+                            <Button
+                                variant="outline"
+                                size="icon-sm"
+                                render={
+                                    <Link
+                                        href={`/admin/events/${category.event_id}`}
+                                    />
+                                }
+                                title="Kembali ke Event"
                             >
                                 <ArrowLeft className="size-4" />
-                            </Link>
+                            </Button>
                             <div>
                                 <div className="flex items-center gap-2">
                                     <h1 className="text-2xl font-bold tracking-tight text-foreground">
@@ -226,7 +233,7 @@ export default function AdminBracketView({
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="space-y-4 py-2 text-xs">
+                    <DialogPanel className="space-y-4 py-2 text-xs">
                         {completedMatches > 0 && (
                             <div className="space-y-2 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-destructive">
                                 <div className="flex items-center gap-1.5 font-bold">
@@ -270,7 +277,7 @@ export default function AdminBracketView({
                                 rows={2}
                             />
                         </Field>
-                    </div>
+                    </DialogPanel>
 
                     <DialogFooter>
                         <Button

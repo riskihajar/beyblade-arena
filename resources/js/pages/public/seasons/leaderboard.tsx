@@ -10,6 +10,12 @@ import {
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
 import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+} from '@/components/ui/input-group';
+import { NativeSelect } from '@/components/ui/native-select';
+import {
     Table,
     TableBody,
     TableCell,
@@ -70,21 +76,22 @@ export default function PublicLeaderboard({
                     </Link>
 
                     <div className="flex items-center gap-2">
-                        <select
-                            value={selectedSeason?.id || ''}
-                            onChange={(e) =>
-                                router.get('/leaderboard', {
-                                    season_id: e.target.value,
-                                })
-                            }
-                            className="h-9 rounded-md border border-input bg-background px-3 text-xs font-semibold shadow-xs"
-                        >
-                            {seasons.map((s) => (
-                                <option key={s.id} value={s.id}>
-                                    {s.name} {s.is_active ? '(Aktif)' : ''}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="w-56">
+                            <NativeSelect
+                                value={selectedSeason?.id || ''}
+                                onChange={(e) =>
+                                    router.get('/leaderboard', {
+                                        season_id: e.target.value,
+                                    })
+                                }
+                            >
+                                {seasons.map((s) => (
+                                    <option key={s.id} value={s.id}>
+                                        {s.name} {s.is_active ? '(Aktif)' : ''}
+                                    </option>
+                                ))}
+                            </NativeSelect>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -186,16 +193,16 @@ export default function PublicLeaderboard({
                             Blader)
                         </h2>
 
-                        <div className="relative w-full sm:w-64">
-                            <Search className="absolute top-2.5 left-2.5 size-4 text-muted-foreground" />
-                            <Input
-                                type="text"
+                        <InputGroup className="w-full sm:w-64">
+                            <InputGroupAddon>
+                                <Search className="size-4 text-muted-foreground" />
+                            </InputGroupAddon>
+                            <InputGroupInput
                                 placeholder="Cari nama blader..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-9 text-xs"
                             />
-                        </div>
+                        </InputGroup>
                     </div>
 
                     <Frame className="w-full">

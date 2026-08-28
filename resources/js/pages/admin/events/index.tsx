@@ -7,6 +7,7 @@ import {
     EmptyTitle,
 } from '@/components/ui/empty';
 import { Frame } from '@/components/ui/frame';
+import { NativeSelect } from '@/components/ui/native-select';
 import { Pagination } from '@/components/pagination';
 import {
     Table,
@@ -130,24 +131,27 @@ export default function AdminEventsIndex({ events, filters }: Props) {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3">
-                            <select
-                                value={filters.status || ''}
-                                onChange={(e) =>
-                                    handleStatusFilter(e.target.value)
-                                }
-                                className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
-                            >
-                                <option value="">Semua Status</option>
-                                <option value="draft">Draf</option>
-                                <option value="registration_open">
-                                    Pendaftaran Buka
-                                </option>
-                                <option value="registration_closed">
-                                    Pendaftaran Tutup
-                                </option>
-                                <option value="ongoing">Sedang Berjalan</option>
-                                <option value="completed">Selesai</option>
-                            </select>
+                            <div className="w-48">
+                                <NativeSelect
+                                    value={filters.status || ''}
+                                    onChange={(e) =>
+                                        handleStatusFilter(e.target.value)
+                                    }
+                                >
+                                    <option value="">Semua Status</option>
+                                    <option value="draft">Draf</option>
+                                    <option value="registration_open">
+                                        Pendaftaran Buka
+                                    </option>
+                                    <option value="registration_closed">
+                                        Pendaftaran Tutup
+                                    </option>
+                                    <option value="ongoing">
+                                        Sedang Berjalan
+                                    </option>
+                                    <option value="completed">Selesai</option>
+                                </NativeSelect>
+                            </div>
 
                             <Button render={<Link href={create().url} />}>
                                 <Plus className="size-4" />

@@ -60,12 +60,14 @@ export default function JudgeConsole({
                 {selectedMatch ? (
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                            <Link
-                                href="/judge/console"
-                                className="inline-flex size-8 items-center justify-center rounded-md border hover:bg-muted"
+                            <Button
+                                variant="outline"
+                                size="icon-sm"
+                                render={<Link href="/judge/console" />}
+                                title="Kembali ke Antrean"
                             >
                                 <ArrowLeft className="size-4" />
-                            </Link>
+                            </Button>
                             <span className="text-xs text-muted-foreground">
                                 Kembali ke Antrean Match Juri
                             </span>

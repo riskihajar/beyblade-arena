@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsPanel, TabsTab } from '@/components/ui/tabs';
 import { BracketViewer } from '@/components/tournament/bracket-viewer';
 import { StadiumCallBoard } from '@/components/tournament/stadium-call-board';
 import { useTournamentRealtime } from '@/hooks/useTournamentRealtime';
@@ -143,150 +144,146 @@ export default function PublicLiveHub({
                     )}
                 </div>
 
-                {/* Sub-Tab Navigation Bar */}
-                <div className="flex items-center gap-2 border-b pb-2">
-                    <button
-                        type="button"
-                        onClick={() => setActiveTab('stadiums')}
-                        className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
-                            activeTab === 'stadiums'
-                                ? 'border border-primary/20 bg-primary/10 text-primary'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
+                {/* Sub-Tab Navigation Bar with COSS UI Tabs */}
+                <Tabs
+                    value={activeTab}
+                    onValueChange={(val) =>
+                        setActiveTab(val as 'stadiums' | 'bracket' | 'schedule')
+                    }
+                    className="w-full space-y-6"
+                >
+                    <TabsList
+                        variant="underline"
+                        className="w-full justify-start gap-2 border-b pb-0"
                     >
-                        <Flame className="size-4" />
-                        <span>Papan Stadium Live</span>
-                    </button>
+                        <TabsTab value="stadiums">
+                            <Flame className="size-4" />
+                            <span>Papan Stadium Live</span>
+                        </TabsTab>
 
-                    <button
-                        type="button"
-                        onClick={() => setActiveTab('bracket')}
-                        className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
-                            activeTab === 'bracket'
-                                ? 'border border-primary/20 bg-primary/10 text-primary'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        <Swords className="size-4" />
-                        <span>Bagan & Klasemen</span>
-                    </button>
+                        <TabsTab value="bracket">
+                            <Swords className="size-4" />
+                            <span>Bagan & Klasemen</span>
+                        </TabsTab>
 
-                    <button
-                        type="button"
-                        onClick={() => setActiveTab('schedule')}
-                        className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-bold transition-all ${
-                            activeTab === 'schedule'
-                                ? 'border border-primary/20 bg-primary/10 text-primary'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        <Clock className="size-4" />
-                        <span>Jadwal & Hasil ({matches.length})</span>
-                    </button>
-                </div>
+                        <TabsTab value="schedule">
+                            <Clock className="size-4" />
+                            <span>Jadwal & Hasil ({matches.length})</span>
+                        </TabsTab>
+                    </TabsList>
 
-                {/* Tab 1: Stadium Call Board */}
-                {activeTab === 'stadiums' && (
-                    <StadiumCallBoard
-                        stadiums={stadiums}
-                        upcomingCalls={upcomingCalls}
-                    />
-                )}
-
-                {/* Tab 2: Live Bracket & Standings */}
-                {activeTab === 'bracket' && selectedCategory && (
-                    <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-sm font-bold text-foreground">
-                                {selectedCategory.name} —{' '}
-                                {selectedCategory.format === 'round_robin'
-                                    ? 'Klasemen Round Robin'
-                                    : 'Bagan Single Elimination'}
-                            </h3>
-                            <Badge variant="outline" className="text-xs">
-                                Target {selectedCategory.target_points} Poin
-                            </Badge>
-                        </div>
-
-                        <BracketViewer
-                            category={selectedCategory}
-                            matches={matches}
-                            standings={standings}
+                    {/* Tab 1: Stadium Call Board */}
+                    <TabsPanel value="stadiums">
+                        <StadiumCallBoard
+                            stadiums={stadiums}
+                            upcomingCalls={upcomingCalls}
                         />
-                    </div>
-                )}
+                    </TabsPanel>
 
-                {/* Tab 3: Complete Schedule & Match List */}
-                {activeTab === 'schedule' && (
-                    <div className="space-y-4">
-                        <h3 className="text-sm font-bold text-foreground">
-                            Semua Pertandingan ({matches.length} Match)
-                        </h3>
-
-                        {matches.length === 0 ? (
-                            <div className="rounded-xl border p-8 text-center text-xs text-muted-foreground">
-                                Belum ada pertandingan terjadwal untuk kategori
-                                ini.
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-                                {matches.map((m) => (
-                                    <Card
-                                        key={m.id}
-                                        className="space-y-2 border p-3 text-xs"
+                    {/* Tab 2: Live Bracket & Standings */}
+                    <TabsPanel value="bracket">
+                        {selectedCategory && (
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-bold text-foreground">
+                                        {selectedCategory.name} —{' '}
+                                        {selectedCategory.format ===
+                                        'round_robin'
+                                            ? 'Klasemen Round Robin'
+                                            : 'Bagan Single Elimination'}
+                                    </h3>
+                                    <Badge
+                                        variant="outline"
+                                        className="text-xs"
                                     >
-                                        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-                                            <span>
-                                                Match #{m.match_order} • Babak{' '}
-                                                {m.round_number}
-                                            </span>
-                                            <Badge
-                                                variant={
-                                                    m.status === 'completed'
-                                                        ? 'default'
-                                                        : 'outline'
-                                                }
-                                                className="text-[9px]"
-                                            >
-                                                {m.status}
-                                            </Badge>
-                                        </div>
+                                        Target {selectedCategory.target_points}{' '}
+                                        Poin
+                                    </Badge>
+                                </div>
 
-                                        <div className="space-y-1">
-                                            <div className="flex items-center justify-between">
-                                                <span
-                                                    className={`font-semibold ${m.winner_id === m.player1_id ? 'font-bold text-emerald-600' : 'text-foreground'}`}
-                                                >
-                                                    {m.player1
-                                                        ?.display_nickname ||
-                                                        m.player1?.user?.name ||
-                                                        'TBD'}
-                                                </span>
-                                                <span className="font-mono font-bold">
-                                                    {m.player1_score}
-                                                </span>
-                                            </div>
-
-                                            <div className="flex items-center justify-between">
-                                                <span
-                                                    className={`font-semibold ${m.winner_id === m.player2_id ? 'font-bold text-emerald-600' : 'text-foreground'}`}
-                                                >
-                                                    {m.player2
-                                                        ?.display_nickname ||
-                                                        m.player2?.user?.name ||
-                                                        'TBD'}
-                                                </span>
-                                                <span className="font-mono font-bold">
-                                                    {m.player2_score}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                ))}
+                                <BracketViewer
+                                    category={selectedCategory}
+                                    matches={matches}
+                                    standings={standings}
+                                />
                             </div>
                         )}
-                    </div>
-                )}
+                    </TabsPanel>
+
+                    {/* Tab 3: Complete Schedule & Match List */}
+                    <TabsPanel value="schedule">
+                        <div className="space-y-4">
+                            <h3 className="text-sm font-bold text-foreground">
+                                Semua Pertandingan ({matches.length} Match)
+                            </h3>
+
+                            {matches.length === 0 ? (
+                                <div className="rounded-xl border p-8 text-center text-xs text-muted-foreground">
+                                    Belum ada pertandingan terjadwal untuk
+                                    kategori ini.
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+                                    {matches.map((m) => (
+                                        <Card
+                                            key={m.id}
+                                            className="space-y-2 border p-3 text-xs"
+                                        >
+                                            <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+                                                <span>
+                                                    Match #{m.match_order} •
+                                                    Babak {m.round_number}
+                                                </span>
+                                                <Badge
+                                                    variant={
+                                                        m.status === 'completed'
+                                                            ? 'default'
+                                                            : 'outline'
+                                                    }
+                                                    className="text-[9px]"
+                                                >
+                                                    {m.status}
+                                                </Badge>
+                                            </div>
+
+                                            <div className="space-y-1">
+                                                <div className="flex items-center justify-between">
+                                                    <span
+                                                        className={`font-semibold ${m.winner_id === m.player1_id ? 'font-bold text-emerald-600' : 'text-foreground'}`}
+                                                    >
+                                                        {m.player1
+                                                            ?.display_nickname ||
+                                                            m.player1?.user
+                                                                ?.name ||
+                                                            'TBD'}
+                                                    </span>
+                                                    <span className="font-mono font-bold">
+                                                        {m.player1_score}
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex items-center justify-between">
+                                                    <span
+                                                        className={`font-semibold ${m.winner_id === m.player2_id ? 'font-bold text-emerald-600' : 'text-foreground'}`}
+                                                    >
+                                                        {m.player2
+                                                            ?.display_nickname ||
+                                                            m.player2?.user
+                                                                ?.name ||
+                                                            'TBD'}
+                                                    </span>
+                                                    <span className="font-mono font-bold">
+                                                        {m.player2_score}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </Card>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </TabsPanel>
+                </Tabs>
             </main>
         </div>
     );

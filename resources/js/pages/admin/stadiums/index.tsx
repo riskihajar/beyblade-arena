@@ -14,6 +14,7 @@ import {
     DialogDescription,
     DialogFooter,
     DialogHeader,
+    DialogPanel,
     DialogTitle,
 } from '@/components/ui/dialog';
 import {
@@ -25,6 +26,7 @@ import {
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
+import { NativeSelect } from '@/components/ui/native-select';
 import {
     Table,
     TableBody,
@@ -152,21 +154,22 @@ export default function AdminStadiumsIndex({
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <select
-                            value={selectedEventId || ''}
-                            onChange={(e) =>
-                                router.get('/admin/stadiums', {
-                                    event_id: e.target.value,
-                                })
-                            }
-                            className="h-9 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-xs"
-                        >
-                            {events.map((ev) => (
-                                <option key={ev.id} value={ev.id}>
-                                    {ev.name}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="w-64">
+                            <NativeSelect
+                                value={selectedEventId || ''}
+                                onChange={(e) =>
+                                    router.get('/admin/stadiums', {
+                                        event_id: e.target.value,
+                                    })
+                                }
+                            >
+                                {events.map((ev) => (
+                                    <option key={ev.id} value={ev.id}>
+                                        {ev.name}
+                                    </option>
+                                ))}
+                            </NativeSelect>
+                        </div>
 
                         <Button
                             onClick={() => setAddStadiumModalOpen(true)}
@@ -389,34 +392,32 @@ export default function AdminStadiumsIndex({
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="space-y-4 py-2 text-xs">
+                    <DialogPanel className="space-y-4 py-2 text-xs">
                         <Field name="stadium_select">
                             <FieldLabel>Pilih Stadium Arena</FieldLabel>
-                            <select
+                            <NativeSelect
                                 value={selectedStadiumId}
                                 onChange={(e) =>
                                     setSelectedStadiumId(e.target.value)
                                 }
-                                className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs"
                             >
                                 {stadiums.map((s) => (
                                     <option key={s.id} value={s.id}>
                                         {s.name} ({s.status})
                                     </option>
                                 ))}
-                            </select>
+                            </NativeSelect>
                         </Field>
 
                         <Field name="judge_select">
                             <FieldLabel>
                                 Pilih Juri yang Bertugas (Opsional)
                             </FieldLabel>
-                            <select
+                            <NativeSelect
                                 value={selectedJudgeId}
                                 onChange={(e) =>
                                     setSelectedJudgeId(e.target.value)
                                 }
-                                className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs"
                             >
                                 <option value="">
                                     Gunakan Juri Bawaan Stadium
@@ -426,9 +427,9 @@ export default function AdminStadiumsIndex({
                                         {j.name} ({j.email})
                                     </option>
                                 ))}
-                            </select>
+                            </NativeSelect>
                         </Field>
-                    </div>
+                    </DialogPanel>
 
                     <DialogFooter>
                         <Button
@@ -462,7 +463,7 @@ export default function AdminStadiumsIndex({
                             </DialogDescription>
                         </DialogHeader>
 
-                        <div className="space-y-4 py-4 text-xs">
+                        <DialogPanel className="space-y-4 py-4 text-xs">
                             <Field name="stadium_name">
                                 <FieldLabel>Nama Stadium Arena</FieldLabel>
                                 <Input
@@ -486,7 +487,7 @@ export default function AdminStadiumsIndex({
                                     required
                                 />
                             </Field>
-                        </div>
+                        </DialogPanel>
 
                         <DialogFooter>
                             <Button

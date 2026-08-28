@@ -9,6 +9,7 @@ import {
     FrameTitle,
 } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
+import { NativeSelect } from '@/components/ui/native-select';
 import AppLayout from '@/layouts/app-layout';
 import { update } from '@/routes/admin/categories';
 import { show as showEvent } from '@/routes/admin/events';
@@ -117,13 +118,12 @@ export default function AdminCategoriesEdit({
                                                 <FieldLabel htmlFor="ruleset_id">
                                                     Template Ruleset Scoring
                                                 </FieldLabel>
-                                                <select
+                                                <NativeSelect
                                                     id="ruleset_id"
                                                     name="ruleset_id"
                                                     defaultValue={
                                                         category.ruleset_id
                                                     }
-                                                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     required
                                                 >
                                                     {rulesets.map((ruleset) => (
@@ -135,25 +135,10 @@ export default function AdminCategoriesEdit({
                                                             {
                                                                 ruleset.points_to_win
                                                             }{' '}
-                                                            Poin to Win) — Spin:{' '}
-                                                            {
-                                                                ruleset.spin_finish_points
-                                                            }{' '}
-                                                            | Over:{' '}
-                                                            {
-                                                                ruleset.over_finish_points
-                                                            }{' '}
-                                                            | Burst:{' '}
-                                                            {
-                                                                ruleset.burst_finish_points
-                                                            }{' '}
-                                                            | Xtreme:{' '}
-                                                            {
-                                                                ruleset.xtreme_finish_points
-                                                            }
+                                                            Poin)
                                                         </option>
                                                     ))}
-                                                </select>
+                                                </NativeSelect>
                                                 <FieldError
                                                     error={errors.ruleset_id}
                                                 />
@@ -171,13 +156,12 @@ export default function AdminCategoriesEdit({
                                                     <FieldLabel htmlFor="format">
                                                         Format Turnamen
                                                     </FieldLabel>
-                                                    <select
+                                                    <NativeSelect
                                                         id="format"
                                                         name="format"
                                                         defaultValue={
                                                             category.format
                                                         }
-                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     >
                                                         <option value="single_elimination">
                                                             Single Elimination
@@ -195,7 +179,7 @@ export default function AdminCategoriesEdit({
                                                             Grup Round Robin +
                                                             Playoff
                                                         </option>
-                                                    </select>
+                                                    </NativeSelect>
                                                     <FieldError
                                                         error={errors.format}
                                                     />
@@ -329,13 +313,12 @@ export default function AdminCategoriesEdit({
                                                         Kebijakan Penguncian
                                                         Deck
                                                     </FieldLabel>
-                                                    <select
+                                                    <NativeSelect
                                                         id="deck_lock_policy"
                                                         name="deck_lock_policy"
                                                         defaultValue={
                                                             category.deck_lock_policy
                                                         }
-                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     >
                                                         <option value="until_checkin">
                                                             Terkunci sejak
@@ -352,7 +335,7 @@ export default function AdminCategoriesEdit({
                                                             Antar-Match (Casual
                                                             Gathering)
                                                         </option>
-                                                    </select>
+                                                    </NativeSelect>
                                                     <FieldError
                                                         error={
                                                             errors.deck_lock_policy

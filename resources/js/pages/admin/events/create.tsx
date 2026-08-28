@@ -9,6 +9,7 @@ import {
     FrameTitle,
 } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
+import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { index as eventsIndex, store } from '@/routes/admin/events';
@@ -103,13 +104,12 @@ export default function AdminEventsCreate({ seasons }: Props) {
                                                 <FieldLabel htmlFor="season_id">
                                                     Musim Kompetisi
                                                 </FieldLabel>
-                                                <select
+                                                <NativeSelect
                                                     id="season_id"
                                                     name="season_id"
                                                     defaultValue={
                                                         seasons[0]?.id || ''
                                                     }
-                                                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                 >
                                                     <option value="">
                                                         -- Tanpa Musim
@@ -123,7 +123,7 @@ export default function AdminEventsCreate({ seasons }: Props) {
                                                             {season.name}
                                                         </option>
                                                     ))}
-                                                </select>
+                                                </NativeSelect>
                                                 <FieldError
                                                     error={errors.season_id}
                                                 />
@@ -388,11 +388,10 @@ export default function AdminEventsCreate({ seasons }: Props) {
                                                         Bobot Poin Ranking (Tier
                                                         Multiplier)
                                                     </FieldLabel>
-                                                    <select
+                                                    <NativeSelect
                                                         id="tier_multiplier"
                                                         name="tier_multiplier"
                                                         defaultValue="1.00"
-                                                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                     >
                                                         <option value="1.50">
                                                             Major Championship
@@ -406,7 +405,7 @@ export default function AdminEventsCreate({ seasons }: Props) {
                                                             Mini Gathering /
                                                             Sparring (0.5x Poin)
                                                         </option>
-                                                    </select>
+                                                    </NativeSelect>
                                                     <FieldError
                                                         error={
                                                             errors.tier_multiplier
@@ -425,11 +424,10 @@ export default function AdminEventsCreate({ seasons }: Props) {
                                                 <FieldLabel htmlFor="status">
                                                     Status Publikasi
                                                 </FieldLabel>
-                                                <select
+                                                <NativeSelect
                                                     id="status"
                                                     name="status"
                                                     defaultValue="registration_open"
-                                                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                                 >
                                                     <option value="draft">
                                                         Draf (Disimpan privat)
@@ -442,7 +440,7 @@ export default function AdminEventsCreate({ seasons }: Props) {
                                                         Pendaftaran Dibuka
                                                         Sekarang
                                                     </option>
-                                                </select>
+                                                </NativeSelect>
                                                 <FieldError
                                                     error={errors.status}
                                                 />

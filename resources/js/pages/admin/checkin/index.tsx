@@ -8,6 +8,12 @@ import {
 } from '@/components/ui/empty';
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+} from '@/components/ui/input-group';
+import { NativeSelect } from '@/components/ui/native-select';
 import { Pagination } from '@/components/pagination';
 import {
     Table,
@@ -143,39 +149,37 @@ export default function AdminCheckinIndex({
 
                 {/* Search & Event Filters */}
                 <div className="flex flex-wrap items-center gap-3">
-                    <select
-                        value={filters.event_id || ''}
-                        onChange={(e) =>
-                            handleFilterChange('event_id', e.target.value)
-                        }
-                        className="h-10 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
-                    >
-                        {events.map((ev) => (
-                            <option key={ev.id} value={ev.id}>
-                                {ev.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="w-64">
+                        <NativeSelect
+                            value={filters.event_id || ''}
+                            onChange={(e) =>
+                                handleFilterChange('event_id', e.target.value)
+                            }
+                        >
+                            {events.map((ev) => (
+                                <option key={ev.id} value={ev.id}>
+                                    {ev.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    </div>
 
                     <form
                         onSubmit={handleSearch}
                         className="flex max-w-md flex-1 items-center gap-2"
                     >
-                        <div className="relative w-full">
-                            <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-                            <Input
+                        <InputGroup className="w-full">
+                            <InputGroupAddon>
+                                <Search className="size-4 text-muted-foreground" />
+                            </InputGroupAddon>
+                            <InputGroupInput
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Ketik nama blader, nickname, atau ID..."
-                                className="h-10 pl-9 text-sm"
                                 autoFocus
                             />
-                        </div>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            className="h-10"
-                        >
+                        </InputGroup>
+                        <Button type="submit" variant="secondary">
                             Cari
                         </Button>
                     </form>

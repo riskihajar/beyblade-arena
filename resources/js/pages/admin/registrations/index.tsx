@@ -7,6 +7,7 @@ import {
     DialogDescription,
     DialogFooter,
     DialogHeader,
+    DialogPanel,
     DialogTitle,
 } from '@/components/ui/dialog';
 import {
@@ -18,6 +19,12 @@ import {
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Frame } from '@/components/ui/frame';
 import { Input } from '@/components/ui/input';
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+} from '@/components/ui/input-group';
+import { NativeSelect } from '@/components/ui/native-select';
 import { Pagination } from '@/components/pagination';
 import {
     Table,
@@ -205,50 +212,60 @@ export default function AdminRegistrationsIndex({
 
                 {/* Filters Bar */}
                 <div className="flex flex-wrap items-center gap-3">
-                    <select
-                        value={filters.event_id || ''}
-                        onChange={(e) =>
-                            handleFilterChange('event_id', e.target.value)
-                        }
-                        className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
-                    >
-                        <option value="">Semua Event</option>
-                        {events.map((ev) => (
-                            <option key={ev.id} value={ev.id}>
-                                {ev.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="w-56">
+                        <NativeSelect
+                            value={filters.event_id || ''}
+                            onChange={(e) =>
+                                handleFilterChange('event_id', e.target.value)
+                            }
+                        >
+                            <option value="">Semua Event</option>
+                            {events.map((ev) => (
+                                <option key={ev.id} value={ev.id}>
+                                    {ev.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    </div>
 
-                    <select
-                        value={filters.status || ''}
-                        onChange={(e) =>
-                            handleFilterChange('status', e.target.value)
-                        }
-                        className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
-                    >
-                        <option value="">Semua Status</option>
-                        <option value="confirmed">
-                            Confirmed (Terkonfirmasi)
-                        </option>
-                        <option value="checked_in">Checked In (Hadir)</option>
-                        <option value="waitlisted">Waitlisted (Antrean)</option>
-                        <option value="no_show">No Show</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
+                    <div className="w-52">
+                        <NativeSelect
+                            value={filters.status || ''}
+                            onChange={(e) =>
+                                handleFilterChange('status', e.target.value)
+                            }
+                        >
+                            <option value="">Semua Status</option>
+                            <option value="confirmed">
+                                Confirmed (Terkonfirmasi)
+                            </option>
+                            <option value="checked_in">
+                                Checked In (Hadir)
+                            </option>
+                            <option value="waitlisted">
+                                Waitlisted (Antrean)
+                            </option>
+                            <option value="no_show">No Show</option>
+                            <option value="cancelled">Cancelled</option>
+                        </NativeSelect>
+                    </div>
 
                     <form
                         onSubmit={handleSearch}
                         className="flex items-center gap-2"
                     >
-                        <Input
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Cari blader / email / ID..."
-                            className="h-9 w-60 text-sm"
-                        />
+                        <InputGroup className="w-64">
+                            <InputGroupAddon>
+                                <Search className="size-4 text-muted-foreground" />
+                            </InputGroupAddon>
+                            <InputGroupInput
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Cari blader / email / ID..."
+                            />
+                        </InputGroup>
                         <Button type="submit" variant="secondary" size="sm">
-                            <Search className="size-4" />
+                            Cari
                         </Button>
                     </form>
                 </div>
@@ -435,7 +452,7 @@ export default function AdminRegistrationsIndex({
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="space-y-4 py-2">
+                    <DialogPanel className="space-y-4 py-2">
                         <Field name="override_reason">
                             <FieldLabel htmlFor="override_reason">
                                 Alasan Resmi Pergantian Part (Juri/Wasit)
@@ -497,7 +514,7 @@ export default function AdminRegistrationsIndex({
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </DialogPanel>
 
                     <DialogFooter>
                         <Button
