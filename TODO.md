@@ -35,19 +35,19 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 0 — Repository Alignment dan Keputusan Dasar
 
-- [ ] `TODO-001` `[Backend/Security]` Perbaiki perbandingan ULID pada channel broadcasting `routes/channels.php` dari casting `(int)` ke perbandingan string `(string) $user->id === (string) $id` agar otorisasi WebSocket Reverb berjalan aman. (FR-001, FR-042)
+- [x] `TODO-001` `[Backend/Security]` Perbaiki perbandingan ULID pada channel broadcasting `routes/channels.php` dari casting `(int)` ke perbandingan string `(string) $user->id === (string) $id` agar otorisasi WebSocket Reverb berjalan aman. (FR-001, FR-042)
   - *Area:* `routes/channels.php`, `tests/Feature/BroadcastingChannelTest.php`
   - *Acceptance:* Private channel user berhasil diautentikasi dengan ID ULID 26-karakter string; test channel lulus.
-- [ ] `TODO-002` `[Backend/Security]` Perketat `app/Http/Controllers/GlobalSearchController.php` agar tidak membocorkan data pengguna sembarangan dan batasi hasil pencarian user hanya untuk pengguna dengan permission `user.view`. (FR-002, FR-041)
+- [x] `TODO-002` `[Backend/Security]` Perketat `app/Http/Controllers/GlobalSearchController.php` agar tidak membocorkan data pengguna sembarangan dan batasi hasil pencarian user hanya untuk pengguna dengan permission `user.view`. (FR-002, FR-041)
   - *Area:* `app/Http/Controllers/GlobalSearchController.php`, `tests/Feature/GlobalSearchTest.php`
   - *Acceptance:* Request pencarian dari user non-admin tidak mengembalikan daftar email/user publik.
-- [ ] `TODO-003` `[Backend/Config]` Verifikasi konfigurasi Timezone aplikasi di `config/app.php` dan buat helper format waktu standar Samarinda `Asia/Makassar` (WITA, UTC+8) untuk seluruh tampilan. (FR-006)
+- [x] `TODO-003` `[Backend/Config]` Verifikasi konfigurasi Timezone aplikasi di `config/app.php` dan buat helper format waktu standar Samarinda `Asia/Makassar` (WITA, UTC+8) untuk seluruh tampilan. (FR-006)
   - *Area:* `config/app.php`, `app/Support/TimezoneHelper.php` (usulan baru)
   - *Acceptance:* Waktu tersimpan UTC di database tetapi selalu terformat WITA (+08:00) pada representasi Inertia.
-- [ ] `TODO-004` `[Docs/Config]` Perbarui `.env.example` dengan variabel konfigurasi default Beyblade Arena (nama aplikasi, default timezone, Reverb keys, disk storage). (FR-001)
+- [x] `TODO-004` `[Docs/Config]` Perbarui `.env.example` dengan variabel konfigurasi default Beyblade Arena (nama aplikasi, default timezone, Reverb keys, disk storage). (FR-001)
   - *Area:* `.env.example`
   - *Acceptance:* File `.env.example` mencerminkan konfigurasi aplikasi turnamen.
-- [ ] `TODO-005` `[Seed/Fixture]` Update `database/seeders/RolePermissionSeeder.php` dengan permission spesifik domain turnamen (`event.*`, `category.*`, `registration.*`, `bracket.*`, `match.*`, `stadium.*`, `deck.*`, `season.*`, `ranking.*`). (FR-002)
+- [x] `TODO-005` `[Seed/Fixture]` Update `database/seeders/RolePermissionSeeder.php` dengan permission spesifik domain turnamen (`event.*`, `category.*`, `registration.*`, `bracket.*`, `match.*`, `stadium.*`, `deck.*`, `season.*`, `ranking.*`). (FR-002)
   - *Area:* `database/seeders/RolePermissionSeeder.php`
   - *Acceptance:* `php artisan db:seed --class=RolePermissionSeeder` berhasil mendaftarkan role `admin`, `organizer`, `judge`, dan permission terkait.
 
@@ -55,30 +55,30 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 1 — Foundation & Domain Models
 
-- [ ] `TODO-006` `[Schema/Migration]` Buat migrasi tabel `community_profiles` dan model `app/Models/CommunityProfile.php` dengan trait `HasUlids`, `LogsActivity`. (FR-003)
-  - *Area:* `database/migrations/*_create_community_profiles_table.php`, `app/Models/CommunityProfile.php`
-  - *Acceptance:* Schema mendukung nama, deskripsi, sosial media, kontak, aturan umum, kode etik, dan disclaimer legal.
-- [ ] `TODO-007` `[Schema/Migration]` Buat migrasi tabel `seasons` dan model `app/Models/Season.php` untuk menampung musim kompetisi komunitas. (FR-044, FR-045)
-  - *Area:* `database/migrations/*_create_seasons_table.php`, `app/Models/Season.php`, `app/Enums/SeasonStatus.php`
-  - *Acceptance:* Schema mendukung `id` ULID, `formula_version`, `formula_config` (JSON), dan status musim (`draft`, `active`, `concluded`, `archived`).
-- [ ] `TODO-008` `[Schema/Migration]` Buat migrasi tabel `events` dan `tournament_categories` beserta model `app/Models/Event.php` dan `app/Models/TournamentCategory.php`. (FR-005, FR-007, FR-009)
-  - *Area:* `database/migrations/*_create_events_table.php`, `database/migrations/*_create_tournament_categories_table.php`, `app/Models/Event.php`, `app/Models/TournamentCategory.php`, `app/Enums/EventStatus.php`, `app/Enums/TournamentFormat.php`, `app/Enums/MatchFormat.php`
-  - *Acceptance:* Event dan Kategori terhubung via `foreignUlid()`; kategori menampung `ruleset_snapshot` JSON, `target_points`, `deck_slots_count`, dan `bracket_locked`.
-- [ ] `TODO-009` `[Schema/Migration]` Buat migrasi tabel `community_bladers` dan `registrations` beserta model `app/Models/CommunityBlader.php` dan `app/Models/Registration.php`. (FR-013, FR-016)
-  - *Area:* `database/migrations/*_create_community_bladers_table.php`, `database/migrations/*_create_registrations_table.php`, `app/Models/CommunityBlader.php`, `app/Models/Registration.php`, `app/Enums/RegistrationStatus.php`
-  - *Acceptance:* Relasi Blader $\leftrightarrow$ Registration; status pendaftaran mendukung `pending`, `approved`, `waitlisted`, `rejected`, `withdrawn`, `checked_in`, `no_show`.
-- [ ] `TODO-010` `[Schema/Migration]` Buat migrasi tabel privat `guardian_details` khusus data wali peserta junior dengan relasi 1:1 ke `registrations`. (FR-014)
-  - *Area:* `database/migrations/*_create_guardian_details_table.php`, `app/Models/GuardianDetail.php`
-  - *Acceptance:* Kolom nama wali, kontak, dan hubungan keluarga tersimpan terpisah dengan proteksi data pribadi.
-- [ ] `TODO-011` `[Schema/Migration]` Buat migrasi tabel `decks` dan `deck_items` beserta model `app/Models/Deck.php` dan `app/Models/DeckItem.php`. (FR-017, FR-019)
-  - *Area:* `database/migrations/*_create_decks_and_items_tables.php`, `app/Models/Deck.php`, `app/Models/DeckItem.php`
-  - *Acceptance:* Mendukung multi-slot combo (Blade, Ratchet, Bit, berat, catatan), status `is_locked`, `locked_at`, dan `override_reason`.
-- [ ] `TODO-012` `[Schema/Migration]` Buat migrasi tabel `stadiums`, `tournament_matches`, dan `match_battles`. (FR-030, FR-032, FR-035)
-  - *Area:* `database/migrations/*_create_stadiums_matches_battles_tables.php`, `app/Models/Stadium.php`, `app/Models/TournamentMatch.php`, `app/Models/MatchBattle.php`, `app/Enums/MatchStatus.php`, `app/Enums/StadiumStatus.php`
-  - *Acceptance:* Struktur match menampung relasi 2 blader, status panggilan, juri, skor agregat, ruleset snapshot, bracket pointer (`next_match_id`), dan catatan battle per ronde.
-- [ ] `TODO-013` `[Schema/Migration]` Buat migrasi tabel `blader_season_points` dan model `app/Models/BladerSeasonPoint.php`. (FR-044, FR-046)
-  - *Area:* `database/migrations/*_create_blader_season_points_table.php`, `app/Models/BladerSeasonPoint.php`
-  - *Acceptance:* Menampung total poin, jumlah match menang/kalah, rank position, dan breakdown JSON.
+- [x] `TODO-006` `[Schema/Migration]` Buat migrasi tabel `tournament_rulesets` dan model `app/Models/TournamentRuleset.php` dengan trait `HasUlids`, `LogsActivity`. (FR-003, FR-007)
+  - *Area:* `database/migrations/*_create_tournament_rulesets_table.php`, `app/Models/TournamentRuleset.php`
+  - *Acceptance:* Schema mendukung poin dinamis (Spin, Over, Burst, Xtreme, Penalti), points_to_win, custom rules config.
+- [x] `TODO-007` `[Schema/Migration]` Buat migrasi tabel `seasons` dan model `app/Models/Season.php` untuk menampung musim kompetisi komunitas. (FR-044, FR-045)
+  - *Area:* `database/migrations/*_create_seasons_table.php`, `app/Models/Season.php`
+  - *Acceptance:* Schema mendukung `id` ULID, `formula_config` (JSON) tier multipliers & placement points, dan status aktif.
+- [x] `TODO-008` `[Schema/Migration]` Buat migrasi tabel `events` dan model `app/Models/Event.php`. (FR-005, FR-007, FR-008)
+  - *Area:* `database/migrations/*_create_events_table.php`, `app/Models/Event.php`, `app/Enums/EventStatusEnum.php`
+  - *Acceptance:* Event terhubung ke Season dan Organizer via `foreignUlid()`; menampung info venue Samarinda, tanggal pendaftaran & pelaksanaan, tier multiplier, dan status event.
+- [x] `TODO-009` `[Schema/Migration]` Buat migrasi tabel `tournament_categories` dan model `app/Models/TournamentCategory.php`. (FR-007, FR-009)
+  - *Area:* `database/migrations/*_create_tournament_categories_table.php`, `app/Models/TournamentCategory.php`, `app/Enums/EventFormatEnum.php`, `app/Enums/DeckLockPolicyEnum.php`
+  - *Acceptance:* Terhubung ke Event dan Ruleset; menampung format eliminasi/grup, batas usia, kuota peserta, call timeout 180s, dan hierarki tie-breaker.
+- [x] `TODO-010` `[Schema/Migration]` Buat migrasi tabel `registrations` dan model `app/Models/Registration.php`. (FR-013, FR-014, FR-016)
+  - *Area:* `database/migrations/*_create_registrations_table.php`, `app/Models/Registration.php`, `app/Enums/RegistrationStatusEnum.php`
+  - *Acceptance:* Relasi User $\leftrightarrow$ Category; data wali `guardian_details` terenkripsi dan hidden dari serialisasi publik untuk perlindungan PII blader anak.
+- [x] `TODO-011` `[Schema/Migration]` Buat migrasi tabel `stadiums` dan model `app/Models/Stadium.php`. (FR-030, FR-032)
+  - *Area:* `database/migrations/*_create_stadiums_table.php`, `app/Models/Stadium.php`, `app/Enums/StadiumStatusEnum.php`
+  - *Acceptance:* Mendukung manajemen stadium venue, juri bertugas, dan status ketersediaan.
+- [x] `TODO-012` `[Schema/Migration]` Buat migrasi tabel `tournament_matches` dan `match_battles` beserta model Eloquent. (FR-030, FR-032, FR-035, FR-036)
+  - *Area:* `database/migrations/*_create_tournament_matches_table.php`, `database/migrations/*_create_match_battles_table.php`, `app/Models/TournamentMatch.php`, `app/Models/MatchBattle.php`, `app/Enums/MatchStatusEnum.php`, `app/Enums/MatchFinishTypeEnum.php`
+  - *Acceptance:* Struktur match menampung relasi 2 blader, stadium, juri, skor agregat, ruleset snapshot, dan catatan battle per ronde dengan token idempotency.
+- [x] `TODO-013` `[Schema/Migration]` Buat migrasi tabel `season_rankings` dan `season_points_audits` beserta model Eloquent. (FR-044, FR-046)
+  - *Area:* `database/migrations/*_create_season_rankings_table.php`, `database/migrations/*_create_season_points_audits_table.php`, `app/Models/SeasonRanking.php`, `app/Models/SeasonPointsAudit.php`
+  - *Acceptance:* Menampung total poin musim, ranking posisi, statistik turnamen menang/kalah, dan catatan audit kalkulasi poin per event.
 
 ---
 

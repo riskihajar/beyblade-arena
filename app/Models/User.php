@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Concerns\HasUlids;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -74,7 +75,32 @@ class User extends Authenticatable
             return null;
         }
 
-        return Storage::disk('rustfs')->url($this->avatar_path);
+        return Storage::disk(config('filesystems.default', 'local'))->url($this->avatar_path);
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(Registration::class, 'user_id');
+    }
+
+    public function organizedEvents(): HasMany
+    {
+        return $this->hasMany(Event::class, 'organizer_id');
+    }
+
+    public function judgedStadiums(): HasMany
+    {
+        return $this->hasMany(Stadium::class, 'assigned_judge_id');
+    }
+
+    public function seasonRankings(): HasMany
+    {
+        return $this->hasMany(SeasonRanking::class, 'user_id');
+    }
+
+    public function pointsAudits(): HasMany
+    {
+        return $this->hasMany(SeasonPointsAudit::class, 'user_id');
     }
 
     public function getActivitylogOptions(): LogOptions
