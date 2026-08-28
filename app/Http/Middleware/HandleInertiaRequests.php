@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -48,8 +47,6 @@ class HandleInertiaRequests extends Middleware
                 'notifications' => $request->user() ? $request->user()->notifications()->latest()->take(10)->get() : [],
                 'unreadCount' => $request->user() ? $request->user()->unreadNotifications()->count() : 0,
                 'permissions' => $request->user() ? $request->user()->getAllPermissions()->pluck('name')->toArray() : [],
-                'chats' => $this->getRecentChats($request->user()?->id),
-                'chats_total' => $this->getChatsTotal($request->user()?->id),
             ],
             'globalSearch' => [
                 'groups' => $this->globalSearchGroups($request),
@@ -81,7 +78,22 @@ class HandleInertiaRequests extends Middleware
                     [
                         'label' => 'Dashboard',
                         'href' => route('dashboard', absolute: false),
-                        'keywords' => ['home'],
+                        'keywords' => ['home', 'overview'],
+                    ],
+                    [
+                        'label' => 'Turnamen & Event',
+                        'href' => route('admin.events.index', absolute: false),
+                        'keywords' => ['tournament', 'event', 'kompetisi'],
+                    ],
+                    [
+                        'label' => 'Arena & Panggilan',
+                        'href' => route('admin.stadiums.index', absolute: false),
+                        'keywords' => ['stadium', 'arena', 'panggilan'],
+                    ],
+                    [
+                        'label' => 'Konsol Wasit & Juri',
+                        'href' => route('judge.console', absolute: false),
+                        'keywords' => ['judge', 'wasit', 'scorepad', 'scoring'],
                     ],
                 ],
             ],
@@ -136,35 +148,5 @@ class HandleInertiaRequests extends Middleware
         }
 
         return $groups;
-    }
-
-    private function getRecentChats(?string $userId): array
-    {
-        if (! $userId) {
-            return [];
-        }
-
-        return DB::table('chats')
-            ->where('user_id', $userId)
-            ->orderBy('updated_at', 'desc')
-            ->limit(5)
-            ->get()
-            ->map(fn ($chat) => [
-                'id' => $chat->id,
-                'title' => $chat->title,
-                'updated_at' => $chat->updated_at,
-            ])
-            ->toArray();
-    }
-
-    private function getChatsTotal(?string $userId): int
-    {
-        if (! $userId) {
-            return 0;
-        }
-
-        return DB::table('chats')
-            ->where('user_id', $userId)
-            ->count();
     }
 }

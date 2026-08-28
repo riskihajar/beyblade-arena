@@ -21,28 +21,6 @@ export interface Auth {
     permissions: string[];
     notifications?: Notification[];
     unreadCount?: number;
-    chats?: ChatConversation[];
-    chats_total?: number;
-}
-
-export interface ChatConversation {
-    id: string;
-    title: string;
-    updated_at: string;
-    provider?: string | null;
-    model?: string | null;
-}
-
-export interface ChatAttachment {
-    id: string;
-    type: 'image' | 'document';
-    name: string;
-    mime_type: string;
-    size: number;
-    storage_driver: string;
-    provider_file_id?: string | null;
-    storage_path?: string | null;
-    url?: string | null;
 }
 
 export interface BreadcrumbItem {

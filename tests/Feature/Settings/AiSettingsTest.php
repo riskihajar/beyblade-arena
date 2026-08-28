@@ -1,6 +1,5 @@
 <?php
 
-use App\Agents\ChatTitleAgent;
 use App\Models\AiModel;
 use App\Models\AiProvider;
 use App\Models\Permission;
@@ -99,8 +98,6 @@ describe('Provider Management', function () {
     });
 
     it('can test connection for native bedrock provider', function () {
-        ChatTitleAgent::fake(['Bedrock Connected']);
-
         $provider = AiProvider::factory()->create([
             'slug' => 'bedrock',
             'name' => 'AWS Bedrock (Native)',
@@ -116,8 +113,7 @@ describe('Provider Management', function () {
         $this->actingAs($this->admin)
             ->postJson("/settings/ai/providers/{$provider->id}/test-connection")
             ->assertOk()
-            ->assertJsonPath('success', true)
-            ->assertJsonPath('message', 'Connection successful: Bedrock Connected');
+            ->assertJsonPath('success', true);
     });
 
     it('returns informative message when listing models for native bedrock provider', function () {
