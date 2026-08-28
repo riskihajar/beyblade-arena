@@ -275,19 +275,19 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 7 — Halaman Publik, Realtime, & Live Hub
 
-- [ ] `TODO-050` `[Backend/Realtime]` Buat Event Broadcasting Laravel Reverb untuk pembaruan turnamen:
-  - `app/Events/MatchCalledEvent.php` (Channel publik: `tournament.{eventId}.calls`)
-  - `app/Events/BattleRecordedEvent.php` (Channel publik: `match.{matchId}.score`)
-  - `app/Events/BracketUpdatedEvent.php` (Channel publik: `category.{categoryId}.bracket`)
-  - `app/Events/EventStatusChangedEvent.php` (Channel publik: `tournament.{eventId}.status`) (FR-042)
+- [x] `TODO-050` `[Backend/Realtime]` Buat Event Broadcasting Laravel Reverb untuk pembaruan turnamen:
+  - `app/Events/Tournament/MatchCalledEvent.php` (Channel publik: `tournament.{eventId}.calls`)
+  - `app/Events/Tournament/BattleRecordedEvent.php` (Channel publik: `match.{matchId}.score`)
+  - `app/Events/Tournament/BracketUpdatedEvent.php` (Channel publik: `category.{categoryId}.bracket`)
+  - `app/Events/Tournament/EventStatusChangedEvent.php` (Channel publik: `tournament.{eventId}.status`) (FR-042)
   - *Area:* `app/Events/Tournament/*`
   - *Acceptance:* Broadcast terkirim otomatis saat status match, skor, atau bagan berubah.
-- [ ] `TODO-051` `[UI/Frontend]` Buat Landing Page Publik Komunitas & Event:
+- [x] `TODO-051` `[UI/Frontend]` Buat Landing Page Publik Komunitas & Event:
   - Halaman Beranda: `resources/js/pages/welcome.tsx` (Showcase profil Komunitas Beyblade Samarinda, tagline, event mendatang, peraturan, link medsos, dan disclaimer non-afiliasi)
   - Halaman Detail Event: `resources/js/pages/public/events/show.tsx` (Info venue, maps, kategori, kuota, tombol pendaftaran). (FR-003, FR-006, FR-040)
   - *Area:* `resources/js/pages/welcome.tsx`, `resources/js/pages/public/events/show.tsx`
   - *Acceptance:* Tampilan modern, responsif, informatif, dan aman tanpa mengekspos data pribadi.
-- [ ] `TODO-052` `[UI/Frontend]` Buat Layar Live Hub Turnamen Publik:
+- [x] `TODO-052` `[UI/Frontend]` Buat Layar Live Hub Turnamen Publik:
   - Halaman: `resources/js/pages/public/events/live-hub.tsx`
   - Tab:
     1. **Papan Panggilan Stadium (Live Call Board):** Menampilkan match aktif di Stadium A, B, C dan match berikutnya.
@@ -296,21 +296,21 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
     4. **Jadwal & Hasil:** Daftar seluruh match dengan skor publik. (FR-040, FR-041, FR-042)
   - *Area:* `resources/js/pages/public/events/live-hub.tsx`, `resources/js/components/tournament/stadium-call-board.tsx`
   - *Acceptance:* Penonton dapat melihat jalannya turnamen secara live tanpa perlu login akun.
-- [ ] `TODO-053` `[Frontend/Echo]` Pasang hook Laravel Echo di React (`useEcho`, `useEchoPublic` via `@laravel/echo-react`) pada Live Hub publik untuk menerima update real-time Reverb dengan fallback graceful HTTP polling jika websocket offline. (FR-042)
-  - *Area:* `resources/js/hooks/useTournamentRealtime.ts` (usulan baru)
+- [x] `TODO-053` `[Frontend/Echo]` Pasang hook Laravel Echo di React (`useEcho`, `useEchoPublic` via `@laravel/echo-react`) pada Live Hub publik untuk menerima update real-time Reverb dengan fallback graceful HTTP polling jika websocket offline. (FR-042)
+  - *Area:* `resources/js/hooks/useTournamentRealtime.ts`
   - *Acceptance:* Skor dan bracket ter-update seketika saat juri menginput hasil di stadium.
-- [ ] `TODO-054` `[UI/Frontend]` Buat Halaman Podium Juara & Ringkasan Event:
+- [x] `TODO-054` `[UI/Frontend]` Buat Halaman Podium Juara & Ringkasan Event:
   - Halaman: `resources/js/pages/public/events/podium.tsx`
   - Menampilkan Juara 1 (Emas), Juara 2 (Perak), Juara 3 (Perunggu), Top 4/Top 8, ringkasan jumlah battle, dan statistik finish type komunitas. (FR-043)
   - *Area:* `resources/js/pages/public/events/podium.tsx`
   - *Acceptance:* Desain visual menarik untuk dokumentasi dan apresiasi prestasi pemenang.
-- [ ] `TODO-055` `[UI/Frontend]` Buat Halaman Profil Komunitas, Aturan Umum, & Kode Etik:
+- [x] `TODO-055` `[UI/Frontend]` Buat Halaman Profil Komunitas, Aturan Umum, & Kode Etik:
   - Halaman: `resources/js/pages/public/community.tsx` (Aturan main, panduan sportivitas, etika bertanding, dan disclaimer legalitas). (FR-003)
   - *Area:* `resources/js/pages/public/community.tsx`
   - *Acceptance:* Mengedukasi anggota baru dan menjaga sportivitas turnamen.
-- [ ] `TODO-056` `[Tests]` Tulis Pest tests untuk endpoint publik guna memastikan respon HTTP 200, payload bersih dari PII, dan penanganan fallback status event. (FR-040, FR-041)
-  - *Area:* `tests/Feature/Tournament/PublicLiveHubTest.php` (usulan baru)
-  - *Acceptance:* Sanitasi data publik 100% terbukti pada response test assertion.
+- [x] `TODO-056` `[Tests]` Tulis Pest tests untuk endpoint publik guna memastikan respon HTTP 200, payload bersih dari PII, dan penanganan fallback status event. (FR-040, FR-041)
+  - *Area:* `tests/Feature/Tournament/PublicLiveHubTest.php`
+  - *Acceptance:* Sanitasi data publik 100% terbukti pada response test assertion (5/5 tests passed).
 
 ---
 

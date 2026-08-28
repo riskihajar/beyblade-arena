@@ -109,6 +109,8 @@ class GenerateRoundRobinScheduleAction
             $participants = array_merge([$first], $rest);
         }
 
+        \App\Events\Tournament\BracketUpdatedEvent::dispatch($category);
+
         return $createdMatches;
     }
 }

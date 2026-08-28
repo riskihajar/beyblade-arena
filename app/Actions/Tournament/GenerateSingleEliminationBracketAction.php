@@ -177,6 +177,8 @@ class GenerateSingleEliminationBracketAction
             }
         }
 
+        \App\Events\Tournament\BracketUpdatedEvent::dispatch($category);
+
         return TournamentMatch::where('category_id', $category->id)->orderBy('round_number')->orderBy('match_order')->get();
     }
 

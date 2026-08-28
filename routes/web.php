@@ -6,18 +6,19 @@ use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Public\PublicEventController;
 use App\Http\Controllers\Public\RegistrationPublicController;
 use Laravel\Fortify\Features;
 
-Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('home');
+Route::get('/', [PublicEventController::class, 'welcome'])->name('home');
+Route::get('community', [PublicEventController::class, 'community'])->name('community');
 
-// Public Event Registration
+// Public Event Pages
+Route::get('events/{event}', [PublicEventController::class, 'show'])->name('public.events.show');
 Route::get('events/{event}/register', [RegistrationPublicController::class, 'create'])->name('public.events.register');
 Route::post('events/{event}/register', [RegistrationPublicController::class, 'store'])->name('public.events.register.store');
+Route::get('events/{event}/live', [PublicEventController::class, 'liveHub'])->name('public.events.live');
+Route::get('events/{event}/podium', [PublicEventController::class, 'podium'])->name('public.events.podium');
 Route::get('registrations/{registration}/success', [RegistrationPublicController::class, 'success'])->name('public.events.registration-success');
 
 Route::middleware(['auth', 'verified'])->group(function () {

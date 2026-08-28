@@ -60,6 +60,8 @@ class CallMatchToStadiumAction
             'status' => StadiumStatusEnum::IN_USE,
         ]);
 
+        \App\Events\Tournament\MatchCalledEvent::dispatch($match);
+
         return $match;
     }
 }

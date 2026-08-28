@@ -126,6 +126,8 @@ class RecordMatchBattleAction
             $this->progressWinnerAction->execute($match);
         }
 
+        \App\Events\Tournament\BattleRecordedEvent::dispatch($match, $battle);
+
         return $battle;
     }
 }

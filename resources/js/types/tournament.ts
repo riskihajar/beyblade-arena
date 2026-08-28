@@ -1,15 +1,18 @@
 export interface TournamentRuleset {
     id: string;
     name: string;
-    generation: string;
+    description?: string | null;
+    generation?: string;
+    is_official?: boolean;
     points_to_win: number;
     spin_finish_points: number;
     over_finish_points: number;
     burst_finish_points: number;
     xtreme_finish_points: number;
     penalty_points: number;
-    custom_rules_config?: Record<string, unknown> | null;
-    is_official: boolean;
+    match_timeout_seconds: number;
+    allow_deck_switching: boolean;
+    is_locked: boolean;
     categories_count?: number;
     created_at: string;
 }
@@ -18,13 +21,23 @@ export interface Season {
     id: string;
     name: string;
     slug: string;
+    description?: string | null;
     start_date: string;
-    end_date?: string | null;
-    formula_config?: Record<string, unknown> | null;
+    end_date: string;
     is_active: boolean;
+    formula_config?: Record<string, unknown> | null;
     events_count?: number;
     rankings_count?: number;
     created_at: string;
+}
+
+export interface SeasonRanking {
+    id: string;
+    season_id: string;
+    user_id: string;
+    rank: number;
+    total_points: number;
+    user?: { id: string; name: string } | null;
 }
 
 export interface TournamentCategory {
@@ -44,6 +57,7 @@ export interface TournamentCategory {
     target_points: number;
     ruleset?: TournamentRuleset;
     event?: Event;
+    registrations?: Registration[];
     registrations_count?: number;
     matches_count?: number;
     created_at: string;
@@ -62,6 +76,7 @@ export interface Stadium {
         name: string;
         email: string;
     } | null;
+    matches?: TournamentMatch[];
 }
 
 export interface BeyCombo {
@@ -171,6 +186,8 @@ export interface Event {
     registration_end_at: string;
     event_start_at: string;
     event_end_at?: string | null;
+    event_date?: string;
+    registration_start_date?: string;
     status: string;
     entry_fee: string | number;
     tier_multiplier: string | number;
