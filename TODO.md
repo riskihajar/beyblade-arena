@@ -84,68 +84,71 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 2 — Auth, Role, dan Privasi
 
-- [ ] `TODO-014` `[Backend/RBAC]` Definisikan Role dan Permission resmi komunitas di `Database\Seeders\RolePermissionSeeder`:
+- [x] `TODO-014` `[Backend/RBAC]` Definisikan Role dan Permission resmi komunitas di `Database\Seeders\RolePermissionSeeder`:
   - `admin`: memiliki seluruh hak akses (`admin.access`, `community.*`, `season.*`, `event.*`, `category.*`, `registration.*`, `bracket.*`, `match.*`, `stadium.*`, `deck.*`, `ranking.*`, `audit.*`).
   - `organizer`: memiliki hak operasional event (`event.*`, `category.*`, `registration.*`, `bracket.*`, `match.*`, `stadium.*`, `deck.*`, `data.export`).
   - `judge`: memiliki hak akses lapangan (`match.score_input`, `deck.verify`, `match.view_assigned`). (FR-001, FR-002)
   - *Area:* `database/seeders/RolePermissionSeeder.php`
   - *Acceptance:* Seeder berhasil dijalankan dan diverifikasi melalui test `tests/Feature/RolePermissionTest.php`.
-- [ ] `TODO-015` `[Backend/Policy]` Buat Policy authorization berbasis Laravel untuk seluruh model domain:
+- [x] `TODO-015` `[Backend/Policy]` Buat Policy authorization berbasis Laravel untuk seluruh model domain:
   - `app/Policies/EventPolicy.php`
   - `app/Policies/TournamentCategoryPolicy.php`
   - `app/Policies/RegistrationPolicy.php`
   - `app/Policies/TournamentMatchPolicy.php`
-  - `app/Policies/DeckPolicy.php`
-  - `app/Policies/SeasonPolicy.php` (FR-002)
+  - `app/Policies/StadiumPolicy.php`
+  - `app/Policies/SeasonPolicy.php`
+  - `app/Policies/TournamentRulesetPolicy.php` (FR-002)
   - *Area:* `app/Policies/*`
   - *Acceptance:* Setiap request aksi pada controller tervalidasi via `$this->authorize(...)` atau middleware `can:`.
-- [ ] `TODO-016` `[Backend/Privacy]` Implementasikan sanitasi PII pada model `CommunityBlader`, `Registration`, dan `GuardianDetail` menggunakan properti `$hidden` dan Eloquent API resource khusus untuk memutus kebocoran data anak ke frontend. (FR-014, FR-041)
-  - *Area:* `app/Models/CommunityBlader.php`, `app/Http/Resources/PublicBladerResource.php` (usulan baru)
-  - *Acceptance:* Field `full_name`, `phone`, `birth_date`, dan `guardian_details` tidak pernah ada dalam JSON serialization untuk rute publik.
-- [ ] `TODO-017` `[UI/Frontend]` Tambahkan navigasi menu khusus Admin/Organizer/Judge pada sidebar `resources/js/components/app-sidebar.tsx` berdasarkan `auth.permissions`. (FR-002)
+- [x] `TODO-016` `[Backend/Privacy]` Implementasikan sanitasi PII pada model `Registration` dan `PublicRegistrationResource` menggunakan properti `$hidden` dan Eloquent API resource khusus untuk memutus kebocoran data anak ke frontend. (FR-014, FR-041)
+  - *Area:* `app/Models/Registration.php`, `app/Http/Resources/PublicRegistrationResource.php`
+  - *Acceptance:* Field `guardian_details`, nomor telepon wali, dan email tidak pernah ada dalam JSON serialization untuk rute publik.
+- [x] `TODO-017` `[UI/Frontend]` Tambahkan navigasi menu khusus Admin/Organizer/Judge pada sidebar `resources/js/components/app-sidebar.tsx` berdasarkan `auth.permissions`. (FR-002)
   - *Area:* `resources/js/components/app-sidebar.tsx`
-  - *Acceptance:* Juri hanya melihat menu "Judge Console"; Organizer melihat menu "Event Operations"; Admin melihat menu lengkap.
-- [ ] `TODO-018` `[Tests]` Tulis Pest tests untuk memastikan otorisasi endpoint dan proteksi privasi data junior berjalan mutlak di sisi backend. (FR-002, FR-014)
-  - *Area:* `tests/Feature/Tournament/AuthorizationAndPrivacyTest.php` (usulan baru)
+  - *Acceptance:* Menu Turnamen & Event, Ruleset Scoring, dan Musim Kompetisi muncul secara dinamis sesuai permission akun.
+- [x] `TODO-018` `[Tests]` Tulis Pest tests untuk memastikan otorisasi endpoint dan proteksi privasi data junior berjalan mutlak di sisi backend. (FR-002, FR-014)
+  - *Area:* `tests/Feature/Tournament/AuthorizationAndPrivacyTest.php`
   - *Acceptance:* Non-authorized user ditolak HTTP 403 saat mencoba mengakses data privat atau rute admin.
-- [ ] `TODO-019` `[Docs]` Buat seeder akun default pengembangan: `admin@samarinda-beyblade.test`, `organizer@samarinda-beyblade.test`, dan `judge@samarinda-beyblade.test` di `database/seeders/UserSeeder.php`. (FR-001)
-  - *Area:* `database/seeders/UserSeeder.php`
+- [x] `TODO-019` `[Docs]` Buat seeder akun default pengembangan: `admin@samarinda-beyblade.test`, `organizer@samarinda-beyblade.test`, dan `judge@samarinda-beyblade.test` di `database/seeders/TournamentSeeder.php` dan `database/seeders/UserSeeder.php`. (FR-001)
+  - *Area:* `database/seeders/TournamentSeeder.php`
   - *Acceptance:* Panitia dev lokal dapat langsung login menggunakan akun pengujian yang terisolasi.
 
 ---
 
 ## Phase 3 — Event, Kategori, dan Ruleset
 
-- [ ] `TODO-020` `[Backend/Domain]` Buat Controller dan Form Request untuk CRUD Event di area Admin/Organizer:
+- [x] `TODO-020` `[Backend/Domain]` Buat Controller dan Form Request untuk CRUD Event di area Admin/Organizer:
   - Controller: `app/Http/Controllers/Admin/EventController.php`
   - Requests: `StoreEventRequest.php`, `UpdateEventRequest.php` (FR-005, FR-006)
   - *Area:* `app/Http/Controllers/Admin/EventController.php`, `app/Http/Requests/Admin/Event/*`
-  - *Acceptance:* Admin/Organizer dapat membuat, memperbarui metadata, mengunggah banner poster, dan mengubah status event.
-- [ ] `TODO-021` `[Backend/Domain]` Buat Controller dan Form Request untuk CRUD Kategori Turnamen:
+  - *Acceptance:* Admin/Organizer dapat membuat, memperbarui metadata, dan mengubah status event.
+- [x] `TODO-021` `[Backend/Domain]` Buat Controller dan Form Request untuk CRUD Kategori Turnamen:
   - Controller: `app/Http/Controllers/Admin/TournamentCategoryController.php`
   - Requests: `StoreTournamentCategoryRequest.php`, `UpdateTournamentCategoryRequest.php` (FR-007, FR-009, FR-010, FR-017, FR-019)
   - *Area:* `app/Http/Controllers/Admin/TournamentCategoryController.php`, `app/Http/Requests/Admin/TournamentCategory/*`
-  - *Acceptance:* Mendukung pemilihan format Single Elimination / Round Robin, target points, slot deck (1-3 slot), kebijakan `deck_lock_policy` (`until_checkin` [default], `until_top_cut`, `free_between_matches`), dan finish scoring ruleset dinamis.
-- [ ] `TODO-022` `[Backend/Domain]` Implementasikan validasi *Ruleset Immutability*: Kategori menolak modifikasi ruleset skor jika sudah ada match yang berstatus bukan `Scheduled`. (FR-012)
-  - *Area:* `app/Actions/Tournament/ValidateRulesetModificationAction.php` (usulan baru), `app/Http/Controllers/Admin/TournamentCategoryController.php`
+  - *Acceptance:* Mendukung pemilihan format Single Elimination / Round Robin, target points, kebijakan `deck_lock_policy` (`until_checkin` [default], `until_top_cut`, `free_between_matches`), dan finish scoring ruleset dinamis.
+- [x] `TODO-022` `[Backend/Domain]` Implementasikan validasi *Ruleset Immutability*: Kategori menolak modifikasi ruleset skor jika sudah ada match yang berstatus bukan `Scheduled`. (FR-012)
+  - *Area:* `app/Actions/Tournament/ValidateRulesetModificationAction.php`, `app/Http/Controllers/Admin/TournamentCategoryController.php`
   - *Acceptance:* Upaya mengubah poin finish saat turnamen berjalan mengembalikan HTTP 422 dengan pesan edukatif.
-- [ ] `TODO-023` `[Backend/Seed]` Buat template ruleset standar default komunitas di `database/seeders/TournamentRulesetSeeder.php` (misal template Beyblade X: Spin 1, Over 2, Burst 2, Xtreme 3; dan template Burst: Spin 1, Over 1, Burst 2). (FR-009)
-  - *Area:* `database/seeders/TournamentRulesetSeeder.php`
+- [x] `TODO-023` `[Backend/Seed]` Buat template ruleset standar default komunitas di `app/Http/Controllers/Admin/TournamentRulesetController.php` dan `database/seeders/TournamentSeeder.php`. (FR-009)
+  - *Area:* `app/Http/Controllers/Admin/TournamentRulesetController.php`, `database/seeders/TournamentSeeder.php`
   - *Acceptance:* Admin dapat memilih template default atau menyesuaikan nilai poin saat membuat kategori baru.
-- [ ] `TODO-024` `[UI/Frontend]` Buat halaman manajemen Event:
+- [x] `TODO-024` `[UI/Frontend]` Buat halaman manajemen Event:
   - `resources/js/pages/admin/events/index.tsx` (List event dengan Frame, Filter, Badge status, Pagination)
   - `resources/js/pages/admin/events/create.tsx` (Inertia `<Form>`, InputGroup, DatePicker WITA, Tier Multiplier preset)
   - `resources/js/pages/admin/events/edit.tsx`
   - `resources/js/pages/admin/events/show.tsx` (Dashboard status event & ringkasan kategori) (FR-005, FR-006)
   - *Area:* `resources/js/pages/admin/events/*`
   - *Acceptance:* Mengikuti pola page structure repository (`Frame`, `Table`, `Inertia Form` render props).
-- [ ] `TODO-025` `[UI/Frontend]` Buat modal/form konfigurasi Kategori Turnamen & Dynamic Ruleset Editor:
-  - Editor daftar finish type dinamis (tambah, hapus, ubah label, ubah poin)
-  - Pengaturan target poin, slot combo deck, deck lock policy (`until_checkin` / `until_top_cut` / `free_between_matches`), dan toggle juara 3. (FR-007, FR-009, FR-010)
-  - *Area:* `resources/js/pages/admin/categories/create.tsx`, `resources/js/pages/admin/categories/edit.tsx`
-  - *Acceptance:* Input dinamis jenis finish terkelola dengan state React dan dikirim via `transform` prop `<Form>`.
-- [ ] `TODO-026` `[Tests]` Tulis Pest tests untuk lifecycle event, snapshot ruleset kategori, dan pencegahan edit ruleset saat turnamen aktif. (FR-005, FR-011, FR-012)
-  - *Area:* `tests/Feature/Tournament/EventAndCategoryTest.php` (usulan baru)
+- [x] `TODO-025` `[UI/Frontend]` Buat modal/form konfigurasi Kategori Turnamen & Dynamic Ruleset Editor:
+  - `resources/js/pages/admin/categories/create.tsx`
+  - `resources/js/pages/admin/categories/edit.tsx`
+  - `resources/js/pages/admin/rulesets/index.tsx`, `create.tsx`, `edit.tsx`
+  - `resources/js/pages/admin/seasons/index.tsx`, `create.tsx`, `edit.tsx` (FR-007, FR-009, FR-010)
+  - *Area:* `resources/js/pages/admin/categories/*`, `resources/js/pages/admin/rulesets/*`, `resources/js/pages/admin/seasons/*`
+  - *Acceptance:* Input terkelola dengan state React dan dikirim via Inertia `<Form>`.
+- [x] `TODO-026` `[Tests]` Tulis Pest tests untuk lifecycle event, snapshot ruleset kategori, dan pencegahan edit ruleset saat turnamen aktif. (FR-005, FR-011, FR-012)
+  - *Area:* `tests/Feature/Tournament/EventAndCategoryTest.php`, `tests/Feature/Tournament/RulesetImmutabilityTest.php`
   - *Acceptance:* 100% test scenario status transitions dan snapshot ruleset lulus.
 
 ---

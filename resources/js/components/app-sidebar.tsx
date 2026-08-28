@@ -23,12 +23,17 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { index as eventsIndex } from '@/routes/admin/events';
+import { index as rulesetsIndex } from '@/routes/admin/rulesets';
+import { index as seasonsIndex } from '@/routes/admin/seasons';
 import chatRoutes from '@/routes/chat';
 import settings from '@/routes/settings';
 import { type Auth, type ChatConversation } from '@/types';
 import { Form, Link, router, usePage } from '@inertiajs/react';
 import {
     Bot,
+    Calendar,
+    Layers,
     LayoutGrid,
     LoaderCircle,
     MessageCircle,
@@ -37,6 +42,7 @@ import {
     ScrollText,
     Shield,
     Trash2,
+    Trophy,
     Users,
 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -77,6 +83,10 @@ function formatUpdatedAt(value: string): string {
 export function AppSidebar() {
     const { auth } = usePage<{ auth: Auth }>().props;
     const hasAdminAccess = auth.permissions?.includes('admin.access');
+    const canManageTournaments =
+        hasAdminAccess ||
+        auth.permissions?.includes('tournament.view') ||
+        auth.permissions?.includes('tournament.create');
     const chats = auth.chats || [];
     const chatsTotal = auth.chats_total ?? chats.length;
     const hasMoreChats = chatsTotal > chats.length;
@@ -221,6 +231,50 @@ export function AppSidebar() {
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroup>
+
+                    {canManageTournaments && (
+                        <SidebarGroup className="px-2 py-0">
+                            <SidebarGroupLabel>Turnamen</SidebarGroupLabel>
+                            <SidebarMenu>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/admin/events')}
+                                        tooltip={{ children: 'Turnamen & Event' }}
+                                        render={
+                                            <Link href={eventsIndex().url} prefetch>
+                                                <Trophy className="size-4" />
+                                                <span>Turnamen & Event</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/admin/rulesets')}
+                                        tooltip={{ children: 'Ruleset Scoring' }}
+                                        render={
+                                            <Link href={rulesetsIndex().url} prefetch>
+                                                <Layers className="size-4" />
+                                                <span>Ruleset Scoring</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/admin/seasons')}
+                                        tooltip={{ children: 'Musim Kompetisi' }}
+                                        render={
+                                            <Link href={seasonsIndex().url} prefetch>
+                                                <Calendar className="size-4" />
+                                                <span>Musim Kompetisi</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                            </SidebarMenu>
+                        </SidebarGroup>
+                    )}
 
                     <SidebarGroup>
                         <SidebarGroupLabel className="flex items-center justify-between px-2">

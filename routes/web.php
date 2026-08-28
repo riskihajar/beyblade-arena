@@ -39,4 +39,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('chat/{chat}', [ChatController::class, 'destroy'])->name('chat.destroy');
 });
 
+require __DIR__.'/admin.php';
 require __DIR__.'/settings.php';
