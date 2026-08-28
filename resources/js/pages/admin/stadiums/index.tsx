@@ -224,15 +224,10 @@ export default function AdminStadiumsIndex({
                                                 <Badge
                                                     variant={
                                                         isAvailable
-                                                            ? 'default'
+                                                            ? 'success'
                                                             : isBusy
-                                                              ? 'secondary'
+                                                              ? 'default'
                                                               : 'outline'
-                                                    }
-                                                    className={
-                                                        isAvailable
-                                                            ? 'bg-emerald-600'
-                                                            : undefined
                                                     }
                                                 >
                                                     {isAvailable

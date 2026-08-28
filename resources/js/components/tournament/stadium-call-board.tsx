@@ -69,14 +69,10 @@ export function StadiumCallBoard({ stadiums, upcomingCalls }: Props) {
                                             isBusy
                                                 ? 'default'
                                                 : isAvailable
-                                                  ? 'secondary'
+                                                  ? 'success'
                                                   : 'outline'
                                         }
-                                        className={
-                                            isAvailable
-                                                ? 'bg-emerald-600 text-[10px] text-white'
-                                                : 'text-[10px]'
-                                        }
+                                        size="sm"
                                     >
                                         {isBusy
                                             ? 'LIVE BATTLE'
@@ -173,7 +169,7 @@ export function StadiumCallBoard({ stadiums, upcomingCalls }: Props) {
                                         {match.match_order}
                                     </p>
                                 </div>
-                                <Badge className="bg-amber-600 text-[10px] hover:bg-amber-700">
+                                <Badge variant="warning" size="sm">
                                     {match.stadium?.name || 'Stadium Arena'}
                                 </Badge>
                             </div>

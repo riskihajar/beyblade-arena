@@ -334,14 +334,18 @@ export default function AdminSeasonsEdit({ season, rankings = [] }: Props) {
                                 />
                                 <span>Kalkulasi Ulang Musim</span>
                             </Button>
-
-                            <a
-                                href={`/admin/seasons/${season.id}/export-leaderboard`}
-                                className="inline-flex h-8 items-center gap-1.5 rounded-md border px-3 text-xs font-semibold hover:bg-muted"
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                render={
+                                    <a
+                                        href={`/admin/seasons/${season.id}/export-leaderboard`}
+                                    />
+                                }
                             >
                                 <Download className="size-3.5" />
                                 <span>Ekspor CSV</span>
-                            </a>
+                            </Button>
                         </div>
                     </div>
 

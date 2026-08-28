@@ -79,14 +79,14 @@ function getStatusBadge(status: string) {
     switch (status) {
         case 'ongoing':
             return (
-                <Badge className="animate-pulse gap-1 bg-emerald-600 font-bold text-white">
+                <Badge variant="success" className="animate-pulse gap-1">
                     <Radio className="size-3" />
                     <span>Live Ongoing</span>
                 </Badge>
             );
         case 'registration_open':
             return (
-                <Badge className="bg-blue-600 font-semibold text-white">
+                <Badge variant="info" className="gap-1">
                     Pendaftaran Dibuka
                 </Badge>
             );
@@ -312,7 +312,10 @@ export default function Dashboard({
                             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-2">
-                                        <Badge className="gap-1 bg-emerald-600 text-xs font-bold text-white">
+                                        <Badge
+                                            variant="success"
+                                            className="gap-1"
+                                        >
                                             <Radio className="size-3 animate-spin" />
                                             <span>LIVE EVENT SPOTLIGHT</span>
                                         </Badge>
@@ -342,22 +345,21 @@ export default function Dashboard({
 
                                 <div className="flex flex-wrap items-center gap-2 pt-2 sm:pt-0">
                                     <Button
+                                        variant="default"
                                         size="sm"
                                         render={
                                             <Link
                                                 href={`/events/${activeEvent.id}/live`}
                                             />
                                         }
-                                        className="gap-1.5 bg-emerald-600 text-xs font-bold text-white hover:bg-emerald-700"
                                     >
-                                        <Radio className="size-3.5" />
+                                        <Radio className="size-3.5 animate-pulse text-emerald-400" />
                                         <span>Buka Live Hub Penonton</span>
                                     </Button>
                                     <Button
                                         variant="outline"
                                         size="sm"
                                         render={<Link href="/admin/stadiums" />}
-                                        className="gap-1.5 text-xs font-semibold"
                                     >
                                         <Megaphone className="size-3.5" />
                                         <span>Papan Panggilan</span>
@@ -369,7 +371,7 @@ export default function Dashboard({
                         {/* Stadiums running matches */}
                         {activeEvent.stadiums &&
                             activeEvent.stadiums.length > 0 && (
-                                <CardContent className="border-t border-emerald-500/20 pt-2">
+                                <CardContent className="border-t border-border pt-3">
                                     <span className="mb-2.5 block text-xs font-bold tracking-wider text-muted-foreground uppercase">
                                         Status Arena Stadium Live:
                                     </span>
@@ -383,11 +385,7 @@ export default function Dashboard({
                                             return (
                                                 <div
                                                     key={stadium.id}
-                                                    className={`space-y-1.5 rounded-lg border p-3 text-xs ${
-                                                        isInUse
-                                                            ? 'border-emerald-500 bg-emerald-500/10'
-                                                            : 'border-border bg-background'
-                                                    }`}
+                                                    className="space-y-1.5 rounded-lg border bg-card p-3 text-xs"
                                                 >
                                                     <div className="flex items-center justify-between">
                                                         <span className="truncate font-bold text-foreground">
@@ -396,10 +394,10 @@ export default function Dashboard({
                                                         <Badge
                                                             variant={
                                                                 isInUse
-                                                                    ? 'default'
+                                                                    ? 'success'
                                                                     : 'outline'
                                                             }
-                                                            className={`text-[10px] ${isInUse ? 'bg-emerald-600' : ''}`}
+                                                            size="sm"
                                                         >
                                                             {isInUse
                                                                 ? 'BATTLE'

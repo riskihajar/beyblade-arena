@@ -284,8 +284,8 @@ export default function AdminCheckinIndex({
                                         <TableCell>
                                             {reg.status === 'checked_in' ? (
                                                 <Badge
-                                                    variant="default"
-                                                    className="gap-1 bg-emerald-600 text-xs"
+                                                    variant="success"
+                                                    className="gap-1 text-xs"
                                                 >
                                                     <CheckCircle2 className="size-3" />
                                                     Checked-in
@@ -300,8 +300,8 @@ export default function AdminCheckinIndex({
                                                 </Badge>
                                             ) : reg.status === 'waitlisted' ? (
                                                 <Badge
-                                                    variant="outline"
-                                                    className="gap-1 border-amber-600 text-xs text-amber-600"
+                                                    variant="warning"
+                                                    className="gap-1 text-xs"
                                                 >
                                                     Waitlist
                                                 </Badge>
@@ -340,14 +340,14 @@ export default function AdminCheckinIndex({
                                                 <div className="flex items-center justify-end gap-1.5">
                                                     <Button
                                                         size="sm"
-                                                        className="bg-emerald-600 font-semibold hover:bg-emerald-700"
+                                                        variant="default"
                                                         onClick={() =>
                                                             handleCheckin(
                                                                 reg.id,
                                                             )
                                                         }
                                                     >
-                                                        <CheckCircle2 className="mr-1 size-4" />
+                                                        <CheckCircle2 className="size-4" />
                                                         <span>Check-in</span>
                                                     </Button>
                                                     <Button
@@ -374,7 +374,6 @@ export default function AdminCheckinIndex({
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    className="border-amber-600 text-amber-600 hover:bg-amber-50"
                                                     onClick={() =>
                                                         handlePromote(reg.id)
                                                     }
