@@ -12,6 +12,7 @@ use Laravel\Fortify\Features;
 
 Route::get('/', [PublicEventController::class, 'welcome'])->name('home');
 Route::get('community', [PublicEventController::class, 'community'])->name('community');
+Route::get('leaderboard', [PublicEventController::class, 'leaderboard'])->name('public.leaderboard');
 
 // Public Event Pages
 Route::get('events/{event}', [PublicEventController::class, 'show'])->name('public.events.show');

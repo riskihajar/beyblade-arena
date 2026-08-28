@@ -316,36 +316,36 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 8 — Ranking, Audit, dan Export
 
-- [ ] `TODO-057` `[Backend/Domain]` Implementasikan Service Engine Perhitungan Ranking Musim Komunitas:
+- [x] `TODO-057` `[Backend/Domain]` Implementasikan Service Engine Perhitungan Ranking Musim Komunitas:
   - Service: `app/Services/SeasonRankingCalculatorService.php`
   - Command: `app/Console/Commands/RecalculateSeasonRankingsCommand.php`
   - Fitur: Membaca parameter `formula_config` berversi, menghitung tier multiplier (Major: 1.5x, Regular: 1.0x, Mini Gathering: 0.5x), poin partisipasi, poin penempatan juara (1st, 2nd, 3rd, Top 8), bonus kemenangan match, dan mengurutkan peringkat secara deterministik. (FR-044, FR-045, FR-046)
   - *Area:* `app/Services/SeasonRankingCalculatorService.php`, `app/Console/Commands/RecalculateSeasonRankingsCommand.php`
   - *Acceptance:* Eksekusi perhitungan menghasilkan total poin yang tepat dan idempotent saat diulang.
-- [ ] `TODO-058` `[Backend/Domain]` Hubungkan Finalisasi Event ke Perhitungan Ranking Otomatis:
+- [x] `TODO-058` `[Backend/Domain]` Hubungkan Finalisasi Event ke Perhitungan Ranking Otomatis:
   - Listener: `app/Listeners/UpdateSeasonRankingsOnEventCompletion.php`
   - Memicu kalkulasi poin ranking segera setelah event `is_ranking_eligible` diubah statusnya menjadi `Completed`. (FR-008, FR-046)
   - *Area:* `app/Listeners/UpdateSeasonRankingsOnEventCompletion.php`
   - *Acceptance:* Ranking musim ter-update otomatis tanpa perlu intervensi manual tambahan.
-- [ ] `TODO-059` `[Backend/Export]` Buat Class Export Data Menggunakan Maatwebsite Excel:
+- [x] `TODO-059` `[Backend/Export]` Buat Class Export Data Menggunakan Maatwebsite Excel:
   - `app/Exports/RegistrationsExport.php` (Ekspor pendaftar & data kontak privat untuk panitia)
   - `app/Exports/TournamentResultsExport.php` (Ekspor hasil match & battle lengkap)
   - `app/Exports/SeasonLeaderboardExport.php` (Ekspor klasemen ranking komunitas) (FR-049)
   - *Area:* `app/Exports/RegistrationsExport.php`, `app/Exports/TournamentResultsExport.php`, `app/Exports/SeasonLeaderboardExport.php`
   - *Acceptance:* Tombol ekspor pada UI menghasilkan file CSV/XLSX yang terformat rapi.
-- [ ] `TODO-060` `[UI/Frontend]` Buat Halaman Leaderboard Musim Komunitas Publik:
+- [x] `TODO-060` `[UI/Frontend]` Buat Halaman Leaderboard Musim Komunitas Publik:
   - Halaman: `resources/js/pages/public/seasons/leaderboard.tsx`
   - Filter per musim, pencarian blader, badge rank #1..#3, statistik tanding (Menang/Kalah/Win Rate), dan modal rincian perolehan poin per event. (FR-044, FR-045)
   - *Area:* `resources/js/pages/public/seasons/leaderboard.tsx`
   - *Acceptance:* Tampilan leaderboard kompetitif yang memotivasi keaktifan anggota komunitas.
-- [ ] `TODO-061` `[UI/Frontend]` Buat Halaman Manajemen Musim & Penyesuaian Poin Admin:
+- [x] `TODO-061` `[UI/Frontend]` Buat Halaman Manajemen Musim & Penyesuaian Poin Admin:
   - Halaman: `resources/js/pages/admin/seasons/index.tsx`, `edit.tsx`
   - Fitur: Buat musim baru, konfigurasi formula poin, tombol "Kalkulasi Ulang Musim", dan dialog penyesuaian poin manual dengan input alasan wajib. (FR-044, FR-046, FR-047)
   - *Area:* `resources/js/pages/admin/seasons/*`
   - *Acceptance:* Setiap penyesuaian manual tercatat di audit log Spatie.
-- [ ] `TODO-062` `[Tests]` Tulis Pest tests untuk formula ranking berversi, kalkulasi ulang deterministik, export CSV, dan audit log tracking. (FR-045, FR-046, FR-049, FR-050)
-  - *Area:* `tests/Feature/Tournament/SeasonRankingCalculationTest.php`, `tests/Feature/Tournament/DataExportTest.php` (usulan baru)
-  - *Acceptance:* Poin ranking terbukti konsisten dan hasil ekspor CSV tervalidasi.
+- [x] `TODO-062` `[Tests]` Tulis Pest tests untuk formula ranking berversi, kalkulasi ulang deterministik, export CSV, dan audit log tracking. (FR-045, FR-046, FR-049, FR-050)
+  - *Area:* `tests/Feature/Tournament/SeasonRankingCalculationTest.php`, `tests/Feature/Tournament/DataExportTest.php`
+  - *Acceptance:* Poin ranking terbukti konsisten dan hasil ekspor CSV tervalidasi (5/5 tests passed).
 
 ---
 

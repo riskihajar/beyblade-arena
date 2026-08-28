@@ -180,4 +180,30 @@ class PublicEventController extends Controller
     {
         return Inertia::render('public/community');
     }
+
+    /**
+     * Public Season Leaderboard page.
+     */
+    public function leaderboard(Request $request): Response
+    {
+        $seasons = Season::orderBy('start_date', 'desc')->get();
+        $activeSeason = Season::where('is_active', true)->first() ?: $seasons->first();
+
+        $selectedSeasonId = $request->query('season_id') ?: $activeSeason?->id;
+        $selectedSeason = $seasons->firstWhere('id', $selectedSeasonId) ?? $activeSeason;
+
+        $rankings = [];
+        if ($selectedSeason) {
+            $rankings = SeasonRanking::where('season_id', $selectedSeason->id)
+                ->with(['user:id,name'])
+                ->orderBy('rank_position')
+                ->get();
+        }
+
+        return Inertia::render('public/seasons/leaderboard', [
+            'seasons' => $seasons,
+            'selectedSeason' => $selectedSeason,
+            'rankings' => $rankings,
+        ]);
+    }
 }

@@ -35,8 +35,14 @@ export interface SeasonRanking {
     id: string;
     season_id: string;
     user_id: string;
-    rank: number;
+    rank_position: number;
+    rank?: number;
     total_points: number;
+    tournaments_played: number;
+    tournaments_won: number;
+    matches_won: number;
+    matches_lost: number;
+    details?: Record<string, unknown> | null;
     user?: { id: string; name: string } | null;
 }
 
