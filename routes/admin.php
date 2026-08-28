@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BracketController;
 use App\Http\Controllers\Admin\CheckinController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\RegistrationManagementController;
@@ -20,6 +21,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     // Seasons
     Route::resource('seasons', SeasonController::class);
+
+    // Bracket Engine & Visualization
+    Route::get('categories/{category}/bracket', [BracketController::class, 'show'])->name('bracket.show');
+    Route::post('categories/{category}/bracket/generate', [BracketController::class, 'generate'])->name('bracket.generate');
+    Route::post('categories/{category}/bracket/regenerate', [BracketController::class, 'regenerate'])->name('bracket.regenerate');
 
     // Registration Management
     Route::get('registrations', [RegistrationManagementController::class, 'index'])->name('registrations.index');

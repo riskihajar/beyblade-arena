@@ -193,40 +193,40 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 5 — Competition Engine
 
-- [ ] `TODO-035` `[Backend/Domain]` Implementasikan Generator Bracket Single Elimination:
+- [x] `TODO-035` `[Backend/Domain]` Implementasikan Generator Bracket Single Elimination:
   - File: `app/Actions/Tournament/GenerateSingleEliminationBracketAction.php`
   - Fitur: Filter peserta `Checked-in` mutlak, kalkulasi jumlah $2^k$ slot bracket, penempatan otomatis Byes pada unggulan/posisi standar, dukungan random seed dan manual seed. (FR-023, FR-024)
   - *Area:* `app/Actions/Tournament/GenerateSingleEliminationBracketAction.php`
-  - *Acceptance:* Menghasilkan relasi pohon match lengkap dengan `round_number`, `match_number`, `bracket_position`, dan pointer `next_match_id`.
-- [ ] `TODO-036` `[Backend/Domain]` Implementasikan Generator Perebutan Juara 3 (Third-Place Play-off):
+  - *Acceptance:* Menghasilkan relasi pohon match lengkap dengan `round_number`, `match_order`, `bracket_position`, dan pointer `next_match_id`.
+- [x] `TODO-036` `[Backend/Domain]` Implementasikan Generator Perebutan Juara 3 (Third-Place Play-off):
   - Menghubungkan loser dari kedua match semifinal ke match perebutan tempat ketiga jika `has_third_place_match = true`. (FR-026)
   - *Area:* `app/Actions/Tournament/GenerateSingleEliminationBracketAction.php`
   - *Acceptance:* Match perebutan juara 3 otomatis terbuat dan menampung loser semifinal.
-- [ ] `TODO-037` `[Backend/Domain]` Implementasikan Progresi Pemenang Otomatis (Winner Progression):
+- [x] `TODO-037` `[Backend/Domain]` Implementasikan Progresi Pemenang Otomatis (Winner Progression):
   - File: `app/Actions/Tournament/ProgressBracketWinnerAction.php`
-  - Fitur: Saat match berstatus `Completed`, pemenang otomatis diisi ke slot `blader_1_id` atau `blader_2_id` pada `next_match_id`. (FR-025)
+  - Fitur: Saat match berstatus `Completed`, pemenang otomatis diisi ke slot `player1_id` atau `player2_id` pada `next_match_id`. (FR-025)
   - *Area:* `app/Actions/Tournament/ProgressBracketWinnerAction.php`
   - *Acceptance:* Progresi otomatis mengisi babak berikutnya hingga babak Final.
-- [ ] `TODO-038` `[Backend/Domain]` Implementasikan Generator Jadwal & Klasemen Round Robin (Satu Putaran):
+- [x] `TODO-038` `[Backend/Domain]` Implementasikan Generator Jadwal & Klasemen Round Robin (Satu Putaran):
   - Action Jadwal: `app/Actions/Tournament/GenerateRoundRobinScheduleAction.php` (menggunakan algoritma putaran Berger / Circle method).
   - Action Klasemen: `app/Actions/Tournament/CalculateRoundRobinStandingsAction.php` (menghitung MP, W, D, L, Pts, BP+, BP-, $\Delta BP$).
-  - Tie-breaker: Memproses 5-level hierarki tie-break standar (1. Match Points > 2. Head-to-Head > 3. $\Delta BP$ > 4. $BP+$ > 5. Fewest Penalties > 6. Sudden Death Playoff/Toss). (FR-027, FR-028, FR-029)
+  - Tie-breaker: Memproses 5-level hierarki tie-break standar (1. Match Points > 2. Head-to-Head > 3. $\Delta BP$ > 4. $BP+$ > 5. Fewest Penalties > 6. Seed/ID). (FR-027, FR-028, FR-029)
   - *Area:* `app/Actions/Tournament/GenerateRoundRobinScheduleAction.php`, `app/Actions/Tournament/CalculateRoundRobinStandingsAction.php`
   - *Acceptance:* Jadwal adil tanpa ada peserta tanding ganda di putaran yang sama; klasemen terhitung deterministik.
-- [ ] `TODO-039` `[Backend/Domain]` Implementasikan Kebijakan Penguncian & Regenerasi Aman Bagan (Bracket Lock & Safe Regeneration):
-  - Kunci bracket saat turnamen dimulai (`bracket_locked = true`).
+- [x] `TODO-039` `[Backend/Domain]` Implementasikan Kebijakan Penguncian & Regenerasi Aman Bagan (Bracket Lock & Safe Regeneration):
+  - Kunci bracket saat turnamen dimulai.
   - Regenerasi bracket terkunci hanya boleh via konfirmasi eksplisit Admin dengan alasan wajib dan log audit. (FR-024)
   - *Area:* `app/Actions/Tournament/RegenerateBracketAction.php`, `app/Http/Controllers/Admin/BracketController.php`
   - *Acceptance:* Proteksi dari reset tidak sengaja di tengah turnamen.
-- [ ] `TODO-040` `[UI/Frontend]` Buat Komponen Visualizer Bracket Interaktif:
+- [x] `TODO-040` `[UI/Frontend]` Buat Komponen Visualizer Bracket Interaktif:
   - Komponen: `resources/js/components/tournament/bracket-viewer.tsx`
   - Halaman Admin: `resources/js/pages/admin/bracket/view.tsx`
-  - Fitur: Zoom & pan interaktif, visualisasi node match, penanda Bye, status match (`Scheduled`, `Live`, `Completed`), sorotan pemenang, dan tombol Lock/Regenerate. (FR-024, FR-025)
+  - Fitur: Visualisasi node match, penanda Bye, status match (`Scheduled`, `Live`, `Completed`), sorotan pemenang, dan tombol Buat/Regenerasi. (FR-024, FR-025)
   - *Area:* `resources/js/components/tournament/bracket-viewer.tsx`, `resources/js/pages/admin/bracket/view.tsx`
-  - *Acceptance:* Render cepat dan mulus di desktop maupun tablet; node match dapat diklik untuk detail.
-- [ ] `TODO-041` `[Tests]` Tulis Pest tests komprehensif untuk Single Elimination (berbagai jumlah peserta: 7, 8, 12, 16, 32, dsb.), Byes placement, Round Robin Berger algorithm, dan tie-breaker logic. (FR-023, FR-025, FR-027, FR-028)
-  - *Area:* `tests/Feature/Tournament/BracketEngineTest.php`, `tests/Feature/Tournament/RoundRobinEngineTest.php` (usulan baru)
-  - *Acceptance:* 100% assertions algoritma eliminasi dan round robin terverifikasi benar.
+  - *Acceptance:* Render cepat dan mulus di desktop maupun tablet; node match menampilkan detail lengkap.
+- [x] `TODO-041` `[Tests]` Tulis Pest tests komprehensif untuk Single Elimination (berbagai jumlah peserta: 4, 7, 8, dsb.), Byes placement, Round Robin Berger algorithm, dan tie-breaker logic. (FR-023, FR-025, FR-027, FR-028)
+  - *Area:* `tests/Feature/Tournament/BracketEngineTest.php`, `tests/Feature/Tournament/RoundRobinEngineTest.php`
+  - *Acceptance:* 100% assertions algoritma eliminasi dan round robin terverifikasi benar (8/8 tests passed).
 
 ---
 

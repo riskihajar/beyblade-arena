@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignUlid('judge_id')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedSmallInteger('round_number')->default(1);
             $table->unsignedSmallInteger('match_order')->default(1);
+            $table->unsignedSmallInteger('bracket_position')->default(1);
+            $table->foreignUlid('next_match_id')->nullable()->constrained('tournament_matches')->nullOnDelete();
             $table->string('group_code')->nullable()->index();
             $table->string('bracket_type')->default('winners'); // winners, losers, group, bronze, finals
             $table->foreignUlid('player1_id')->nullable()->constrained('registrations')->nullOnDelete();

@@ -95,6 +95,46 @@ export interface Registration {
     created_at: string;
 }
 
+export interface TournamentMatch {
+    id: string;
+    category_id: string;
+    stadium_id?: string | null;
+    judge_id?: string | null;
+    round_number: number;
+    match_order: number;
+    bracket_position: number;
+    next_match_id?: string | null;
+    group_code?: string | null;
+    bracket_type: string;
+    player1_id?: string | null;
+    player2_id?: string | null;
+    winner_id?: string | null;
+    player1_score: number;
+    player2_score: number;
+    status: 'scheduled' | 'called' | 'in_progress' | 'completed' | 'disputed' | 'walkover';
+    ruleset_snapshot?: Record<string, unknown> | null;
+    player1?: Registration | null;
+    player2?: Registration | null;
+    winner?: Registration | null;
+    stadium?: { id: string; name: string } | null;
+    next_match?: TournamentMatch | null;
+}
+
+export interface RoundRobinStanding {
+    rank: number;
+    user_id: string;
+    user_name: string;
+    mp: number;
+    w: number;
+    d: number;
+    l: number;
+    points: number;
+    bp_for: number;
+    bp_against: number;
+    bp_diff: number;
+    penalties: number;
+}
+
 export interface Event {
     id: string;
     season_id?: string | null;

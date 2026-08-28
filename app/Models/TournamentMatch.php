@@ -24,6 +24,8 @@ class TournamentMatch extends Model
         'judge_id',
         'round_number',
         'match_order',
+        'bracket_position',
+        'next_match_id',
         'group_code',
         'bracket_type',
         'player1_id',
