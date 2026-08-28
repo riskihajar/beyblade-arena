@@ -43,6 +43,7 @@ import {
     Shield,
     Trash2,
     Trophy,
+    UserCheck,
     Users,
 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -244,6 +245,30 @@ export function AppSidebar() {
                                             <Link href={eventsIndex().url} prefetch>
                                                 <Trophy className="size-4" />
                                                 <span>Turnamen & Event</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/admin/checkin')}
+                                        tooltip={{ children: 'Fast Check-in Venue' }}
+                                        render={
+                                            <Link href="/admin/checkin" prefetch>
+                                                <UserCheck className="size-4" />
+                                                <span>Fast Check-in</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/admin/registrations')}
+                                        tooltip={{ children: 'Daftar Peserta' }}
+                                        render={
+                                            <Link href="/admin/registrations" prefetch>
+                                                <Users className="size-4" />
+                                                <span>Daftar Peserta</span>
                                             </Link>
                                         }
                                     />

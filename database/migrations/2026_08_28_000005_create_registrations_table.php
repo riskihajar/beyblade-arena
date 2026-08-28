@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('guardian_details')->nullable(); // Encrypted & protected
             $table->dateTime('checked_in_at')->nullable();
             $table->string('disqualified_reason')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
 
             $table->unique(['category_id', 'user_id']);

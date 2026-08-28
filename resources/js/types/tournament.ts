@@ -43,6 +43,7 @@ export interface TournamentCategory {
     call_timeout_seconds: number;
     target_points: number;
     ruleset?: TournamentRuleset;
+    event?: Event;
     registrations_count?: number;
     matches_count?: number;
     created_at: string;
@@ -61,6 +62,37 @@ export interface Stadium {
         name: string;
         email: string;
     } | null;
+}
+
+export interface BeyCombo {
+    [key: string]: string | number | null | undefined;
+    blade: string;
+    ratchet: string;
+    bit: string;
+    weight_grams?: number | null;
+    notes?: string | null;
+}
+
+export interface Registration {
+    id: string;
+    event_id: string;
+    category_id: string;
+    user_id: string;
+    display_nickname: string;
+    seed_number?: number | null;
+    group_code?: string | null;
+    status: 'pending' | 'confirmed' | 'checked_in' | 'waitlisted' | 'disqualified' | 'withdrawn' | 'no_show' | 'cancelled' | 'rejected';
+    deck_data?: BeyCombo[] | null;
+    is_deck_locked: boolean;
+    notes?: string | null;
+    user?: {
+        id: string;
+        name: string;
+        email: string;
+    } | null;
+    category?: TournamentCategory;
+    event?: Event;
+    created_at: string;
 }
 
 export interface Event {

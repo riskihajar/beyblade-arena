@@ -6,6 +6,7 @@ use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Public\RegistrationPublicController;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
@@ -13,6 +14,11 @@ Route::get('/', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+
+// Public Event Registration
+Route::get('events/{event}/register', [RegistrationPublicController::class, 'create'])->name('public.events.register');
+Route::post('events/{event}/register', [RegistrationPublicController::class, 'store'])->name('public.events.register.store');
+Route::get('registrations/{registration}/success', [RegistrationPublicController::class, 'success'])->name('public.events.registration-success');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');

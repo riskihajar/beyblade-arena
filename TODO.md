@@ -155,39 +155,39 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 4 — Pendaftaran, Deck, dan Check-in
 
-- [ ] `TODO-027` `[Backend/Domain]` Buat Controller dan Action pendaftaran publik untuk Blader/Guardian:
+- [x] `TODO-027` `[Backend/Domain]` Buat Controller dan Action pendaftaran publik untuk Blader/Guardian:
   - Action: `app/Actions/Tournament/RegisterBladerAction.php`
   - Controller: `app/Http/Controllers/Public/RegistrationPublicController.php` (FR-013, FR-014, FR-015, FR-016)
   - *Area:* `app/Actions/Tournament/RegisterBladerAction.php`, `app/Http/Controllers/Public/RegistrationPublicController.php`, `app/Http/Requests/Public/StoreRegistrationRequest.php`
-  - *Acceptance:* Menerima pendaftaran guest, membuat/menghubungkan `CommunityBlader`, mengisi data wali jika usia < 13 tahun, mencatat persetujuan aturan/privasi/media, dan mengembalikan nomor registrasi unik.
-- [ ] `TODO-028` `[Backend/Domain]` Implementasikan logika otomatisasi Kuota & Waitlist pada pendaftaran kategori turnamen. (FR-016)
+  - *Acceptance:* Menerima pendaftaran guest, membuat/menghubungkan `User` blader, mengisi data wali jika usia < 13 tahun, mencatat persetujuan aturan/privasi/media, dan mengembalikan nomor registrasi unik.
+- [x] `TODO-028` `[Backend/Domain]` Implementasikan logika otomatisasi Kuota & Waitlist pada pendaftaran kategori turnamen. (FR-016)
   - *Area:* `app/Actions/Tournament/ProcessRegistrationQuotaAction.php`
-  - *Acceptance:* Jika pendaftar melebihi `max_participants`, status otomatis diset `Waitlisted`; jika kuota tersedia, status diset `Approved`.
-- [ ] `TODO-029` `[Backend/Domain]` Buat Controller manajemen pendaftaran untuk panitia (List, Filter, Manual Add On-site, Approve, Reject, Promote Waitlist):
+  - *Acceptance:* Jika pendaftar melebihi `max_participants`, status otomatis diset `Waitlisted`; jika kuota tersedia, status diset `Confirmed`.
+- [x] `TODO-029` `[Backend/Domain]` Buat Controller manajemen pendaftaran untuk panitia (List, Filter, Manual Add On-site, Approve, Reject, Promote Waitlist):
   - Controller: `app/Http/Controllers/Admin/RegistrationManagementController.php` (FR-016, FR-022)
-  - *Area:* `app/Http/Controllers/Admin/RegistrationManagementController.php`
+  - *Area:* `app/Http/Controllers/Admin/RegistrationManagementController.php`, `app/Http/Requests/Admin/Registration/*`
   - *Acceptance:* Panitia dapat mengelola antrean pendaftar dan mempromosikan waitlist saat terjadi pembatalan.
-- [ ] `TODO-030` `[Backend/Domain]` Buat Action & Controller Fast Check-in di Venue:
+- [x] `TODO-030` `[Backend/Domain]` Buat Action & Controller Fast Check-in di Venue:
   - Action: `app/Actions/Tournament/PerformCheckinAction.php`
   - Controller: `app/Http/Controllers/Admin/CheckinController.php` (FR-020, FR-021, FR-019)
   - *Area:* `app/Actions/Tournament/PerformCheckinAction.php`, `app/Http/Controllers/Admin/CheckinController.php`
   - *Acceptance:* Menandai status `Checked-in` atau `No-show`, memicu penguncian deck (`is_deck_locked = true` sesuai kebijakan kategori), dan mencatat timestamp check-in.
-- [ ] `TODO-031` `[Backend/Domain]` Implementasikan mekanisme *Override Deck Lock*: Mengizinkan Admin/Organizer mengubah part deck setelah terkunci hanya dengan alasan tertulis resmi dan mencatat ke `activity_log`. (FR-019)
-  - *Area:* `app/Actions/Tournament/OverrideLockedDeckAction.php`, `app/Http/Controllers/Admin/DeckOverrideController.php` (usulan baru)
+- [x] `TODO-031` `[Backend/Domain]` Implementasikan mekanisme *Override Deck Lock*: Mengizinkan Admin/Organizer mengubah part deck setelah terkunci hanya dengan alasan tertulis resmi dan mencatat ke log audit. (FR-019)
+  - *Area:* `app/Actions/Tournament/OverrideLockedDeckAction.php`, `app/Http/Requests/Admin/Registration/OverrideDeckRequest.php`
   - *Acceptance:* Percobaan edit tanpa otorisasi/alasan ditolak; perubahan part berhasil tercatat di audit log.
-- [ ] `TODO-032` `[UI/Frontend]` Buat Form Pendaftaran Publik Mobile-First:
+- [x] `TODO-032` `[UI/Frontend]` Buat Form Pendaftaran Publik Mobile-First:
   - Form multi-step/accordion: Data Blader $\to$ Data Wali (kondisional) $\to$ Combo Deck $\to$ Checkbox Persetujuan Legal.
   - Tiket pendaftaran sukses dengan nomor registrasi dan instruksi check-in venue. (FR-013, FR-014, FR-015)
   - *Area:* `resources/js/pages/public/events/register.tsx`, `resources/js/pages/public/events/registration-success.tsx`
   - *Acceptance:* Responsif di layar smartphone, validasi inline error jelas, data wali wajib muncul jika usia junior.
-- [ ] `TODO-033` `[UI/Frontend]` Buat Layar Meja Registrasi & Fast Check-in Venue:
+- [x] `TODO-033` `[UI/Frontend]` Buat Layar Meja Registrasi & Fast Check-in Venue:
   - Search bar instan (nama/nickname/nomor regis), filter kategori, quick buttons: `[Hadir / Check-in]`, `[No-Show]`, `[Promote Waitlist]`.
-  - Dialog verifikasi fisik combo deck di meja registrasi. (FR-020, FR-021)
-  - *Area:* `resources/js/pages/admin/checkin/index.tsx`, `resources/js/components/tournament/checkin-search-bar.tsx`
-  - *Acceptance:* Pencarian instan < 100ms, transisi status visual mulus dengan feedback toast.
-- [ ] `TODO-034` `[Tests]` Tulis Pest tests untuk pendaftaran publik, validasi wali anak, alur waitlist promotion, dan penegakan deck lock. (FR-013, FR-014, FR-019, FR-022)
-  - *Area:* `tests/Feature/Tournament/RegistrationAndCheckinTest.php` (usulan baru)
-  - *Acceptance:* Seluruh skenario happy path, failure path, dan edge case usia junior teruji.
+  - Modal override deck part di meja registrasi. (FR-020, FR-021)
+  - *Area:* `resources/js/pages/admin/checkin/index.tsx`, `resources/js/pages/admin/registrations/index.tsx`
+  - *Acceptance:* Pencarian instan < 100ms, transisi status visual mulus dengan tombol aksi terintegrasi.
+- [x] `TODO-034` `[Tests]` Tulis Pest tests untuk pendaftaran publik, validasi wali anak, alur waitlist promotion, dan penegakan deck lock. (FR-013, FR-014, FR-019, FR-022)
+  - *Area:* `tests/Feature/Tournament/RegistrationAndCheckinTest.php`
+  - *Acceptance:* Seluruh skenario happy path, failure path, dan edge case usia junior teruji 100%.
 
 ---
 

@@ -40,6 +40,7 @@ class Registration extends Model
         'guardian_details',
         'checked_in_at',
         'disqualified_reason',
+        'notes',
     ];
 
     protected function casts(): array
