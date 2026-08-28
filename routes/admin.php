@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CheckinController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\RegistrationManagementController;
 use App\Http\Controllers\Admin\SeasonController;
+use App\Http\Controllers\Admin\StadiumController;
 use App\Http\Controllers\Admin\TournamentCategoryController;
 use App\Http\Controllers\Admin\TournamentRulesetController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     // Seasons
     Route::resource('seasons', SeasonController::class);
+
+    // Stadiums & Match Calling
+    Route::resource('stadiums', StadiumController::class);
+    Route::post('matches/{match}/call', [StadiumController::class, 'callMatch'])->name('matches.call');
 
     // Bracket Engine & Visualization
     Route::get('categories/{category}/bracket', [BracketController::class, 'show'])->name('bracket.show');

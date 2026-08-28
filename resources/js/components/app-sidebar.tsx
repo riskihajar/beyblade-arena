@@ -36,6 +36,7 @@ import {
     Layers,
     LayoutGrid,
     LoaderCircle,
+    Megaphone,
     MessageCircle,
     MoreHorizontal,
     Plus,
@@ -269,6 +270,30 @@ export function AppSidebar() {
                                             <Link href="/admin/registrations" prefetch>
                                                 <Users className="size-4" />
                                                 <span>Daftar Peserta</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/admin/stadiums')}
+                                        tooltip={{ children: 'Arena & Panggilan' }}
+                                        render={
+                                            <Link href="/admin/stadiums" prefetch>
+                                                <Megaphone className="size-4" />
+                                                <span>Arena & Panggilan</span>
+                                            </Link>
+                                        }
+                                    />
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        isActive={isActive('/judge/console')}
+                                        tooltip={{ children: 'Konsol Wasit & Juri' }}
+                                        render={
+                                            <Link href="/judge/console" prefetch>
+                                                <Shield className="size-4" />
+                                                <span>Konsol Wasit & Juri</span>
                                             </Link>
                                         }
                                     />

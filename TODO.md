@@ -232,44 +232,44 @@ Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4 ──> 
 
 ## Phase 6 — Judge Console dan Scoring
 
-- [ ] `TODO-042` `[Backend/Domain]` Buat Controller dan Registry Manajemen Stadium:
+- [x] `TODO-042` `[Backend/Domain]` Buat Controller dan Registry Manajemen Stadium:
   - Controller: `app/Http/Controllers/Admin/StadiumController.php`
   - Status: `available`, `in_use`, `maintenance`. (FR-030)
   - *Area:* `app/Http/Controllers/Admin/StadiumController.php`
   - *Acceptance:* CRUD stadium dan filter ketersediaan stadium untuk venue turnamen.
-- [ ] `TODO-043` `[Backend/Domain]` Buat Service & Action Pemanggilan Match (Match Calling Queue) dengan Deteksi Bentrok:
+- [x] `TODO-043` `[Backend/Domain]` Buat Service & Action Pemanggilan Match (Match Calling Queue) dengan Deteksi Bentrok:
   - Action: `app/Actions/Tournament/CallMatchToStadiumAction.php`
   - Service: `app/Services/MatchSchedulingConflictService.php` (FR-031, FR-032, FR-033)
   - *Area:* `app/Actions/Tournament/CallMatchToStadiumAction.php`, `app/Services/MatchSchedulingConflictService.php`
   - *Acceptance:* Menetapkan stadium dan juri ke match; mengaktifkan countdown call timeout 3 menit (180s); melempar exception/validasi jika salah satu blader sedang aktif tanding di stadium lain.
-- [ ] `TODO-044` `[Backend/Domain]` Buat Action Pencatatan Battle Dinamis & Deteksi Target Poin Kemenangan:
+- [x] `TODO-044` `[Backend/Domain]` Buat Action Pencatatan Battle Dinamis & Deteksi Target Poin Kemenangan:
   - Action: `app/Actions/Tournament/RecordMatchBattleAction.php`
   - Controller: `app/Http/Controllers/Judge/JudgeConsoleController.php` (FR-035, FR-036, FR-039)
   - *Area:* `app/Actions/Tournament/RecordMatchBattleAction.php`, `app/Http/Controllers/Judge/JudgeConsoleController.php`, `app/Http/Requests/Judge/StoreBattleRequest.php`
   - *Acceptance:* Menambah record `MatchBattle`, mengakumulasi skor match berdasarkan snapshot ruleset, mendeteksi pencapaian `target_points`, idempotent dengan `client_request_id`.
-- [ ] `TODO-045` `[Backend/Domain]` Buat Action Penanganan Walkover (WO), Penalti, Draw/Rematch, dan Flagging Dispute:
+- [x] `TODO-045` `[Backend/Domain]` Buat Action Penanganan Walkover (WO), Penalti, Draw/Rematch, dan Flagging Dispute:
   - Action: `app/Actions/Tournament/HandleWalkoverAction.php`
   - Action: `app/Actions/Tournament/HandleMatchDisputeAction.php` (FR-037, FR-038)
   - *Area:* `app/Actions/Tournament/HandleWalkoverAction.php`, `app/Actions/Tournament/HandleMatchDisputeAction.php`
   - *Acceptance:* Walkover dapat dieksekusi setelah batas waktu panggilan 3 menit (3x tahapan panggilan: 0:00, 1:30, 2:30) terlampaui; memberikan skor standar ke pemenang; dispute mengunci kelanjutan cabang bracket untuk peninjauan Head Judge.
-- [ ] `TODO-046` `[Backend/Domain]` Implementasikan Logika Resolusi Koreksi Skor & Downstream Safety:
+- [x] `TODO-046` `[Backend/Domain]` Implementasikan Logika Resolusi Koreksi Skor & Downstream Safety:
   - Action: `app/Actions/Tournament/CorrectMatchScoreAction.php` (FR-038, Aturan Bisnis 5)
   - *Area:* `app/Actions/Tournament/CorrectMatchScoreAction.php`
   - *Acceptance:* Koreksi skor aman: jika match berikutnya belum mulai, winner di-update otomatis; jika sudah berjalan, sistem menahan dan memunculkan dispute modal.
-- [ ] `TODO-047` `[UI/Frontend]` Buat Antarmuka Judge Console Mobile-First:
+- [x] `TODO-047` `[UI/Frontend]` Buat Antarmuka Judge Console Mobile-First:
   - Halaman: `resources/js/pages/judge/console.tsx`
   - Komponen: `resources/js/components/tournament/judge-score-pad.tsx`, `resources/js/components/tournament/sync-status-badge.tsx`
   - Fitur: Papan skor besar, nama blader & nickname, tombol sentuh finish types (Spin, Over, Burst, Xtreme, Penalti), tombol Draw/Rematch, tombol Walkover, tombol Dispute, notifikasi Match Point Reached, dan konfirmasi hasil akhir. (FR-034, FR-035, FR-036)
   - *Area:* `resources/js/pages/judge/console.tsx`, `resources/js/components/tournament/judge-score-pad.tsx`
   - *Acceptance:* Touch targets minimum $48\times 48\text{ px}$, kontras tinggi, navigasi satu tangan mudah di smartphone juri.
-- [ ] `TODO-048` `[UI/Frontend]` Buat Layar Kontrol Panggilan Match (Match Call Board Admin):
+- [x] `TODO-048` `[UI/Frontend]` Buat Layar Kontrol Panggilan Match (Match Call Board Admin):
   - Halaman: `resources/js/pages/admin/stadiums/index.tsx`
   - Fitur: Antrean match siap panggil, status stadium live, dropdown juri bertugas, tombol "Panggil ke Stadium", deteksi bentrok visual. (FR-030, FR-032, FR-033)
   - *Area:* `resources/js/pages/admin/stadiums/index.tsx`
   - *Acceptance:* Memudahkan petugas meja pertandingan mengatur alur stadium di venue.
-- [ ] `TODO-049` `[Tests]` Tulis Pest tests untuk penghitungan skor battle, deteksi match point kemenangan, pencegahan bentrok blader, walkover, dan resolusi dispute. (FR-033, FR-035, FR-036, FR-037, FR-038)
-  - *Area:* `tests/Feature/Tournament/JudgeScoringTest.php`, `tests/Feature/Tournament/MatchConflictTest.php` (usulan baru)
-  - *Acceptance:* 100% skenario penilaian, draw battle, dan penanganan dispute tervalidasi.
+- [x] `TODO-049` `[Tests]` Tulis Pest tests untuk penghitungan skor battle, deteksi match point kemenangan, pencegahan bentrok blader, walkover, dan resolusi dispute. (FR-033, FR-035, FR-036, FR-037, FR-038)
+  - *Area:* `tests/Feature/Tournament/JudgeScoringTest.php`, `tests/Feature/Tournament/MatchConflictTest.php`
+  - *Acceptance:* 100% skenario penilaian, draw battle, dan penanganan dispute tervalidasi (7/7 tests passed).
 
 ---
 

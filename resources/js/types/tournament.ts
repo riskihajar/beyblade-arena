@@ -95,6 +95,21 @@ export interface Registration {
     created_at: string;
 }
 
+export interface MatchBattle {
+    id: string;
+    match_id: string;
+    battle_number: number;
+    winner_id?: string | null;
+    finish_type: 'spin_finish' | 'over_finish' | 'burst_finish' | 'xtreme_finish' | 'penalty_foul';
+    points_awarded: number;
+    player1_points_after: number;
+    player2_points_after: number;
+    is_draw: boolean;
+    notes?: string | null;
+    winner?: Registration | null;
+    created_at: string;
+}
+
 export interface TournamentMatch {
     id: string;
     category_id: string;
@@ -112,12 +127,16 @@ export interface TournamentMatch {
     player1_score: number;
     player2_score: number;
     status: 'scheduled' | 'called' | 'in_progress' | 'completed' | 'disputed' | 'walkover';
+    is_disputed?: boolean;
+    dispute_reason?: string | null;
     ruleset_snapshot?: Record<string, unknown> | null;
     player1?: Registration | null;
     player2?: Registration | null;
     winner?: Registration | null;
     stadium?: { id: string; name: string } | null;
+    category?: TournamentCategory | null;
     next_match?: TournamentMatch | null;
+    battles?: MatchBattle[];
 }
 
 export interface RoundRobinStanding {
